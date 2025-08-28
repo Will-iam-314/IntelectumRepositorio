@@ -36,9 +36,15 @@
             </button>
         </form>
 
-        <div class="border">
-            <span>¿No tienes una Cuenta? </span><a href="">Crea una aqui</a>
+        <div  class=" mt-3">
+            <span id="text-end-body-login" >¿No tienes una Cuenta? </span><a href="">Crea una aqui</a>
         </div>
+    </div>
+    <div id="footer-login">
+        <p>
+            Universidad Nacional de Ucayali -
+            Vicerrectorado de Investigación 2025 ©
+        </p>
     </div>
 </div>
 
