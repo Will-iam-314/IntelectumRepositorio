@@ -7,15 +7,16 @@
     <link rel="icon" type="image/png" href="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.0') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/loginStyle.css?v=1.1')?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/AuthStyle.css?v=1.3')?>">
 </head>
 <body>
  
-    <div id="contenedor-login" class=" border">
-        <?= $this->renderSection('content') ?>
-        
+    <div id="contenedor-Auth" class=" border">
+        <?= $this->renderSection('content') ?>        
     </div>
+
+  
         
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
 </html>
 

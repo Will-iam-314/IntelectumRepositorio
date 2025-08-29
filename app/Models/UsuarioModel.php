@@ -20,7 +20,7 @@ class UsuarioModel extends Model
         'estado_usuario',
         'activation_token_usuario',
         'reset_token_usuario',
-        'reset_token_expired_usuario'
+        'reset_token_expired_usuario' 
 
     ];
 

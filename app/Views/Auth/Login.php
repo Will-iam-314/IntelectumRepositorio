@@ -1,19 +1,19 @@
-<?= $this->extend('layouts/login/template.php'); ?>
+<?= $this->extend('layouts/Authtemplate.php'); ?>
 
 <?= $this->section('content');?>
 
 
-<div id="container-login-2">
-    <div  id="heder-login">
-        <div class="d-flex justify-content-center align-items-center" id="title-login">
+<div id="container-Auth-2">
+    <div  id="heder-Auth">
+        <div class="d-flex justify-content-center align-items-center" id="title-Auth">
             <img class="me-2" width=45  src="<?= base_url('assets/icons/IntelectumLogo.png')?>" alt="">
-            <span class="ms-1" id="title-name-login"><?= name_system(); ?></span>
+            <span class="ms-1" id="title-name-Auth"><?= name_system(); ?></span>
         </div>
-        <div id="subtitle-login" >
+        <div id="subtitle-Auth" >
             <span>Repositorio</span>
         </div>
     </div>
-    <div id="body-login">
+    <div id="body-Auth">
         <form action="">
 
             <label class="label-form" for="input_mail">Correo Electronico</label>
@@ -31,16 +31,16 @@
             </button>
 
             <button  class="btn-style2-google mt-3">
-                <img id="icono-google-login" width=25 src="<?= base_url('assets/icons/google.png')?>" alt="">
+                <img id="icono-google-Auth" width=25 src="<?= base_url('assets/icons/google.png')?>" alt="">
                 Inicia Sesión con Google
             </button>
         </form>
 
         <div  class=" mt-3">
-            <span id="text-end-body-login" >¿No tienes una Cuenta? </span><a href="">Crea una aqui</a>
+            <span id="text-end-body-Auth" >¿No tienes una Cuenta? </span><a href="<?= base_url('registro') ; ?>">Crea una aqui</a>
         </div>
     </div>
-    <div id="footer-login">
+    <div id="footer-Auth">
         <p>
             Universidad Nacional de Ucayali -
             Vicerrectorado de Investigación 2025 ©

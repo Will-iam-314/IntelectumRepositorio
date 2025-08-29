@@ -1,6 +1,6 @@
-#contenedor-login{
+#contenedor-Auth{
     margin: 0;
-    height: 100vh;              /* Altura completa de la ventana */
+    height: auto;    /*   100vh  */
     display: flex;              /* Activamos Flexbox */
     justify-content: center;    /* Centra horizontalmente */
     align-items: center;        /* Centra verticalmente */
@@ -8,7 +8,7 @@
 }
 
 
-#container-login-2{
+#container-Auth-2{
     width: min(380px, 90%);
     
     max-height: 100%;      
@@ -19,13 +19,13 @@
    
 }
 
-#title-name-login{
+#title-name-Auth{
     font-size:42px;    
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-#subtitle-login{
+#subtitle-Auth{
     text-align: center;
     font-size:22px;
     font-weight: bold;
@@ -35,24 +35,24 @@
 }   
 
 
-#icono-google-login{
+#icono-google-Auth{
     position: relative;
     top:-2px;
     margin-right: 5px;
 }
 
-#text-end-body-login{
+#text-end-body-Auth{
     font-size: 15px !important;
     color: #595959;
 }
 
-#footer-login{
+#footer-Auth{
     text-align: center;
     color: #595959;
     font-size:11px;
     margin-top: 25px;
 }
 
-#footer-login p{
+#footer-Auth p{
     margin:0;
 }
