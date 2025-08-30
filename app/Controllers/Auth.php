@@ -17,12 +17,13 @@ class Auth extends BaseController{
     public function getViewregistro(){
         
         $escuelas = new EscuelasModel();
-        $carreras = $escuelas->findAll();
+        $datos = $escuelas->getEscuelas();
 
-        $data = ['carreras' => $carreras];
-
-        return view('Auth/Register',$data);
+        
+        return view('Auth/Register',$datos);
     }
+
+    
 
     
 

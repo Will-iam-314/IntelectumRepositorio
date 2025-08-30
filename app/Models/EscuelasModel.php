@@ -25,4 +25,12 @@ class EscuelasModel extends Model
     protected $createdField  = 'created_at';
     protected $updatedField  = 'updated_at';
 
+
+    public function getEscuelas(){
+        $escuelas = $this->findAll();
+        $data = ['carreras' => $escuelas];
+        return $data;
+    }
+    
+
 }

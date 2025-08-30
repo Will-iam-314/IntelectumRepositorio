@@ -6,4 +6,5 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Auth::getViewlogin');
-$routes->get('registro','Auth::getViewregistro');
+$routes->get('registrarse','Auth::getViewregistro');
+$routes->post('registro','Users::nuevoUsuario');

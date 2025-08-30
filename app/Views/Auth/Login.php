@@ -37,7 +37,7 @@
         </form>
 
         <div  class=" mt-3">
-            <span id="text-end-body-Auth" >¿No tienes una Cuenta? </span><a href="<?= base_url('registro') ; ?>">Crea una aqui</a>
+            <span id="text-end-body-Auth" >¿No tienes una Cuenta? </span><a href="<?= base_url('registrarse') ; ?>">Crea una aqui</a>
         </div>
     </div>
     <div id="footer-Auth">

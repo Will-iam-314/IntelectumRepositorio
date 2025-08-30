@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuarioModel extends Model
+class UsersModel extends Model
 {
     protected $table            = 'usuarios';
     protected $primaryKey       = 'id_usuario';
@@ -24,13 +24,37 @@ class UsuarioModel extends Model
 
     ];
 
-  
     protected $useTimestamps = true;
     protected $createdField  = 'date_created_usuario';
     protected $updatedField  = 'date_updated_usuario';
    
-    public function validateUser($email,$pass){
+    public function createUser($data){
+        $token = bin2hex(random_bytes(20));
+
+        print_r($data);
+        $data;
+
+        $this->insert([
+            'email_usuario' => 0,
+            'password_usuario' => 0,
+            'rol_usuario'=>0,
+            
+        ]);
         
     }
+
+    public function updateUser($id){
+
+    }
+
+    public function getUser($id){
+
+    }
+
+    public function getUsers(){
+
+    }
+
+    
 
 }

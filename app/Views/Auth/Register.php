@@ -15,7 +15,7 @@
     </div>
     <div id="body-Auth">
         <h3>Registro</h3>
-        <form action="">
+        <form method="POST" action="<?= base_url('registro')?>" autocomplete="off">
 
             <label class="label-form" for="input_names">Nombres</label>
             <input type="text" name="nombres" class="input-form" id="input_names" spellcheck="false">
