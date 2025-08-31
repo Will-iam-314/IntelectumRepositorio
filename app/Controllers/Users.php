@@ -24,6 +24,23 @@ class Users extends BaseController
 
     public function nuevoUsuario(){
         $post = $this->request->getPost();
-        $this->usersModel->createUser($post);
+        $rol = 'solicitante';  
+
+       
+        /*
+        si el rol de la sesion actual es administrador , seleccione el tipo de rol que desee sino por defecto solicitante.
+        si no hay sesion, no puede asignar rol?
+        */
+
+       $boolUser = $this->usersModel->createUser($post,$rol);
+       
+
+        if($boolUser){
+            
+            return view('Auth/Login',['mensaje'=> 'Usuario Registrado Correctamente']);
+        } else{
+           
+        }
+
     }
 }

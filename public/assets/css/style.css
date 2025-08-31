@@ -61,3 +61,23 @@ a{
     font-size: 17px;
     
 }
+
+
+.contenedor-modal-load{
+    text-align: center;
+    padding: 50px;
+}
+
+.spinner-custom {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.4rem;
+    color: var(--color-azulOscuro); /* solo si quieres un color personalizado */
+  }
+
+.text-cont-modal-load{
+    font-size:18px;
+    color: #525354;
+    margin-bottom: 0;
+    margin-top: 20px;
+}

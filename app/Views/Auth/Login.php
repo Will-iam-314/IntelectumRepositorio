@@ -48,6 +48,12 @@
     </div>
 </div>
 
-
+<script>
+    <?php if (isset($mensaje)) : ?>
+        document.addEventListener("DOMContentLoaded", function() {
+            alert('<?= $mensaje ?>');
+        });
+    <?php endif; ?>
+</script>
 
 <?= $this->endSection();?>

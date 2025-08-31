@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\SolicitantesModel;
 
 class UsersModel extends Model
 {
@@ -28,19 +29,41 @@ class UsersModel extends Model
     protected $createdField  = 'date_created_usuario';
     protected $updatedField  = 'date_updated_usuario';
    
-    public function createUser($data){
-        $token = bin2hex(random_bytes(20));
-
-        print_r($data);
-        $data;
-
-        $this->insert([
-            'email_usuario' => 0,
-            'password_usuario' => 0,
-            'rol_usuario'=>0,
-            
-        ]);
+    public function createUser($data, $rol){
         
+        try{
+
+            $token = str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);      
+            $idNewUser = $this->insert([
+                'email_usuario' => $data['email'],
+                'password_usuario' => $data['password'],
+                'rol_usuario'=>$rol,
+                'estado_usuario' => 'activo',
+                'activation_token_usuario' => $token
+                
+            ]);
+
+            switch ($rol){
+
+                case 'solicitante':
+                    $solicitante = new SolicitantesModel();
+                    $boolNewSolicitante = $solicitante->createSolicitante($data,$idNewUser);
+                    if($boolNewSolicitante){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                break;
+
+            }
+
+           
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+  
     }
 
     public function updateUser($id){

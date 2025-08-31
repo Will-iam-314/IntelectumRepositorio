@@ -19,12 +19,6 @@ class EscuelasModel extends Model
 
     ];
 
-    
-    // Dates
-    protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-
 
     public function getEscuelas(){
         $escuelas = $this->findAll();

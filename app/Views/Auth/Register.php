@@ -15,7 +15,7 @@
     </div>
     <div id="body-Auth">
         <h3>Registro</h3>
-        <form method="POST" action="<?= base_url('registro')?>" autocomplete="off">
+        <form method="POST" action="<?= base_url('registro')?>" autocomplete="off" onsubmit="mostrarLoading()">
 
             <label class="label-form" for="input_names">Nombres</label>
             <input type="text" name="nombres" class="input-form" id="input_names" spellcheck="false">
@@ -33,10 +33,8 @@
                 <?php endforeach ?>
             </select>
 
-            
-
             <label class="label-form" for="input_correo">Correo Electronico</label>
-            <input type="text" name="correo" class="input-form" id="input_correo" spellcheck="false">
+            <input type="text" name="email" class="input-form" id="input_correo" spellcheck="false">
 
             <label class="label-form" for="input_password">Contraseña</label>
             <input type="password" name="password" class="input-form" id="input_password" spellcheck="false">
@@ -48,12 +46,14 @@
                 Registrarse
             </button>
 
+           
             <div class="text-center mt-2">
                 <a href="<?= base_url(); ?>">Iniciar sesión</a>
             </div>
         </form>
 
-      
+
+
     </div>
     <div id="footer-Auth">
         <p>
@@ -64,5 +64,32 @@
 </div>
 
 
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div  class="modal-content contenedor-modal-load">
+      <div  class=" cont-modal-load-spinner">
+        <div class="spinner-border spinner-custom" role="status" style=""></div>
+      </div>
+      <p class=" text-cont-modal-load">Cargando</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+<?= $this->endSection();?>
+
+<?= $this->section('scripts');?>
+
+<script>
+  function mostrarLoading() {
+    let modal = new bootstrap.Modal(document.getElementById('loadingModal'), {
+      backdrop: 'static',   // evita que lo cierren
+      keyboard: false       // evita que cierren con ESC
+    });
+    modal.show();
+  }
+</script>
 
 <?= $this->endSection();?>
