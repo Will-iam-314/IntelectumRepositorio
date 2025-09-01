@@ -5,6 +5,9 @@ namespace App\Models;
 use CodeIgniter\Model;
 use App\Models\SolicitantesModel;
 
+use App\Libraries\MailService;
+
+
 class UsersModel extends Model
 {
     protected $table            = 'usuarios';
@@ -38,7 +41,7 @@ class UsersModel extends Model
                 'email_usuario' => $data['email'],
                 'password_usuario' => $data['password'],
                 'rol_usuario'=>$rol,
-                'estado_usuario' => 'activo',
+                'estado_usuario' => 2,
                 'activation_token_usuario' => $token
                 
             ]);
@@ -49,7 +52,16 @@ class UsersModel extends Model
                     $solicitante = new SolicitantesModel();
                     $boolNewSolicitante = $solicitante->createSolicitante($data,$idNewUser);
                     if($boolNewSolicitante){
-                        return true;
+                        $mail = new MailService();
+                        $nombres =$data['nombres'].' '. $data['apellidos'];
+                        $boolmail = $mail->sendMail_ConfirmacionUsuario($data['email'],$token,$nombres);
+                        
+                        if($boolmail){
+                            return true;
+                        }else{
+                            return false;
+                        }
+                        
                     }else{
                         return false;
                     }

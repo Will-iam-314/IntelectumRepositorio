@@ -1,6 +1,6 @@
 #contenedor-Auth{
     margin: 0;
-    height: auto;    /*   100vh  */
+    height: 100vh;    /*   100vh  */
     display: flex;              /* Activamos Flexbox */
     justify-content: center;    /* Centra horizontalmente */
     align-items: center;        /* Centra verticalmente */
@@ -10,7 +10,7 @@
 
 #container-Auth-2{
     width: min(380px, 90%);
-    
+   
     max-height: 100%;      
     background: #ffffff;
     padding: 30px 50px;
@@ -56,3 +56,4 @@
 #footer-Auth p{
     margin:0;
 }
+

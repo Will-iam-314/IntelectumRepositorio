@@ -35,11 +35,10 @@ class Users extends BaseController
        $boolUser = $this->usersModel->createUser($post,$rol);
        
 
-        if($boolUser){
-            
+        if($boolUser){            
             return view('Auth/Login',['mensaje'=> 'Usuario Registrado Correctamente']);
         } else{
-           
+           //retornar a una vista que muestre el error
         }
 
     }

@@ -8,3 +8,5 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'Auth::getViewlogin');
 $routes->get('registrarse','Auth::getViewregistro');
 $routes->post('registro','Users::nuevoUsuario');
+
+$routes->get('verificar','Auth::getViewVerificacion');

@@ -17,11 +17,15 @@ class Auth extends BaseController{
     public function getViewregistro(){
         
         $escuelas = new EscuelasModel();
-        $datos = $escuelas->getEscuelas();
-
-        
+        $datos = $escuelas->getEscuelas();        
         return view('Auth/Register',$datos);
     }
+
+    public function getViewVerificacion(){
+        return view('Auth/verificacionExitosaCorreo');
+    }
+
+    
 
     
 
