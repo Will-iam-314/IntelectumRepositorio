@@ -15,7 +15,7 @@
     </div>
     <div id="body-Auth">
         <h3>Registro</h3>
-        <form method="POST" action="<?= base_url('registro')?>" autocomplete="off" >
+        <form method="POST" action="<?= base_url('registro')?>" autocomplete="off" onsubmit= "mostrarLoading()">
 
           <?= csrf_field(); ?>
 
@@ -30,7 +30,7 @@
 
           <label class="label-form" for="select_carrera">Carrera Profesional</label>
           <select id="select_carrera" name="carrera">
-              
+
               <?php foreach($carreras as $carrera): ?>
                   <option value="<?= $carrera['id_escuela']; ?>" <?= set_select('carrera', $carrera['id_escuela'])?>><?= $carrera['nombre_escuela']; ?></option>                    
               <?php endforeach ?>

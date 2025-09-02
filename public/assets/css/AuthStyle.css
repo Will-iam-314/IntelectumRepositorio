@@ -19,20 +19,31 @@
    
 }
 
+#container-Auth-v2{
+    width:  min(680px, 95%);
+    background: #ffffff;
+    padding: 30px 50px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 24px -6px rgba(0,0,0,0.15);
+}
+
 #title-name-Auth{
     font-size:42px;    
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-#subtitle-Auth{
-    text-align: center;
+
+ 
+
+#subtitle-Auth-v2{
     font-size:22px;
     font-weight: bold;
     position:relative;
     top:-12px;
+    left:100px;
     color: var(--color-celeste)
-}   
+}  
 
 
 #icono-google-Auth{

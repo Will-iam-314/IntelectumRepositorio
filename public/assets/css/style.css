@@ -17,6 +17,11 @@ body{
     font-size:15px;
 }
 
+input::placeholder {
+  color: #AFABAB;        /* Cambia el color */
+  font-size: 16px;
+}
+
 .input-form{
     display: block;
     width: 100%;

@@ -21,7 +21,10 @@ class Auth extends BaseController{
         return view('Auth/Register',$datos);
     }
 
-    
+    public function getViewVerificacion(){
+        return view('Auth/verificacionCorreo');
+    }
+
     
 
     

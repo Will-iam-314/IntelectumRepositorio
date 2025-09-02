@@ -51,4 +51,36 @@ class Users extends BaseController
         }
 
     }
+
+    public function verificarUsuario(){
+
+        $rules = [
+            'codigo' => [
+                'rules' => 'required|numeric|exact_length[5]',
+                'errors'=> [
+                    'required' => 'El codigo es Obligatorio',
+                    'numeric'  => 'El codigo ingresado es incorrecto',
+                    'exact_length' => 'El codigo ingresado es muy extenso o muy corto'
+                ]
+            ]
+        ];
+
+        if(!$this->validate($rules)){
+            return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
+        }
+
+        $post = $this->request->getPost();
+        $token = $post['codigo'];
+        $boolVerification = $this->usersModel->activationUser($token);
+
+        if($boolVerification){
+            return view('Auth/verificacionExitosaCorreo');
+        }else{
+            return view('Auth/verificacionCorreo',['error'=>'Codigo Incorrecto']);
+        }
+    }
+
+    
+
+
 }

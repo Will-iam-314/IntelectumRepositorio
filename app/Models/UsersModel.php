@@ -79,6 +79,30 @@ class UsersModel extends Model
   
     }
 
+    public function activationUser($token){
+        try{
+            $user = $this->where(['activation_token_usuario'=>$token, 'estado_usuario'=> 2])->first();
+            if($user){
+                $this->update($user['id_usuario'],
+                
+                    [
+                        'estado_usuario'=>1,
+                        'activation_token_usuario'=>''
+                    ]
+                
+                );
+
+                return true;
+            }else{
+                return false;
+            }
+           
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
+
     public function updateUser($id){
 
     }
