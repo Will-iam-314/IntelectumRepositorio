@@ -21,5 +21,26 @@
 
     <?= $this->renderSection('scripts') ?>
 
+    <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div  class="modal-content contenedor-modal-load">
+            <div  class=" cont-modal-load-spinner">
+                <div class="spinner-border spinner-custom" role="status" style=""></div>
+            </div>
+            <p class=" text-cont-modal-load">Cargando</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function mostrarLoading() {
+            let modal = new bootstrap.Modal(document.getElementById('loadingModal'), {
+            backdrop: 'static',   // evita que lo cierren
+            keyboard: false       // evita que cierren con ESC
+            });
+            modal.show();
+        }
+    </script>
+
 </html>
 

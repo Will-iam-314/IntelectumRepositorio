@@ -36,6 +36,7 @@ class UsersModel extends Model
         
         try{
 
+
             $token = str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);      
             $idNewUser = $this->insert([
                 'email_usuario' => $data['email'],

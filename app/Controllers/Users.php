@@ -17,12 +17,21 @@ class Users extends BaseController
         $this->usersModel = new UsersModel();
     }
 
-    public function index()
-    {
-        return view('Login/registro');
-    }
-
     public function nuevoUsuario(){
+
+        $rules= [
+            'nombres'=>'required|alpha_space',
+            'apellidos'=> 'required|alpha_space',
+            'dni'=>'required|integer|max_length[8]|min_length[8]|is_unique[solicitantes.dni_solicitante]',
+            'carrera'=>'required',
+            'email' =>'required|valid_email|max_length[100]|is_unique[usuarios.email_usuario]',
+            'password' => 'required|max_length[50]|min_length[8]',
+            'repassword' => 'matches[password]'
+        ];
+        if(!$this->validate($rules)){
+            return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
+        }
+
         $post = $this->request->getPost();
         $rol = 'solicitante';  
 
@@ -36,7 +45,7 @@ class Users extends BaseController
        
 
         if($boolUser){            
-            return view('Auth/Login',['mensaje'=> 'Usuario Registrado Correctamente']);
+            return view('Auth/verificacionCorreo');
         } else{
            //retornar a una vista que muestre el error
         }
