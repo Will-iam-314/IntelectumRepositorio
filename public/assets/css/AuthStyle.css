@@ -34,7 +34,15 @@
 }
 
 
- 
+
+#subtitle-Auth{
+    text-align: center;
+    font-size:22px;
+    font-weight: bold;
+    position:relative;
+    top:-12px;
+    color: var(--color-celeste)
+}   
 
 #subtitle-Auth-v2{
     font-size:22px;

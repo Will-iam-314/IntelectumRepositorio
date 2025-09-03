@@ -40,7 +40,7 @@ class UsersModel extends Model
             $token = str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);      
             $idNewUser = $this->insert([
                 'email_usuario' => $data['email'],
-                'password_usuario' => $data['password'],
+                'password_usuario' => password_hash($data['password'], PASSWORD_DEFAULT),
                 'rol_usuario'=>$rol,
                 'estado_usuario' => 2,
                 'activation_token_usuario' => $token
@@ -101,6 +101,16 @@ class UsersModel extends Model
             log_message('error', $e->getMessage());
             return false;
         }
+    }
+
+    public function validateUser($email,$password){
+        $user = $this->where(['email_usuario' => $email, 'estado_usuario' => 1])->first();
+        if($user && password_verify($password, $user['password_usuario'])){
+            return $user;
+        }
+
+        return null;
+
     }
 
     public function updateUser($id){

@@ -14,17 +14,26 @@
         </div>
     </div>
     <div id="body-Auth">
-        <form action="">
+        <form method="POST" action="<?= base_url('auth')?>" autocomplete="off" onsubmit= "mostrarLoading()">
 
+            <?= csrf_field(); ?>
             <label class="label-form" for="input_mail">Correo Electronico</label>
-            <input type="email" name="" class="input-form" id="input_mail" spellcheck="false">
+            <input type="email" name="email" class="input-form" id="input_mail" spellcheck="false">
 
             <label class="label-form" for="input_password">Contraseña</label>
-            <input type="password" name="" class="input-form" id="input_password" spellcheck="false">
+            <input type="password" name="password" class="input-form" id="input_password" spellcheck="false">
 
             <div class="text-end mt-3">
                 <a href="">¿Olvidaste tu Contraseña?</a>
             </div>
+
+            <?php if(session()->getFlashdata('errors')!==null): ?>
+
+                <div class= 'alert alert-danger my-3' role='alert'>
+                <?= session()->getFlashdata('errors');?>
+                </div>
+
+            <?php  endif; ?>
 
             <button type="submit" class="btn-style1 mt-3">
                 Iniciar Sesión
@@ -48,12 +57,6 @@
     </div>
 </div>
 
-<script>
-    <?php if (isset($mensaje)) : ?>
-        document.addEventListener("DOMContentLoaded", function() {
-            alert('<?= $mensaje ?>');
-        });
-    <?php endif; ?>
-</script>
+
 
 <?= $this->endSection();?>

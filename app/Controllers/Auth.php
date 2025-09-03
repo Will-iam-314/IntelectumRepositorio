@@ -7,6 +7,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 
 use App\Models\EscuelasModel;
+use App\Models\UsersModel;
 
 class Auth extends BaseController{
 
@@ -25,7 +26,54 @@ class Auth extends BaseController{
         return view('Auth/verificacionCorreo');
     }
 
-    
+    public function authentication(){
+        $rules = [
+            'email' => 'required|valid_email',
+            'password' => 'required|'
+        ];
+
+        if(!$this->validate($rules)){
+            return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
+        }
+
+        $userModel = new UsersModel();
+        $post = $this->request->getPost(['email','password']);
+
+        $user = $userModel->validateUser($post['email'], $post['password']);
+
+        if($user !==null){
+            $this->setSession($user);
+            switch($user['rol_usuario']){
+                case 'solicitante':
+                    return redirect()->to(base_url('solicitante/home'));
+                default:
+                    return redirect()->to(base_url('/'));
+
+            }
+        }
+
+        return redirect()->back()->withInput()->with('errors','el usuario y/o contraseña son incorrectos.');
+
+    }
+
+    public function setSession($userData){
+        $data = [
+            'logged_in' => true,
+            'id' => $userData['id_usuario'],
+            'rol' => $userData['rol_usuario']
+            
+        ];
+
+        $this->session->set($data);
+    }
+
+    public function logout(){
+        if($this->session->get('logged_in')){
+            $this->session->destroy();
+
+        }
+        return redirect()->to(base_url());
+    }
 
     
 
