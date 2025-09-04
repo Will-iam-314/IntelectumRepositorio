@@ -60,3 +60,14 @@
 
 
 <?= $this->endSection();?>
+
+<?= $this->section('scripts');?>
+
+<script>
+    // Reemplaza la entrada actual, eliminando la anterior del historial
+    window.onload = function() {
+        history.replaceState(null, '', location.href);
+    };
+</script>
+
+<?= $this->endSection();?>

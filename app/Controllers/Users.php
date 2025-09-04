@@ -25,15 +25,27 @@ class Users extends BaseController
             'dni'=>'required|integer|max_length[8]|min_length[8]|is_unique[solicitantes.dni_solicitante]',
             'carrera'=>'required',
             'email' =>'required|valid_email|max_length[100]|is_unique[usuarios.email_usuario]',
-            'password' => 'required|max_length[50]|min_length[8]',
-            'repassword' => 'matches[password]'
+            'password' => [
+                'rules' => 'required|max_length[50]|min_length[8]',
+                'errors' => [
+                    'required' => 'La Contraseña es Obligatoria',
+                    'max_length' => 'La Contraseña es demasiado larga',
+                    'min_length' => 'La Contraseña debe de tener al menos 8 caracteres'
+                ]
+            ],
+            'repassword' => [
+                'rules' => 'matches[password]',
+                'errors' => [
+                    'matches' => 'La Contraseñas no Coinciden'
+                ]
+            ]
         ];
         if(!$this->validate($rules)){
             return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
         }
 
         $post = $this->request->getPost();
-        $rol = 'solicitante';  
+        $rol = 'solicitante';   
 
        
         /*
@@ -45,7 +57,7 @@ class Users extends BaseController
        
 
         if($boolUser){            
-            return view('Auth/verificacionCorreo');
+            return redirect()->to(base_url('verificar'));
         } else{
            //retornar a una vista que muestre el error
         }
@@ -76,7 +88,7 @@ class Users extends BaseController
         if($boolVerification){
             return view('Auth/verificacionExitosaCorreo');
         }else{
-            return view('Auth/verificacionCorreo',['error'=>'Codigo Incorrecto']);
+            return redirect()->back()->withInput()->with('errors','Codigo Incorrecto');
         }
     }
 

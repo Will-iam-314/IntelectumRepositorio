@@ -16,6 +16,7 @@ use App\Filters\AuthAdministradorFilter;
 use App\Filters\AuthDpiFilter;
 use App\Filters\AuthSolicitanteFilter;
 use App\Filters\AuthInspectorFilter;
+use App\Filters\AuthRedirectRolFilter;
 
 class Filters extends BaseFilters
 {
@@ -41,7 +42,8 @@ class Filters extends BaseFilters
         'administrador' => AuthAdministradorFilter::class,
         'dpi'           => AuthDpiFilter::class,
         'solicitante'   => AuthSolicitanteFilter::class,
-        'inspector'     => AuthInspectorFilter::class     
+        'inspector'     => AuthInspectorFilter::class,     
+        'AuthRedirect'  => AuthRedirectRolFilter::class
     ];
 
     /**

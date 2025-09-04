@@ -34,7 +34,12 @@
 
 </div>
 
-
+<script>
+    history.pushState(null, '', location.href);
+    window.onpopstate = function () {
+        window.location.href = "<?=base_url('/')?>"; // o la ruta que quieras
+    };
+</script>
 
 
 <?= $this->endSection();?>

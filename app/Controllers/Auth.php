@@ -54,7 +54,7 @@ class Auth extends BaseController{
 
         return redirect()->back()->withInput()->with('errors','el usuario y/o contraseña son incorrectos.');
 
-    }
+    } 
 
     public function setSession($userData){
         $data = [
