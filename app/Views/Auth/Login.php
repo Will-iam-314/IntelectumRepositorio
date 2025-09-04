@@ -16,7 +16,7 @@
     <div id="body-Auth">
         <form method="POST" action="<?= base_url('auth')?>" autocomplete="off" onsubmit= "mostrarLoading()">
 
-            <?= csrf_field(); ?>
+            <?= csrf_field(); ?> 
             <label class="label-form" for="input_mail">Correo Electronico</label>
             <input type="email" name="email" class="input-form" id="input_mail" spellcheck="false" required>
 
