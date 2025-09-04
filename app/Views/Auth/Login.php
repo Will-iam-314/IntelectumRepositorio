@@ -18,10 +18,10 @@
 
             <?= csrf_field(); ?>
             <label class="label-form" for="input_mail">Correo Electronico</label>
-            <input type="email" name="email" class="input-form" id="input_mail" spellcheck="false">
+            <input type="email" name="email" class="input-form" id="input_mail" spellcheck="false" required>
 
             <label class="label-form" for="input_password">Contraseña</label>
-            <input type="password" name="password" class="input-form" id="input_password" spellcheck="false">
+            <input type="password" name="password" class="input-form" id="input_password" spellcheck="false" required>
 
             <div class="text-end mt-3">
                 <a href="">¿Olvidaste tu Contraseña?</a>
