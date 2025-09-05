@@ -57,10 +57,16 @@ class Auth extends BaseController{
     } 
 
     public function setSession($userData){
+        
+        //$nombres_Apellidos = $userData['nombres_usuario'].' '.$userData['apellidos_usuario'];
+        
+        
         $data = [
             'logged_in' => true,
             'id' => $userData['id_usuario'],
-            'rol' => $userData['rol_usuario']
+            'rol' => $userData['rol_usuario'],
+           // 'NombreApellido' => $nombres_Apellidos,
+            'correo' => $userData['email_usuario']
             
         ];
 

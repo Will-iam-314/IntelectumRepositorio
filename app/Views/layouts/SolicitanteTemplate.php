@@ -18,38 +18,34 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/home') ?>">Home</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Mis Solicitudes</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/mistramites') ?>">Mis Tramites</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Constancias</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Constancias</a>
+                    </li>
 
 
-            
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Perfil
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="<?= base_url('logout') ; ?>">Cerrar sesion</a></li>
-                    </ul>
-                </li>
                 
-            </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Perfil
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><?= session('correo') ?></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="<?= base_url('logout') ; ?>">Cerrar sesion</a></li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+            
             </div>
         </div>
     </nav>
@@ -82,6 +78,13 @@
             keyboard: false       // evita que cierren con ESC
             });
             modal.show();
+        }
+
+        function confirmarRegreso() {
+            if (confirm("⚠️ Si regresas, los datos que estabas llenando no se guardarán. ¿Deseas continuar?")) {
+                history.back();
+            }
+            return false; // evita que el link navegue por defecto
         }
     </script>
 

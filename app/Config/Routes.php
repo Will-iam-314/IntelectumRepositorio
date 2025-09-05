@@ -5,6 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
+
+
 $routes->get('/', 'Auth::getViewlogin',['filter'=>'AuthRedirect']);
 $routes->get('login','Auth::getViewlogin',['filter'=>'AuthRedirect']);
 $routes->get('registrarse','Auth::getViewregistro',['filter'=>'AuthRedirect']);
@@ -18,4 +20,6 @@ $routes->post('auth','Auth::authentication');
 
 $routes->group('solicitante',['filter'=>'solicitante'], function($routes){
     $routes->get('home','Solicitante::index');
+    $routes->get('mistramites','Solicitante::getViewTramites');
+    $routes->get('solicitud','Solicitante::getViewNuevaSolicitud');
 }); 

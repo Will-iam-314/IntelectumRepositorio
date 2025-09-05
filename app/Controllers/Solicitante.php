@@ -11,6 +11,14 @@ class Solicitante extends BaseController
     {
         return view('Solicitante/home');
     }
+
+    public function getViewTramites(){
+        return view('Solicitante/MisTramites');
+    } 
+
+    public function getViewNuevaSolicitud(){
+        return view('Solicitante/NuevaSolicitud');
+    }
 }
 
 ?>
