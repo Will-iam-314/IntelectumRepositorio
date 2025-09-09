@@ -44,7 +44,7 @@ class Users extends BaseController
             return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
         }
 
-        $post = $this->request->getPost();
+        $post = $this->request->getPost(); 
         $rol = 'solicitante';   
 
        

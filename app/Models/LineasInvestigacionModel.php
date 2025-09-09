@@ -20,10 +20,11 @@ class LineasInvestigacionModel extends Model
     ];
 
 
-    public function getEscuelas(){
-        /*$escuelas = $this->findAll();
-        $data = ['carreras' => $escuelas];
-        return $data;*/
+    public function getLineas(){
+
+        $lineas = $this->findAll();
+        $data = ['lineas' => $lineas];
+        return $data;
     }
     
 

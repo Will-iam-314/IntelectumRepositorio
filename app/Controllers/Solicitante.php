@@ -4,6 +4,11 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
+use App\Controllers\Tramites;
+
+use App\Models\LineasInvestigacionModel;
+use App\Models\DocentesModel;
+
 
 class Solicitante extends BaseController
 {
@@ -17,7 +22,56 @@ class Solicitante extends BaseController
     } 
 
     public function getViewNuevaSolicitud(){
-        return view('Solicitante/NuevaSolicitud');
+        $lineaModel = new LineasInvestigacionModel();
+        $docenteModel = new DocentesModel();
+
+        $data = [
+            'docentes' => $docenteModel->findAll(),
+            'lineas' => $lineaModel->findAll()
+        ];
+ 
+        return view('Solicitante/NuevaSolicitud', $data);
+    }
+
+    public function nuevaSolicitud(){
+
+        $rules = [
+            'tituloTesis' => 'required',
+            'resumenTesis' => 'required',
+            'keywordsTesis' => 'required',
+            'lineaInvestigacion' => 'required',
+            'CampoInvestigacion' => 'required',
+            'CampoAplicacion'=>'required',
+            'FechaSustentacion' => 'required',
+            'TesisFile' => 'uploaded[TesisFile]|max_size[TesisFile,10240]|ext_in[TesisFile,pdf]',
+            'Asesor' => 'required',
+            'PresidenteJurado' => 'required',
+            'PrimerMiembroJurado' => 'required',
+            'SegundoMiembroJurado' => 'required',
+            'DeclaracionJuradaFile' => 'uploaded[DeclaracionJuradaFile]|max_size[DeclaracionJuradaFile,2048]|ext_in[DeclaracionJuradaFile,pdf]',
+            'AutorizaciónPublicacioFile' => 'uploaded[AutorizaciónPublicacioFile]|max_size[AutorizaciónPublicacioFile,2048]|ext_in[AutorizaciónPublicacioFile,pdf]'
+
+        ];
+
+
+        if(!$this->validate($rules)){
+            return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
+        }
+
+        $post = $this->request->getPost(); 
+        $fileTesis = $this->request->getFile('TesisFile');
+        $fileDJ = $this->request->getFile('DeclaracionJuradaFile');
+        $fileAutorizacionPublicacion = $this->request->getFile('AutorizaciónPublicacioFile');
+        
+        $tramiteController = new Tramites();
+
+        $boolNuevoTramite= $tramiteController->nuevoTramite($post,$fileTesis,$fileDJ,$fileAutorizacionPublicacion);
+
+        if($boolNuevoTramite){
+            
+        }
+        
+
     }
 }
 
