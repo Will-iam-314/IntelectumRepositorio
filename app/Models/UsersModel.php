@@ -31,6 +31,7 @@ class UsersModel extends Model
     protected $useTimestamps = true;
     protected $createdField  = 'date_created_usuario';
     protected $updatedField  = 'date_updated_usuario';
+    
    
     public function createUser($data, $rol){
         

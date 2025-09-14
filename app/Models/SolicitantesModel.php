@@ -45,6 +45,21 @@ class SolicitantesModel extends Model
        }
     
     }
+
+    public function getSolicitante($id){
+
+        try{
+            $dataSolicitante = $this->find($id);
+            if($dataSolicitante){
+                return $dataSolicitante;
+            }else{
+                return false;
+            }
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }   
+    }
     
 
 }

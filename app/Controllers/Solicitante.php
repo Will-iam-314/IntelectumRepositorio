@@ -8,10 +8,19 @@ use App\Controllers\Tramites;
 
 use App\Models\LineasInvestigacionModel;
 use App\Models\DocentesModel;
+use App\Models\SolicitantesModel;
 
 
 class Solicitante extends BaseController
 {
+
+    protected $solicitanteModel;
+
+    public function __construct()
+    {
+        $this->solicitanteModel = new SolicitantesModel();
+    }
+
     public function index()
     {
         return view('Solicitante/home');
@@ -59,6 +68,8 @@ class Solicitante extends BaseController
         }
 
         $post = $this->request->getPost(); 
+        $solicitante = $this->solicitanteModel->getSolicitante(session('id_usuario'));
+        $post['idsolicitante'] = $solicitante[0]['id_solicitante'];
         $fileTesis = $this->request->getFile('TesisFile');
         $fileDJ = $this->request->getFile('DeclaracionJuradaFile');
         $fileAutorizacionPublicacion = $this->request->getFile('AutorizaciónPublicacioFile');

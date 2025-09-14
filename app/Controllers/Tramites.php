@@ -17,28 +17,66 @@ class Tramites extends BaseController
         $this->tramiteModel = new TramiteModel();
     }
 
-    public function nuevoTramite($data,$file1,$file2,$file3){
+    public function nuevoTramite($data,$fileT,$fileDJ,$fileAP){
 
-        if ($file1->isValid() && !$file1->hasMoved()) {
+        //Guarda archivo de tesis
+
+        if ($fileT->isValid() && !$fileT->hasMoved()) {
      
-        $newNameFile1 = $file1->getClientName();
-        $file1->move('repositor/material/tesis', $newNameFile1); 
+            $newNameFileT = 'TesisFile_'.$this->tramiteModel->generaCodigo().'.pdf';     
+            $rutaFileT = APPPATH. 'repositor/material/tesis/' . $newNameFileT;
+
+            if(file_exists($rutaFileT)){
+                unlink($rutaFileT);
+            }
+
+            $fileT->move(APPPATH.'repositor/material/tesis',  $newNameFileT); 
     
-        // Ruta relativa para guardar en DB
-        $rutaFile1 = 'repositor/material/tesis' . $newNameFile1;
-
-        // Guardar en DB junto con otros datos
-        $data = [
-            'titulo' => $this->request->getPost('tituloTesis'),
-            'ruta_archivo' => $ruta,
-        ];
-
-        $this->tesisModel->insert($data);
-
-        echo "Archivo guardado y registrado en DB ✅";
         } else {
-            echo "No se pudo guardar el archivo ❌";
+            return false;
         }
+
+        //guarda archivo de declaracion jurada
+
+        if($fileDJ->isValid() && !$fileDJ->hasMoved()){
+            $newNameFileDJ = 'DeclaracionJurada_'.$this->tramiteModel->generaCodigo().'.pdf';
+            $rutaFileDJ = APPPATH. 'repositor/tramites/declaracionesJuradas/'.$newNameFileDJ;
+        
+            if(file_exists($rutaFileDJ)){
+                unlink($rutaFileDJ);
+            }
+
+            $fileDJ->move(APPPATH. 'repositor/tramites/declaracionesJuradas',$newNameFileDJ);
+
+            
+        }else{
+            return false;
+        }
+
+        //guarda archivo de autorizacion de publicacion
+
+        if($fileAP->isValid() && !$fileAP->hasMoved()){
+            $newNameFilAP = 'DeclaracionJurada_'.$this->tramiteModel->generaCodigo().'.pdf';
+            $rutaFileAP = APPPATH. 'repositor/tramites/autorizacionesPublicacion/'. $newNameFilAP;
+        
+            if(file_exists( $rutaFileAP)){
+                unlink( $rutaFileAP);
+            }
+
+            $fileAP->move(APPPATH. 'repositor/tramites/autorizacionesPublicacion', $newNameFilAP);
+           
+        }else{
+            return false;
+        }
+
+        $boolnewTramite = $this->tramiteModel->newTramite($data,$rutaFileT,$rutaFileDJ, $rutaFileAP);
+
+        if($boolnewTramite){
+            return true;
+        }else{
+            return false;
+        }
+      
     }
 
    
