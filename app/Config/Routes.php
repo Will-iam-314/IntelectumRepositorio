@@ -20,7 +20,7 @@ $routes->post('auth','Auth::authentication');
 
 $routes->group('solicitante',['filter'=>'solicitante'], function($routes){
     $routes->get('home','Solicitante::index');
-    $routes->get('mistramites','Solicitante::getViewTramites');
+    $routes->get('mistramites','Solicitante::getViewTramites'); 
     $routes->get('solicitud','Solicitante::getViewNuevaSolicitud');
 
     $routes->post('nuevaSoli','Solicitante::nuevaSolicitud');

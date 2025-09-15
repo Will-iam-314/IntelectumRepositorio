@@ -9,6 +9,7 @@ use App\Controllers\Tramites;
 use App\Models\LineasInvestigacionModel;
 use App\Models\DocentesModel;
 use App\Models\SolicitantesModel;
+use App\Models\TramiteModel;
 
 
 class Solicitante extends BaseController
@@ -27,7 +28,12 @@ class Solicitante extends BaseController
     }
 
     public function getViewTramites(){
-        return view('Solicitante/MisTramites');
+        $tramiteModel = new TramiteModel();
+        $datosTramites = $tramiteModel->getTramitesSolicitante(session('datarol_id'));
+        if($datosTramites){
+            return view('Solicitante/MisTramites',['tramites'=> $datosTramites] );
+        }
+        
     } 
 
     public function getViewNuevaSolicitud(){
@@ -79,7 +85,9 @@ class Solicitante extends BaseController
         $boolNuevoTramite= $tramiteController->nuevoTramite($post,$fileTesis,$fileDJ,$fileAutorizacionPublicacion);
 
         if($boolNuevoTramite){
-            
+            return redirect()->to(base_url('solicitante/mistramites'));
+        }else{
+            return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo enviar la solicitud');
         }
         
 

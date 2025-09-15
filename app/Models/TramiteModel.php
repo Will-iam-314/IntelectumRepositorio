@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 use App\Models\MaterialModel;
+use App\Models\TesisModel;
 
 class TramiteModel extends Model
 {
@@ -31,28 +32,30 @@ class TramiteModel extends Model
     protected $updatedField  = 'date_updated_tramite';
     
     
-    public function newTramite($data,$URLfileT,$URLfileDJ,$URLfileAP){
+    public function newTramite($data,$fileT,$fileDJ,$fileAP){
 
         try{
 
 
             $materialModel = new MaterialModel();
-            $idMaterialModel = $materialModel->newMaterial($data,$URLfileT);
+            $idMaterialModel = $materialModel->newMaterial($data,$fileT);
 
-          
-
-            $idnewTramite = $this->insert([
+            if($idMaterialModel){
+                
+                $idnewTramite = $this->insert([
                 'codigo_tramite'=> $this->generaCodigo(),
-                'declaracionJurada_tramite' => $URLfileDJ,
-                'autorizacionPublicacion_tramite' => $URLfileAP,
+                'declaracionJurada_tramite' => $fileDJ,
+                'autorizacionPublicacion_tramite' => $fileAP,
                 'id_estadotramite_tramite'=> 1,
                 'id_solicitante_tramite' => $data['idsolicitante'],
                 'id_materia_tramite' => $idMaterialModel
-            ]);
+                ]);
 
-            return $idnewTramite;
+                return $idnewTramite;
+            }else{
+                return false;
+            }
 
-            
 
         }catch(Exception $e){
             log_message('error', $e->getMessage());
@@ -79,6 +82,38 @@ class TramiteModel extends Model
 
         $newcode = "ITR".$numeroFormateado.$anio;
         return $newcode;
+    }
+
+    public function getTramitesSolicitante($idSolicitante){
+
+        try{
+
+            $tramites = $this->select('
+                material.titulo_materia as titulo, 
+                material.tipo_materia as tipomateria, 
+                tramites.codigo_tramite as codigo, 
+                tramites.date_created_tramite as fechapresentacion,
+                estadotramites.nombres_estadotramite as estado
+            ')
+            ->join('material', 'material.id_materia = tramites.id_materia_tramite')
+            ->join('estadotramites', 'estadotramites.id_estadotramite = tramites.id_estadotramite_tramite')
+            ->where('tramites.id_solicitante_tramite', $idSolicitante)
+            ->findAll();
+            
+            if($tramites){
+                return $tramites;
+            }else{
+                return false;
+            }
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getTramite($id){
+        
     }
 
 }

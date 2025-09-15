@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 use App\Models\EscuelasModel;
 use App\Models\UsersModel;
+use App\Models\SolicitantesModel;
 
 class Auth extends BaseController{
 
@@ -42,10 +43,18 @@ class Auth extends BaseController{
         $user = $userModel->validateUser($post['email'], $post['password']);
 
         if($user !==null){
-            $this->setSession($user);
+           
             switch($user['rol_usuario']){
                 case 'solicitante':
-                    return redirect()->to(base_url('solicitante/home'));
+                    $solicitanteModel = new  SolicitantesModel();
+                    $solicitanteData = $solicitanteModel->getSolicitante($user['id_usuario']);
+                    $dataRol=[
+                        'idDatarol' => $solicitanteData['id_solicitante'],
+                        'nombres' => $solicitanteData['nombres_solicitante'],
+                        'apellidos' =>$solicitanteData['apellidos_solicitante']
+                    ];
+                    $this->setSession($user,$dataRol);
+                    return redirect()->to(base_url('solicitante/home')); 
                 default:
                     return redirect()->to(base_url('/'));
 
@@ -56,16 +65,16 @@ class Auth extends BaseController{
 
     } 
 
-    public function setSession($userData){
+    public function setSession($userData,$dataRol){
         
-        //$nombres_Apellidos = $userData['nombres_usuario'].' '.$userData['apellidos_usuario'];
-        
-        
+
         $data = [
             'logged_in' => true,
             'id' => $userData['id_usuario'],
             'rol' => $userData['rol_usuario'],
-           // 'NombreApellido' => $nombres_Apellidos,
+            'datarol_id'=>$dataRol['idDatarol'],
+            'nombres'=>$dataRol['nombres'],
+            'apellidos'=>$dataRol['apellidos'],
             'correo' => $userData['email_usuario']
             
         ];

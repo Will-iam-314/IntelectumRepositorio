@@ -45,11 +45,12 @@ class SolicitantesModel extends Model
        }
     
     }
+    
 
-    public function getSolicitante($id){
+    public function getSolicitante($idUser){
 
         try{
-            $dataSolicitante = $this->find($id);
+            $dataSolicitante = $this->where('id_usuario_solicitante',$idUser)->first();
             if($dataSolicitante){
                 return $dataSolicitante;
             }else{

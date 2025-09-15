@@ -69,7 +69,7 @@ class Tramites extends BaseController
             return false;
         }
 
-        $boolnewTramite = $this->tramiteModel->newTramite($data,$rutaFileT,$rutaFileDJ, $rutaFileAP);
+        $boolnewTramite = $this->tramiteModel->newTramite($data,$newNameFileT,$newNameFileDJ, $newNameFilAP);
 
         if($boolnewTramite){
             return true;
@@ -78,6 +78,9 @@ class Tramites extends BaseController
         }
       
     }
+
+  
+   
 
    
 

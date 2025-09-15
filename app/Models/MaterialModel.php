@@ -29,20 +29,26 @@ class MaterialModel extends Model
     protected $updatedField  = 'date_updated_materia';
 
 
-    public function newMaterial($data,$URLfileT){
+    public function newMaterial($data,$fileT){
 
         try{
 
             $tesiModel = new TesisModel();
-            $idTesis = $tesiModel->newTesis($data,$URLfileT);
-         
-            $idNewMaterial = $this->insert([
+            $idTesis = $tesiModel->newTesis($data,$fileT);
+
+            if($idTesis){
+                $idNewMaterial = $this->insert([
                 'titulo_materia'=>$data['tituloTesis'],
                 'id_tesi_materia'=> $idTesis,
                 'tipo_materia' => 1
-            ]);
+                ]);
 
-            return $idNewMaterial;
+                return $idNewMaterial; 
+
+            }else{
+                return false;
+
+            }
 
         }catch(Exception $e){
             log_message('error', $e->getMessage());

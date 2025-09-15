@@ -28,7 +28,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Constancias</a>
+                        <a class="nav-link active" aria-current="page" href="#">Constancias</a> 
                     </li>
 
 
@@ -38,6 +38,7 @@
                             Perfil
                         </a>
                         <ul class="dropdown-menu">
+                            <li><?php echo(session('nombres').' '.session('apellidos')) ?></li>
                             <li><?= session('correo') ?></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="<?= base_url('logout') ; ?>">Cerrar sesion</a></li>
