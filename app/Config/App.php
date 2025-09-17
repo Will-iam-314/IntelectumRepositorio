@@ -18,6 +18,8 @@ class App extends BaseConfig
      */
     public string $baseURL = 'http://localhost/IntelectumRepositorio/public/';
 
+   
+
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.

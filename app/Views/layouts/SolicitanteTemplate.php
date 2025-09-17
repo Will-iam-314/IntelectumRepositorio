@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.2') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=1.0') ?>">
 
 </head>
 <body>
@@ -51,16 +52,11 @@
         </div>
     </nav>
  
-    <div id="contenedor" class=" border">
+    <div id="contenedor" class=" border container">
         <?= $this->renderSection('content') ?>        
     </div>
 
   
-        
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-
-    <?= $this->renderSection('scripts') ?>
-
     <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div  class="modal-content contenedor-modal-load">
@@ -71,6 +67,16 @@
             </div>
         </div>
     </div>
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+
+    
+    
+    
+    <?= $this->renderSection('scripts') ?>
+
+    
 
     <script>
         function mostrarLoading() {
@@ -86,6 +92,10 @@
                 history.back();
             }
             return false; // evita que el link navegue por defecto
+        }
+
+        function Regresar(){
+            history.back();
         }
     </script>
 

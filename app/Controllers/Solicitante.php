@@ -10,6 +10,7 @@ use App\Models\LineasInvestigacionModel;
 use App\Models\DocentesModel;
 use App\Models\SolicitantesModel;
 use App\Models\TramiteModel;
+use App\Models\EstadosTramitesModel;
 
 
 class Solicitante extends BaseController
@@ -23,8 +24,21 @@ class Solicitante extends BaseController
     }
 
     public function index()
+
     {
-        return view('Solicitante/home');
+        $tramiteModel = new TramiteModel();
+        $estadosTramite = new EstadosTramitesModel();
+
+        $datosTramites = $tramiteModel->getLastTramiteSolicitante(session('datarol_id'));
+        $estados = $estadosTramite->getAllEstadosTramites();
+
+        $etapas = array_column($estados,'nombres_estadotramite');
+    
+        
+        if($datosTramites){
+            return view('Solicitante/home',['tramite'=> $datosTramites,'etapas'=>$etapas] );
+        }
+        
     }
 
     public function getViewTramites(){
@@ -47,6 +61,15 @@ class Solicitante extends BaseController
  
         return view('Solicitante/NuevaSolicitud', $data);
     }
+
+    public function getViewDetalleTramite($codigoTramite){
+        $tramiteModel = new TramiteModel();
+        $datosTramite = $tramiteModel->getTramite($codigoTramite);
+        if($datosTramite){
+            return view('Solicitante/DetalleTramite',$datosTramite);
+        }
+    }
+
 
     public function nuevaSolicitud(){
 
@@ -74,8 +97,8 @@ class Solicitante extends BaseController
         }
 
         $post = $this->request->getPost(); 
-        $solicitante = $this->solicitanteModel->getSolicitante(session('id_usuario'));
-        $post['idsolicitante'] = $solicitante[0]['id_solicitante'];
+        $solicitante = $this->solicitanteModel->getSolicitante(session('id'));
+        $post['idsolicitante'] = $solicitante['id_solicitante'];
         $fileTesis = $this->request->getFile('TesisFile');
         $fileDJ = $this->request->getFile('DeclaracionJuradaFile');
         $fileAutorizacionPublicacion = $this->request->getFile('AutorizaciónPublicacioFile');

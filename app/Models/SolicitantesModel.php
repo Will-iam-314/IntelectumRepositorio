@@ -55,7 +55,7 @@ class SolicitantesModel extends Model
                 return $dataSolicitante;
             }else{
                 return false;
-            }
+            } 
         }catch(Exception $e){
             log_message('error', $e->getMessage());
             return false;

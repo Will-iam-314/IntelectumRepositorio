@@ -24,13 +24,14 @@ class Tramites extends BaseController
         if ($fileT->isValid() && !$fileT->hasMoved()) {
      
             $newNameFileT = 'TesisFile_'.$this->tramiteModel->generaCodigo().'.pdf';     
-            $rutaFileT = APPPATH. 'repositor/material/tesis/' . $newNameFileT;
+            $rutaFileT = base_archives_material_tesis($newNameFileT) ;
 
             if(file_exists($rutaFileT)){
                 unlink($rutaFileT);
             }
 
-            $fileT->move(APPPATH.'repositor/material/tesis',  $newNameFileT); 
+            $fileT->move(base_archives_material_tesis(),$newNameFileT); 
+
     
         } else {
             return false;
@@ -40,13 +41,13 @@ class Tramites extends BaseController
 
         if($fileDJ->isValid() && !$fileDJ->hasMoved()){
             $newNameFileDJ = 'DeclaracionJurada_'.$this->tramiteModel->generaCodigo().'.pdf';
-            $rutaFileDJ = APPPATH. 'repositor/tramites/declaracionesJuradas/'.$newNameFileDJ;
+            $rutaFileDJ = base_archives_tramites_dj($newNameFileDJ);
         
             if(file_exists($rutaFileDJ)){
                 unlink($rutaFileDJ);
             }
 
-            $fileDJ->move(APPPATH. 'repositor/tramites/declaracionesJuradas',$newNameFileDJ);
+            $fileDJ->move(base_archives_tramites_dj(),$newNameFileDJ);
 
             
         }else{
@@ -57,13 +58,13 @@ class Tramites extends BaseController
 
         if($fileAP->isValid() && !$fileAP->hasMoved()){
             $newNameFilAP = 'DeclaracionJurada_'.$this->tramiteModel->generaCodigo().'.pdf';
-            $rutaFileAP = APPPATH. 'repositor/tramites/autorizacionesPublicacion/'. $newNameFilAP;
+            $rutaFileAP = base_archives_tramites_auth_pub($newNameFilAP);
         
             if(file_exists( $rutaFileAP)){
                 unlink( $rutaFileAP);
             }
 
-            $fileAP->move(APPPATH. 'repositor/tramites/autorizacionesPublicacion', $newNameFilAP);
+            $fileAP->move(base_archives_tramites_auth_pub(), $newNameFilAP);
            
         }else{
             return false;
@@ -71,7 +72,7 @@ class Tramites extends BaseController
 
         $boolnewTramite = $this->tramiteModel->newTramite($data,$newNameFileT,$newNameFileDJ, $newNameFilAP);
 
-        if($boolnewTramite){
+        if($boolnewTramite){ 
             return true;
         }else{
             return false;

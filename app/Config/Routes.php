@@ -23,5 +23,7 @@ $routes->group('solicitante',['filter'=>'solicitante'], function($routes){
     $routes->get('mistramites','Solicitante::getViewTramites'); 
     $routes->get('solicitud','Solicitante::getViewNuevaSolicitud');
 
+     $routes->get('detalleTramite/(:segment)','Solicitante::getViewDetalleTramite/$1');
+
     $routes->post('nuevaSoli','Solicitante::nuevaSolicitud');
 }); 
