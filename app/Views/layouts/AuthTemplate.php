@@ -33,6 +33,17 @@
     </div>
 
     <script>
+
+        window.addEventListener('unload', function () {
+            // handler vacío; su mera existencia evita que algunos navegadores guarden la página en bfcache
+        });
+
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted) {
+                window.location.reload();
+            }
+        });
+
         function mostrarLoading() {
             let modal = new bootstrap.Modal(document.getElementById('loadingModal'), {
             backdrop: 'static',   // evita que lo cierren
@@ -41,6 +52,6 @@
             modal.show();
         }
     </script>
-
+</body>
 </html>
 

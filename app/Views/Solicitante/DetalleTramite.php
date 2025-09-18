@@ -3,16 +3,70 @@
 
 
 
-
-
-
-
-
 <?= $this->section('content');?>
 <button onclick='Regresar()'>Atras</button>
 
 <h1>DETALLE TRAMITE</h1>
 
+    <!---BARRA DE PROGRESO -->
+    <div class="card w-100 shadow-sm">
+
+        <!-- Estado actual arriba a la izquierda -->
+        <div class="card-header">
+            <strong>Estado actual:</strong> <?= $estadoTramite; ?>
+        </div>
+
+        <div class="card-body">
+
+            <!-- Línea de progreso con etapas -->
+            <div class="mb-4">
+                <div class="progress" style="height: 30px;">
+                    <?php 
+                        $etapas = ['Solicitud Presentada','Inspector Asignado','En revisión','Observado','Observaciones Levantadas','Material Aprobado','Material Publicado','Constancia Emitida'];
+                        $estadoActual = $estadoTramite;
+ 
+                        // Filtrar etapas dinámicamente
+                        $mostrarEtapas = [];
+                        foreach ($etapas as $etapa) {
+                            if (in_array($etapa, ['Observado', 'Observaciones Levantadas'])) {
+                                // Mostrar solo si el estado actual es esa etapa o está después
+                                if ($estadoActual === $etapa || array_search($estadoActual, $etapas) > array_search($etapa, $etapas)) {
+                                    $mostrarEtapas[] = $etapa;
+                                }
+                            } else {
+                                $mostrarEtapas[] = $etapa;
+                            }
+                        }
+
+                        $total = count($mostrarEtapas);
+                        $indiceActual = array_search($estadoActual, $mostrarEtapas);
+
+                        foreach($mostrarEtapas as $i => $etapa):
+                            $color = ($i <= $indiceActual) ? 'bg-primary' : 'bg-light text-dark';
+                    ?>
+                        <div class="progress-bar <?= $color ?>" role="progressbar" style="width: <?= 100/$total ?>%">
+                            <?= $etapa ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <!-- Datos del trámite -->
+            <div>
+                <p><strong>Título:</strong> <?= $tituloMaterial; ?></p>
+                <p><strong>Fecha de presentación:</strong> <?= date('d/m/Y', strtotime($fechapresentacionTramite)); ?></p>
+                <p><strong>Días transcurridos:</strong> 
+                    <?php
+                        $fechaPresentacion = new DateTime($fechapresentacionTramite);
+                        $hoy = new DateTime();
+                        $dias = $hoy->diff($fechaPresentacion)->days;
+                        echo $dias;
+                    ?> días
+                </p>
+            </div>
+
+        </div>
+    </div>
 
 
 
@@ -27,14 +81,14 @@
             <p><strong>Estado:</strong> <?= esc($estadoTramite) ?></p>
             <p><strong>Declaración jurada:</strong> 
                 <?php if(!empty($fileDeclaracionJuradaTramite)): ?>
-                    <a href="<?= base_url('uploads/'.$fileDeclaracionJuradaTramite) ?>" target="_blank">Ver archivo</a>
+                    <a href="<?= base_url('solicitante/documentos/verDeclaracionJurada/'.$fileDeclaracionJuradaTramite) ?>" target="_blank">Ver archivo</a>
                 <?php else: ?>
                     <span class="text-muted">No disponible</span>
                 <?php endif; ?>
             </p>
             <p><strong>Autorización de publicación:</strong> 
                 <?php if(!empty($fileAutorizacionPublicacionTramite)): ?>
-                    <a href="<?= base_url('uploads/'.$fileAutorizacionPublicacionTramite) ?>" target="_blank">Ver archivo</a>
+                    <a href="<?= base_url('solicitante/documentos/verAutorizacionPublicacion/'.$fileAutorizacionPublicacionTramite) ?>" target="_blank">Ver archivo</a>
                 <?php else: ?>
                     <span class="text-muted">No disponible</span>
                 <?php endif; ?>
@@ -54,7 +108,7 @@
             <p><strong>Palabras clave:</strong> <?= esc($palabrasclaveTesis) ?></p>
             <p><strong>Archivo de Tesis:</strong> 
                 <?php if(!empty($fileTesis)): ?>
-                    <a href="<?= base_url('uploads/'.$fileTesis) ?>" target="_blank">Ver archivo</a>
+                    <a href="<?= base_url('solicitante/documentos/verTesis/'.$fileTesis) ?>" target="_blank">Ver archivo</a>
                 <?php else: ?>
                     <span class="text-muted">No disponible</span>
                 <?php endif; ?>

@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.2') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=1.0') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/Administrador.css?v=1.0') ?>">
 
 </head>
 <body>
@@ -21,18 +21,13 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/home') ?>">Home</a>
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('admin/home') ?>">Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/mistramites') ?>">Mis Tramites</a>
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('') ?>">Usuarios</a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Constancias</a> 
-                    </li>
-
-
+                
                 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -79,9 +74,6 @@
     
 
     <script>
-
-       
-
         function mostrarLoading() {
             let modal = new bootstrap.Modal(document.getElementById('loadingModal'), {
             backdrop: 'static',   // evita que lo cierren

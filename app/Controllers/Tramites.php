@@ -24,13 +24,13 @@ class Tramites extends BaseController
         if ($fileT->isValid() && !$fileT->hasMoved()) {
      
             $newNameFileT = 'TesisFile_'.$this->tramiteModel->generaCodigo().'.pdf';     
-            $rutaFileT = base_archives_material_tesis($newNameFileT) ;
+            $rutaFileT = WRITEPATH . 'uploads/material/tesis/' . $newNameFileT; ;
 
             if(file_exists($rutaFileT)){
                 unlink($rutaFileT);
             }
 
-            $fileT->move(base_archives_material_tesis(),$newNameFileT); 
+            $fileT->move( WRITEPATH . 'uploads/material/tesis/',$newNameFileT); 
 
     
         } else {
@@ -41,13 +41,13 @@ class Tramites extends BaseController
 
         if($fileDJ->isValid() && !$fileDJ->hasMoved()){
             $newNameFileDJ = 'DeclaracionJurada_'.$this->tramiteModel->generaCodigo().'.pdf';
-            $rutaFileDJ = base_archives_tramites_dj($newNameFileDJ);
+            $rutaFileDJ = WRITEPATH . 'uploads/tramites/declaracionesJuradas/'.$newNameFileDJ;
         
             if(file_exists($rutaFileDJ)){
                 unlink($rutaFileDJ);
             }
 
-            $fileDJ->move(base_archives_tramites_dj(),$newNameFileDJ);
+            $fileDJ->move(WRITEPATH . 'uploads/tramites/declaracionesJuradas/',$newNameFileDJ);
 
             
         }else{
@@ -58,13 +58,13 @@ class Tramites extends BaseController
 
         if($fileAP->isValid() && !$fileAP->hasMoved()){
             $newNameFilAP = 'DeclaracionJurada_'.$this->tramiteModel->generaCodigo().'.pdf';
-            $rutaFileAP = base_archives_tramites_auth_pub($newNameFilAP);
+            $rutaFileAP = WRITEPATH . 'uploads/tramites/autorizacionesPublicacion/'.$newNameFilAP;
         
             if(file_exists( $rutaFileAP)){
                 unlink( $rutaFileAP);
             }
 
-            $fileAP->move(base_archives_tramites_auth_pub(), $newNameFilAP);
+            $fileAP->move( WRITEPATH . 'uploads/tramites/autorizacionesPublicacion/', $newNameFilAP);
            
         }else{
             return false;
@@ -78,6 +78,46 @@ class Tramites extends BaseController
             return false;
         }
       
+
+    }
+
+    public function verFileTesis($filename)
+    {
+        $path = WRITEPATH . 'uploads/material/tesis/' . $filename;
+
+        if (!file_exists($path)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Archivo no encontrado");
+        }
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setBody(file_get_contents($path));
+    }
+
+    public function verFileDJ($filename)
+    {
+        $path = WRITEPATH . 'uploads/tramites/declaracionesJuradas/' . $filename;
+
+        if (!file_exists($path)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Archivo no encontrado");
+        }
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setBody(file_get_contents($path));
+    }
+
+    public function verFileAP($filename)
+    {
+        $path = WRITEPATH . 'uploads/tramites/autorizacionesPublicacion/' . $filename;
+
+        if (!file_exists($path)) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound("Archivo no encontrado");
+        }
+
+        return $this->response
+            ->setHeader('Content-Type', 'application/pdf')
+            ->setBody(file_get_contents($path));
     }
 
   

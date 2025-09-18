@@ -38,7 +38,7 @@ class Users extends BaseController
                 'errors' => [
                     'matches' => 'La Contraseñas no Coinciden'
                 ]
-            ]
+            ] 
         ];
         if(!$this->validate($rules)){
             return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());

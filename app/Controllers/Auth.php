@@ -9,11 +9,14 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\EscuelasModel;
 use App\Models\UsersModel;
 use App\Models\SolicitantesModel;
+use App\Models\AdministradoresModel;
+use App\Models\InspectoresModel;
 
 class Auth extends BaseController{
 
     public function getViewlogin(){
         return view('Auth/Login'); 
+        
     }
 
     public function getViewregistro(){
@@ -33,7 +36,7 @@ class Auth extends BaseController{
             'password' => 'required|'
         ];
 
-        if(!$this->validate($rules)){
+        if(!$this->validate($rules)){ 
             return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
         }
 
@@ -55,6 +58,27 @@ class Auth extends BaseController{
                     ];
                     $this->setSession($user,$dataRol);
                     return redirect()->to(base_url('solicitante/home')); 
+
+                case 'administrador':
+                    $adminModel = new AdministradoresModel ();
+                    $adminData = $adminModel->getAdministrador($user['id_usuario']);
+                    $dataRol=[
+                        'idDatarol' =>  $adminData['id_administrador'],
+                        'nombres' =>  $adminData['nombres_administrador'],
+                        'apellidos' => $adminData['apellidos_administrador']
+                    ];
+                    $this->setSession($user,$dataRol);
+                    
+
+                case 'inspector':
+                    $inspectorModel = new InspectoresModel();
+                    $inspectorData = $inspectorModel->getInspector($user['id_usuario']);
+                    $dataRol=[
+                        'idDatarol' =>  $inspectorData['id_inspector'],
+                        'nombres' =>  $inspectorData['nombres_inspector'],
+                        'apellidos' => $inspectorData['apellidos_inspector']
+                    ];
+                    $this->setSession($user,$dataRol);
                 default:
                     return redirect()->to(base_url('/'));
 
