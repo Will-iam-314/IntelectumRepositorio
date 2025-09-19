@@ -22,15 +22,15 @@ $routes->group('solicitante',['filter'=>'solicitante'], function($routes){
     $routes->get('home','Solicitante::index');
     $routes->get('mistramites','Solicitante::getViewTramites'); 
     $routes->get('solicitud','Solicitante::getViewNuevaSolicitud');
-
     $routes->get('detalleTramite/(:segment)','Solicitante::getViewDetalleTramite/$1');
+
+    $routes->post('nuevaSoli','Solicitante::nuevaSolicitud');
+
 
     //RUTAS PARA ARCHIVOS
     $routes->get('documentos/verTesis/(:segment)', 'Tramites::verFileTesis/$1');
     $routes->get('documentos/verDeclaracionJurada/(:segment)', 'Tramites::verFileDJ/$1');
     $routes->get('documentos/verAutorizacionPublicacion/(:segment)', 'Tramites::verFileAP/$1');
-
-    $routes->post('nuevaSoli','Solicitante::nuevaSolicitud');
 }); 
 
 $routes->group('admin',['filter'=>'administrador'], function($routes){
@@ -42,6 +42,14 @@ $routes->group('admin',['filter'=>'administrador'], function($routes){
 $routes->group('inspector',['filter'=>'inspector'], function($routes){
 
     $routes->get('home','Inspector::index');
+    $routes->get('solicitudes','Inspector::getViewSolicitudes');
+
+    $routes->get('inspeccion/(:segment)','Inspector::getViewInspeccion/$1'); 
+
+    //RUTAS PARA ARCHIVOS
+    $routes->get('documentos/verTesis/(:segment)', 'Tramites::verFileTesis/$1');
+    $routes->get('documentos/verDeclaracionJurada/(:segment)', 'Tramites::verFileDJ/$1');
+    $routes->get('documentos/verAutorizacionPublicacion/(:segment)', 'Tramites::verFileAP/$1');
 
 });
  

@@ -123,6 +123,11 @@
         </div>
         <div class="card-body">
             <p><strong>Asesor:</strong> <?= esc($nombresAsesor . ' ' . $apellidosAsesor) ?></p>
+            <hr>
+            <p><strong>Miembros del Jurado Evaluador</strong></p>
+            <p><strong>Presidente de Jurados:</strong> <?= esc($nombresJurado1 . ' ' . $apellidosJurado1) ?></p>
+            <p><strong>Primer Miembro:</strong> <?= esc($nombresJurado2 . ' ' . $apellidosJurado2) ?></p>
+            <p><strong>Segundo Miembro:</strong> <?= esc($nombresJurado3 . ' ' . $apellidosJurado3) ?></p>
 
             
         </div>

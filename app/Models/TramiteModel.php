@@ -169,10 +169,13 @@ class TramiteModel extends Model
                 tramites.autorizacionPublicacion_tramite as fileAutorizacionPublicacionTramite,
 
                 estadotramites.nombres_estadotramite as estadoTramite
+
+
             ')
             ->join('material', 'material.id_materia = tramites.id_materia_tramite')
             ->join('estadotramites', 'estadotramites.id_estadotramite = tramites.id_estadotramite_tramite')
             ->join('tesis','tesis.id_tesi = material.id_tesi_materia')
+            
 
             // joins con alias
             ->join('docentes asesor','asesor.id_docente = tesis.id_docente_asesor_tesi','left')
@@ -183,6 +186,34 @@ class TramiteModel extends Model
             ->where('tramites.codigo_tramite', $codigo)
             ->first();
             
+            return $tramites;
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getTramites(){
+        try{
+            $tramites = $this->select('
+                material.titulo_materia as tituloMaterial, 
+                material.tipo_materia as tipomateriaMaterial, 
+
+                tramites.codigo_tramite as codigoTramite, 
+                tramites.date_created_tramite as fechapresentacionTramite,
+
+                CONCAT(solicitantes.nombres_solicitante, " ", solicitantes.apellidos_solicitante) 
+                as nombreCompletoSolicitante,
+
+                estadotramites.nombres_estadotramite as estadoTramite
+            ')
+            ->join('material', 'material.id_materia = tramites.id_materia_tramite')
+            ->join('estadotramites', 'estadotramites.id_estadotramite = tramites.id_estadotramite_tramite')
+            ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
+            ->orderBy('id_tramite','DESC')
+            ->findAll();
+
             return $tramites;
 
         }catch(Exception $e){
