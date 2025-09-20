@@ -60,9 +60,11 @@
                         <td><?= esc(date('d/m/Y', strtotime($t['fechapresentacionTramite']))) ?></td>
                         <td><?= esc($t['estadoTramite']) ?></td>
                         <td>
-                            <?php if ($t['estadoTramite'] === "Solicitud Presentada"): ?>
-                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']) ?>" class="btn btn-sm btn-primary">Inspeccionar</a>
-                            <?php else: ?>
+                            <?php if ($t['estadoTramite'] === "Solicitud Presentada" && $t['inspectorAsignado'] == false): ?>
+                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 0 ?>" class="btn btn-sm btn-primary">Inspeccionar</a>
+                            <?php elseif($t['inspectorAsignado'] == true): ?> 
+                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Continuar Inspecccion</a>
+                             <?php else: ?> 
                                 <span class="text-muted">Inspector ya asignado</span>
                             <?php endif; ?>
                         </td>

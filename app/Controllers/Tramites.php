@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\TramiteModel;
+use App\Models\HistorialTramitesModel;
 
 class Tramites extends BaseController
 
@@ -70,11 +71,14 @@ class Tramites extends BaseController
             return false;
         }
 
-        $boolnewTramite = $this->tramiteModel->newTramite($data,$newNameFileT,$newNameFileDJ, $newNameFilAP);
+        $IdnewTramite = $this->tramiteModel->newTramite($data,$newNameFileT,$newNameFileDJ, $newNameFilAP);
 
-        if($boolnewTramite){ 
+        if($IdnewTramite){ 
+    
+            $historialModel = new HistorialTramitesModel();
+            $historialModel->newHistorialTramite(session('id'),$IdnewTramite,session('rol'),1); 
             return true;
-        }else{
+        }else{ 
             return false;
         }
       

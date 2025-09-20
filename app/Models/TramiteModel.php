@@ -31,7 +31,7 @@ class TramiteModel extends Model
     protected $createdField  = 'date_created_tramite';
     protected $updatedField  = 'date_updated_tramite';
     
-    
+  
     public function newTramite($data,$fileT,$fileDJ,$fileAP){
 
         try{
@@ -144,6 +144,7 @@ class TramiteModel extends Model
 
     
             $tramites = $this->select('
+
                 material.titulo_materia as tituloMaterial, 
                 material.tipo_materia as tipomateriaMaterial, 
                 
@@ -163,6 +164,7 @@ class TramiteModel extends Model
                 jurado3.nombres_docente as nombresJurado3,
                 jurado3.apellidos_docente as apellidosJurado3,
 
+                tramites.id_tramite as idTramite,
                 tramites.codigo_tramite as codigoTramite, 
                 tramites.date_created_tramite as fechapresentacionTramite,
                 tramites.declaracionJurada_tramite as fileDeclaracionJuradaTramite,
@@ -200,6 +202,7 @@ class TramiteModel extends Model
                 material.titulo_materia as tituloMaterial, 
                 material.tipo_materia as tipomateriaMaterial, 
 
+                tramites.id_tramite as idTramite,
                 tramites.codigo_tramite as codigoTramite, 
                 tramites.date_created_tramite as fechapresentacionTramite,
 
@@ -220,6 +223,19 @@ class TramiteModel extends Model
             log_message('error', $e->getMessage());
             return false;
         }
+    }
+
+    public function updateEstado($idTramite, $idNuevoEstado){
+
+        try{
+
+            $this->update($idTramite,['id_estadotramite_tramite' => $idNuevoEstado]);
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+
     }
 
 }

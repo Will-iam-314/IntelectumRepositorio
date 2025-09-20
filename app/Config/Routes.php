@@ -44,7 +44,7 @@ $routes->group('inspector',['filter'=>'inspector'], function($routes){
     $routes->get('home','Inspector::index');
     $routes->get('solicitudes','Inspector::getViewSolicitudes');
 
-    $routes->get('inspeccion/(:segment)','Inspector::getViewInspeccion/$1'); 
+    $routes->get('inspeccion/(:segment)/(:num)','Inspector::getViewInspeccion/$1/$2'); 
 
     //RUTAS PARA ARCHIVOS
     $routes->get('documentos/verTesis/(:segment)', 'Tramites::verFileTesis/$1');
