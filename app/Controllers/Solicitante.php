@@ -37,6 +37,8 @@ class Solicitante extends BaseController
         
         if($datosTramites){
             return view('Solicitante/home',['tramite'=> $datosTramites,'etapas'=>$etapas] );
+        }else{
+            return view('Solicitante/home');
         }
         
     }
@@ -46,6 +48,8 @@ class Solicitante extends BaseController
         $datosTramites = $tramiteModel->getTramitesSolicitante(session('datarol_id'));
         if($datosTramites){
             return view('Solicitante/MisTramites',['tramites'=> $datosTramites] );
+        }else{
+            return view('Solicitante/MisTramites');
         }
         
     } 

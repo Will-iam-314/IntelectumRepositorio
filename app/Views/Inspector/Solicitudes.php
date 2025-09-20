@@ -62,6 +62,8 @@
                         <td>
                             <?php if ($t['estadoTramite'] === "Solicitud Presentada" && $t['inspectorAsignado'] == false): ?>
                                 <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 0 ?>" class="btn btn-sm btn-primary">Inspeccionar</a>
+                            <?php elseif($t['estadoTramite'] === "Material Aprobado" && $t['inspectorAsignado'] == true): ?> 
+                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Generar Publicacion</a>
                             <?php elseif($t['inspectorAsignado'] == true): ?> 
                                 <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Continuar Inspecccion</a>
                              <?php else: ?> 
@@ -82,7 +84,13 @@
 <?= $this->endSection();?>
 
 <?= $this->section('scripts');?>
+
+
+
 <script>
+    <?php if(session()->getFlashdata('success')): ?>
+       alert('<?php echo session()->getFlashdata('success'); ?>');
+    <?php endif; ?>
     const searchSolicitante = document.getElementById('searchSolicitante');
     const searchTitulo = document.getElementById('searchTitulo');
     const fechaInicio = document.getElementById('fechaInicio');

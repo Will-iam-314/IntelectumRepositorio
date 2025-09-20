@@ -144,7 +144,8 @@ class TramiteModel extends Model
 
     
             $tramites = $this->select('
-
+                
+                material.id_materia as idMaterial,
                 material.titulo_materia as tituloMaterial, 
                 material.tipo_materia as tipomateriaMaterial, 
                 
@@ -170,13 +171,21 @@ class TramiteModel extends Model
                 tramites.declaracionJurada_tramite as fileDeclaracionJuradaTramite,
                 tramites.autorizacionPublicacion_tramite as fileAutorizacionPublicacionTramite,
 
-                estadotramites.nombres_estadotramite as estadoTramite
+                estadotramites.nombres_estadotramite as estadoTramite,
+
+                solicitantes.nombres_solicitante as solicitanteNombre,
+                solicitantes.apellidos_solicitante as solicitanteApellido,
+                solicitantes.dni_solicitante as solicitanteDNI,
+                
+                escuelas.nombre_escuela as solicitanteEscuela
 
 
             ')
             ->join('material', 'material.id_materia = tramites.id_materia_tramite')
             ->join('estadotramites', 'estadotramites.id_estadotramite = tramites.id_estadotramite_tramite')
             ->join('tesis','tesis.id_tesi = material.id_tesi_materia')
+            ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
+            ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
             
 
             // joins con alias

@@ -31,4 +31,29 @@ class MaterialRevisionesModel extends Model
  
 
  
+    public function newRevision($data){
+         try{
+
+            $idnewRevision = $this->insert([
+
+                'id_inspector_materiarevision' => $data['idInspector'],
+                'id_administrador_materiarevision'=> $data['idAdmin'],
+                'id_materia_materiarevision '=> $data['idMaterial'],
+                'observacion_materiarevision'=> $data['observaciones'],
+                'estado_materiarevision'=> $data['estadoRevision']
+
+            ]);
+           
+                
+            if($idnewRevision){
+                return true;
+            }else{
+                return false;
+            }
+          
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
 }

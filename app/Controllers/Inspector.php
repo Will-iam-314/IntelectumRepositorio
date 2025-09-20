@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\TramiteModel;
 use App\Models\HistorialTramitesModel;
+use App\Models\MaterialRevisionesModel;
 
 class Inspector extends BaseController
 {
@@ -50,6 +51,72 @@ class Inspector extends BaseController
         }
         
 
+    }
+
+    public function registrarRevision($idMaterial,$codigoTramite){
+
+        $tramiteModel = new TramiteModel();
+        $datosTramite = $tramiteModel->getTramite($codigoTramite);
+
+        $post = $this->request->getPost(); 
+        $idInspector =null ;
+        $idAdmin = null;
+        $observaciones = null;
+        $estadoRevision = 2;
+       
+        if(session('rol') == 'inspector'){
+            $idInspector = session('datarol_id');
+        }
+
+        if(session('rol')=='administrador'){
+            $idAdmin = session('datarol_id');
+        }
+
+        if(isset($post['observaciones'])){
+            $observaciones = $post['observaciones'];
+        }
+
+        if(isset($post['tiene_observaciones']) && $post['tiene_observaciones'] == 'on'){
+            $estadoRevision = 1;
+        }
+
+        
+
+        $datos = [
+            'idInspector' => $idInspector,
+            'idAdmin' => $idAdmin,
+            'idMaterial' => $idMaterial,
+            'observaciones'=> $observaciones,
+            'estadoRevision' => $estadoRevision
+        ];
+
+        $materiaRevisionModel = new MaterialRevisionesModel();
+        $registroRevision = $materiaRevisionModel->newRevision($datos);
+        if(true){
+            $historialModel = new HistorialTramitesModel();
+
+            if($observaciones){
+                $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),3);
+                $tramiteModel->updateEstado($datosTramite['idTramite'],3);
+
+                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección registrada con observaciones correctamente');
+
+            }else{
+                $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),5);
+                $tramiteModel->updateEstado($datosTramite['idTramite'],5);
+
+                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección material aprobado correctamente');
+            }
+
+            
+            
+        }else{
+            return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo registrar la inspeccion');
+        }
+
+       
+           
+        
     }
 
    
