@@ -25,7 +25,7 @@ class Tramites extends BaseController
         if ($fileT->isValid() && !$fileT->hasMoved()) {
      
             $newNameFileT = 'TesisFile_'.$this->tramiteModel->generaCodigo().'.pdf';     
-            $rutaFileT = WRITEPATH . 'uploads/material/tesis/' . $newNameFileT; ;
+            $rutaFileT = WRITEPATH . 'uploads/material/tesis/' . $newNameFileT; 
 
             if(file_exists($rutaFileT)){
                 unlink($rutaFileT);

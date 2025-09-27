@@ -61,13 +61,28 @@
                         <td><?= esc($t['estadoTramite']) ?></td>
                         <td>
                             <?php if ($t['estadoTramite'] === "Solicitud Presentada" && $t['inspectorAsignado'] == false): ?>
+
                                 <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 0 ?>" class="btn btn-sm btn-primary">Inspeccionar</a>
+
                             <?php elseif($t['estadoTramite'] === "Material Aprobado" && $t['inspectorAsignado'] == true): ?> 
+
                                 <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Generar Publicacion</a>
-                            <?php elseif($t['inspectorAsignado'] == true): ?> 
-                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Continuar Inspecccion</a>
-                             <?php else: ?> 
+
+                            <?php elseif($t['inspectorAsignado'] == true && $t['estadoTramite'] != "Observado" && $t['estadoTramite'] != "Observaciones Levantadas"): ?> 
+
+                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Continuar Inspecccion</a> 
+
+                            <?php elseif($t['estadoTramite'] === "Observado" && $t['inspectorAsignado'] == true): ?> 
+
+                                <span class="text-muted">en espera a subida de correcciones</span>
+                            
+                            <?php elseif($t['estadoTramite'] === "Observaciones Levantadas" && $t['inspectorAsignado'] == true): ?> 
+                                <a href="<?= base_url('inspector/inspeccionObservaciones/'.$t['codigoTramite']).'/'. $t['idMaterial'] ?>" class="btn btn-sm btn-primary">Inspeccionar Correcciones</a> 
+
+                            <?php else: ?> 
+
                                 <span class="text-muted">Inspector ya asignado</span>
+
                             <?php endif; ?>
                         </td>
                     </tr>

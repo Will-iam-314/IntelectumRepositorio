@@ -24,7 +24,10 @@ $routes->group('solicitante',['filter'=>'solicitante'], function($routes){
     $routes->get('solicitud','Solicitante::getViewNuevaSolicitud');
     $routes->get('detalleTramite/(:segment)','Solicitante::getViewDetalleTramite/$1');
 
+    $routes->get('observaciones/(:segment)','Solicitante::getViewObservaciones/$1');
+
     $routes->post('nuevaSoli','Solicitante::nuevaSolicitud');
+    $routes->post('levantarObservaciones','Solicitante::levantarObservaciones');
 
 
     //RUTAS PARA ARCHIVOS
@@ -45,6 +48,7 @@ $routes->group('inspector',['filter'=>'inspector'], function($routes){
     $routes->get('solicitudes','Inspector::getViewSolicitudes');
 
     $routes->get('inspeccion/(:segment)/(:num)','Inspector::getViewInspeccion/$1/$2'); 
+    $routes->get('inspeccionObservaciones/(:segment)/(:num)','Inspector::getViewInspeccionObservaciones/$1/$2'); 
 
     $routes->post('nuevaInspeccion/(:num)/(:segment)','Inspector::registrarRevision/$1/$2');
 

@@ -68,7 +68,7 @@ class Auth extends BaseController{
                         'apellidos' => $adminData['apellidos_administrador']
                     ];
                     $this->setSession($user,$dataRol);
-                    
+                    return redirect()->to(base_url('admin/home')); 
 
                 case 'inspector':
                     $inspectorModel = new InspectoresModel();

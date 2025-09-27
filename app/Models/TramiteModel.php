@@ -5,6 +5,8 @@ namespace App\Models;
 use CodeIgniter\Model;
 use App\Models\MaterialModel;
 use App\Models\TesisModel;
+use App\Models\MaterialRevisionesModel;
+
 
 class TramiteModel extends Model
 {
@@ -205,9 +207,85 @@ class TramiteModel extends Model
         }
     }
 
+    public function getObservacionesTramite($codigo){
+         try{
+
+    
+            $tramite = $this->select('
+                
+                material.id_materia as idMaterial,
+                material.titulo_materia as tituloMaterial, 
+                material.tipo_materia as tipomateriaMaterial, 
+                
+                tesis.id_tesi as idTesis,
+                tesis.documento_tesi as fileTesis, 
+                tesis.resumen_tesi as resumenTesis,
+                tesis.palabrasclave_tesi as palabrasclaveTesis,
+                
+                asesor.nombres_docente as nombresAsesor,
+                asesor.apellidos_docente as apellidosAsesor,
+
+                jurado1.nombres_docente as nombresJurado1,
+                jurado1.apellidos_docente as apellidosJurado1,
+
+                jurado2.nombres_docente as nombresJurado2,
+                jurado2.apellidos_docente as apellidosJurado2,
+
+                jurado3.nombres_docente as nombresJurado3,
+                jurado3.apellidos_docente as apellidosJurado3,
+
+                tramites.id_tramite as idTramite,
+                tramites.codigo_tramite as codigoTramite, 
+                tramites.date_created_tramite as fechapresentacionTramite,
+                tramites.declaracionJurada_tramite as fileDeclaracionJuradaTramite,
+                tramites.autorizacionPublicacion_tramite as fileAutorizacionPublicacionTramite,
+
+                estadotramites.nombres_estadotramite as estadoTramite,
+
+                solicitantes.nombres_solicitante as solicitanteNombre,
+                solicitantes.apellidos_solicitante as solicitanteApellido,
+                solicitantes.dni_solicitante as solicitanteDNI,
+                
+                escuelas.nombre_escuela as solicitanteEscuela,
+
+
+            ')
+            ->join('material', 'material.id_materia = tramites.id_materia_tramite')
+            ->join('estadotramites', 'estadotramites.id_estadotramite = tramites.id_estadotramite_tramite')
+            ->join('tesis','tesis.id_tesi = material.id_tesi_materia')
+            ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
+            ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
+ 
+            
+            // joins con alias
+            ->join('docentes asesor','asesor.id_docente = tesis.id_docente_asesor_tesi','left')
+            ->join('docentes jurado1','jurado1.id_docente = tesis.id_docente_jurado1_tesi','left')
+            ->join('docentes jurado2','jurado2.id_docente = tesis.id_docente_jurado2_tesi','left')
+            ->join('docentes jurado3','jurado3.id_docente = tesis.id_docente_jurado3_tesi','left')
+
+            ->where('tramites.codigo_tramite', $codigo)
+            ->first();
+
+            $revisionMaterialModel = new MaterialRevisionesModel;
+            $observaciones = $revisionMaterialModel->select('observacion_materiarevision as observaciones')
+            ->where('id_materia_materiarevision' ,$tramite['idMaterial'])
+            ->orderBy('id_materiarevision','DESC')
+            ->first();
+
+            $tramite['observaciones'] = $observaciones['observaciones'];
+            
+            return $tramite;
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
+
     public function getTramites(){
         try{
             $tramites = $this->select('
+                material.id_materia as idMaterial,
                 material.titulo_materia as tituloMaterial, 
                 material.tipo_materia as tipomateriaMaterial, 
 
@@ -244,6 +322,67 @@ class TramiteModel extends Model
             log_message('error', $e->getMessage());
             return false;
         }
+
+    }
+
+    public function updateTramiteObservacion($data,$dataFiles){
+
+        //validar si existen tambien en los datos, los que existan se actualizan los que no, no.
+        $materialModel = new MaterialModel();
+        $tesisModel = new TesisModel();
+
+        if(isset($data["tituloMaterial"])){
+            $materialModel->update($data['idMaterial'], ['titulo_materia' => $data["tituloMaterial"]] );
+        }
+        
+        if(isset($data["resumenTesis"])){
+            $tesisModel->update($data['idTesis'],['resumen_tesi' =>$data["resumenTesis"]]);
+        }
+
+        if(isset($data["palabrasClaveTesis"])){
+            $tesisModel->update($data['idTesis'],['palabrasclave_tesi' =>$data["palabrasClaveTesis"]]);
+        }
+
+        // Archivo de Tesis
+        if (isset($dataFiles['fileTesis']) && $dataFiles['fileTesis']->isValid() && !$dataFiles['fileTesis']->hasMoved()) {
+            $nameFileTesis = 'TesisFile_'.$data['codigoTramite'].'.pdf'; 
+            $rutaFileT = WRITEPATH . 'uploads/material/tesis/' . $nameFileTesis; 
+
+            if(file_exists($rutaFileT)){
+                unlink($rutaFileT);
+            }
+
+            $dataFiles['fileTesis']->move( WRITEPATH . 'uploads/material/tesis/',$nameFileTesis);
+        }
+        
+        
+        // Declaración Jurada
+        if (isset($dataFiles['declaracionJurada']) && $dataFiles['declaracionJurada']->isValid() && !$dataFiles['declaracionJurada']->hasMoved()) {
+            $nameFileDJ = 'DeclaracionJurada_'.$data['codigoTramite'].'.pdf';
+            $rutaFileDJ = WRITEPATH . 'uploads/tramites/declaracionesJuradas/'.$nameFileDJ;
+        
+            if(file_exists($rutaFileDJ)){
+                unlink($rutaFileDJ);
+            }
+            
+            $dataFiles['declaracionJurada']->move(WRITEPATH . 'uploads/tramites/declaracionesJuradas/', $nameFileDJ);
+        }
+
+        // Autorización de Publicación
+        if (isset($dataFiles['autorizacionPublicacion']) && $dataFiles['autorizacionPublicacion']->isValid() && !$dataFiles['autorizacionPublicacion']->hasMoved()) {
+            $nameFileAP = 'DeclaracionJurada_'.$data['codigoTramite'].'.pdf';
+            $rutaFileAP = WRITEPATH . 'uploads/tramites/autorizacionesPublicacion/'.$nameFileAP;
+        
+            if(file_exists( $rutaFileAP)){
+                unlink( $rutaFileAP);
+            }
+
+            $dataFiles['autorizacionPublicacion']->move(WRITEPATH . 'uploads/tramites/autorizacionesPublicacion/', $nameFileAP);
+        
+        }
+
+        
+        return true;
 
     }
 

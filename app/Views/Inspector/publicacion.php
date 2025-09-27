@@ -1,0 +1,1 @@
+poner una vista en la cual haya un boton que permita descargar los archivos y opcion para marcar si ya se publico.

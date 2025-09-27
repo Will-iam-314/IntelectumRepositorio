@@ -2,7 +2,7 @@
 
 <?= $this->section('content');?>
 
-<button onclick='confirmarRegreso()'>Atras</button>
+<button onclick='confirmarRegreso()'>Atrás</button>
 
 <h1>INSPECCIÓN</h1>
 
@@ -12,13 +12,18 @@
         <small class="text-muted">(Código: <?= esc($codigoTramite) ?>)</small>
     </h3>
 
+    <?php if(!empty($observaciones)): ?>
+        <div class="alert alert-warning" role="alert">
+            <strong>⚠️ Observaciones Previas:</strong>
+            <p class="mb-0"><?= esc($observaciones) ?></p>
+        </div>
+    <?php endif; ?>
+    
     <div class="row">
-        <!-- Columna izquierda: visor de PDF -->
         <div class="col-lg-7 mb-3">
             <iframe id="pdfViewer" width=720 height=720 src="<?= base_url('inspector/documentos/verTesis/'.$fileTesis) ?>"></iframe>
         </div>
 
-        <!-- Columna derecha: Tabs -->
         <div class="col-lg-5">
             <ul class="nav nav-tabs" id="tabMenu" role="tablist">
                 <li class="nav-item" role="presentation">
@@ -34,10 +39,8 @@
             </ul>
             <div class="tab-content border border-top-0 p-3 bg-light" id="tabContent">
                 
-                <!-- TAB INSPECCIÓN -->
                 <div class="tab-pane fade show active" id="inspeccion" role="tabpanel">
                     
-                    <!-- Formulario -->
                     <form action="<?= base_url('inspector/nuevaInspeccion/'.$idMaterial.'/'.$codigoTramite) ?>" method="POST" onsubmit= "mostrarLoading()">
                         <?= csrf_field() ?>
                         
@@ -60,13 +63,10 @@
                             <textarea id="observaciones" name="observaciones" class="form-control" rows="4" disabled></textarea>
                         </div>
                         
-                        
-
                         <button type="submit" class="btn btn-success w-100">Terminar Inspección</button>
                     </form>
                 </div>
 
-                <!-- TAB DETALLE -->
                 <div class="tab-pane fade" id="detalle" role="tabpanel">
                     <h5>Datos del Trámite</h5>
                     <ul>
@@ -105,12 +105,10 @@
 </div>
 
 <?php if(session()->getFlashdata('errors')!==null): ?>
-
     <div class= 'alert alert-danger my-3' role='alert'>
-    <?= session()->getFlashdata('errors');?>
+        <?= session()->getFlashdata('errors');?>
     </div>
-
-<?php  endif; ?>
+<?php endif; ?>
 
 <?= $this->endSection();?>
 

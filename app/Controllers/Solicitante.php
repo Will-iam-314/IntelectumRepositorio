@@ -11,6 +11,7 @@ use App\Models\DocentesModel;
 use App\Models\SolicitantesModel;
 use App\Models\TramiteModel;
 use App\Models\EstadosTramitesModel;
+use App\Models\HistorialTramitesModel;
 
 
 class Solicitante extends BaseController
@@ -74,6 +75,14 @@ class Solicitante extends BaseController
         }
     }
 
+    public function getViewObservaciones($codigoTramite){
+        $tramiteModel = new TramiteModel();
+        $datosTramite = $tramiteModel->getObservacionesTramite($codigoTramite);
+        if($datosTramite){
+            return view('Solicitante/observaciones',$datosTramite);
+        }
+    }
+
 
     public function nuevaSolicitud(){
 
@@ -103,7 +112,7 @@ class Solicitante extends BaseController
         $post = $this->request->getPost(); 
         $solicitante = $this->solicitanteModel->getSolicitante(session('id'));
         $post['idsolicitante'] = $solicitante['id_solicitante'];
-        $fileTesis = $this->request->getFile('TesisFile');
+        $fileTesis = $this->erquest->getFile('TesisFile');
         $fileDJ = $this->request->getFile('DeclaracionJuradaFile');
         $fileAutorizacionPublicacion = $this->request->getFile('AutorizaciónPublicacioFile');
         
@@ -118,6 +127,23 @@ class Solicitante extends BaseController
         }
         
 
+    }
+
+    public function levantarObservaciones(){
+        $post = $this->request->getPost(); 
+        $files = service('request')->getFiles();
+
+        $tramiteModel = new TramiteModel();
+        $levantarObservaciones  = $tramiteModel->updateTramiteObservacion($post,$files);
+
+        $historialModel = new HistorialTramitesModel();
+        if($levantarObservaciones){
+            $tramiteModel->updateEstado($post['idTramite'],4);
+            $historialModel->newHistorialTramite(session('id'),$post['idTramite'],session('rol'),4);
+            return redirect()->to('solicitante/mistramites')->with('success', 'Correciones enviadas');
+        }else{
+            return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo enviar las correciones');
+        }
     }
 }
 

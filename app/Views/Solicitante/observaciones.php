@@ -1,0 +1,124 @@
+<?= $this->extend('layouts/SolicitanteTemplate.php'); ?>
+
+<?= $this->section('content');?>
+
+
+<h1>Levantar Observaciones</h1>
+
+<div class="alert alert-warning" role="alert">
+    <strong>¡Atención!</strong> Tu trámite ha sido observado. Por favor, edita los datos y sube las nuevas versiones de los archivos corregidos.
+</div>
+
+<form action="<?= base_url('solicitante/levantarObservaciones') ?>" method="post" enctype="multipart/form-data">
+    <?= csrf_field() ?>
+
+    <input type="hidden" name="idTramite" value="<?= esc($idTramite) ?>">
+    <input type="hidden" name="idMaterial" value="<?= esc($idMaterial) ?>">
+    <input type="hidden" name="codigoTramite" value="<?= esc($codigoTramite) ?>">
+    <input type="hidden" name="idTesis" value="<?= esc($idTesis) ?>">
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <strong>📑 Datos del Trámite</strong>
+        </div>
+        <div class="card-body">
+            <p><strong>Código:</strong> <?= esc($codigoTramite) ?></p>
+            <p><strong>Estado:</strong> <?= esc($estadoTramite) ?></p>
+            <p><strong>Observaciones:</strong></p>
+            <div class="alert alert-info">
+                <p><?= esc($observaciones) ?></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-success text-white">
+            <strong>📘 Editar Datos de la Tesis</strong>
+        </div>
+        <div class="card-body">
+            <div class="mb-3 d-flex align-items-center">
+                <div class="flex-grow-1 me-2">
+                    <label for="tituloMaterial" class="form-label">Título:</label>
+                    <input type="text" class="form-control" id="tituloMaterial" name="tituloMaterial" value="<?= esc($tituloMaterial) ?>" disabled>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary edit-button" data-target="tituloMaterial">✏️</button>
+            </div>
+            
+            <div class="mb-3 d-flex align-items-center">
+                <div class="flex-grow-1 me-2">
+                    <label for="resumenTesis" class="form-label">Resumen:</label>
+                    <textarea class="form-control" id="resumenTesis" name="resumenTesis" rows="5" disabled><?= esc($resumenTesis) ?></textarea>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary edit-button" data-target="resumenTesis">✏️</button>
+            </div>
+            
+            <div class="mb-3 d-flex align-items-center">
+                <div class="flex-grow-1 me-2">
+                    <label for="palabrasClaveTesis" class="form-label">Palabras Clave:</label>
+                    <input type="text" class="form-control" id="palabrasClaveTesis" name="palabrasClaveTesis" value="<?= esc($palabrasclaveTesis) ?>" disabled>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary edit-button" data-target="palabrasClaveTesis">✏️</button>
+            </div>
+            
+            <div class="mb-3">
+                <label for="fileTesis" class="form-label">Archivo de Tesis:</label>
+                <?php if(!empty($fileTesis)): ?>
+                    <a href="<?= base_url('solicitante/documentos/verTesis/'.$fileTesis) ?>" target="_blank" class="btn btn-sm btn-secondary ms-2">Ver Actual</a>
+                <?php endif; ?>
+                <input class="form-control mt-2" type="file" name="fileTesis" id="fileTesis">
+                <div class="form-text">Sube el nuevo archivo de Tesis (PDF).</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-warning text-white">
+            <strong>📂 Actualizar Documentos del Trámite</strong>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="declaracionJurada" class="form-label">Declaración Jurada:</label>
+                <?php if(!empty($fileDeclaracionJuradaTramite)): ?>
+                    <a href="<?= base_url('solicitante/documentos/verDeclaracionJurada/'.$fileDeclaracionJuradaTramite) ?>" target="_blank" class="btn btn-sm btn-secondary ms-2">Ver Actual</a>
+                <?php endif; ?>
+                <input class="form-control mt-2" type="file" name="declaracionJurada" id="declaracionJurada">
+                <div class="form-text">Sube el nuevo archivo (PDF).</div>
+            </div>
+            <hr>
+            <div class="mb-3">
+                <label for="autorizacionPublicacion" class="form-label">Autorización de Publicación:</label>
+                <?php if(!empty($fileAutorizacionPublicacionTramite)): ?>
+                    <a href="<?= base_url('solicitante/documentos/verAutorizacionPublicacion/'.$fileAutorizacionPublicacionTramite) ?>" target="_blank" class="btn btn-sm btn-secondary ms-2">Ver Actual</a>
+                <?php endif; ?>
+                <input class="form-control mt-2" type="file" name="autorizacionPublicacion" id="autorizacionPublicacion">
+                <div class="form-text">Sube el nuevo archivo (PDF).</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary btn-lg">Guardar Cambios y Levantar Observaciones</button>
+    </div>
+</form>
+
+<?= $this->endSection();?>
+
+
+<?= $this->section('scripts');?>
+<script>
+
+
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const targetInput = document.getElementById(targetId);
+            
+            if (targetInput) {
+                targetInput.removeAttribute('disabled');
+                targetInput.focus();
+                this.style.display = 'none'; // Opcional: Oculta el botón después de usarse
+            }
+        });
+    });
+</script>
+<?= $this->endSection();?>

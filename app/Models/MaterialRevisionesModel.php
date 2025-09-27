@@ -56,4 +56,17 @@ class MaterialRevisionesModel extends Model
             return false;
         }
     }
+
+    public function getRevisiones($idMaterial){
+        try{
+
+            $revisiones = $this->select('observacion_materiarevision')->where('id_materia_materiarevision',$idMaterial)->first();
+            
+            return $revisiones;
+          
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
 }

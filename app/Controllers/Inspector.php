@@ -53,6 +53,21 @@ class Inspector extends BaseController
 
     }
 
+    public function getViewInspeccionObservaciones($codigoTramite){
+        $tramiteModel = new TramiteModel();
+        $datosTramite = $tramiteModel->getObservacionesTramite($codigoTramite);
+
+        if($datosTramite){   
+            
+            return view('Inspector/inspeccion',$datosTramite);
+        }
+        
+        
+       
+    }
+
+    
+
     public function registrarRevision($idMaterial,$codigoTramite){
 
         $tramiteModel = new TramiteModel();
@@ -92,7 +107,7 @@ class Inspector extends BaseController
 
         $materiaRevisionModel = new MaterialRevisionesModel();
         $registroRevision = $materiaRevisionModel->newRevision($datos);
-        if(true){
+        if($registroRevision){
             $historialModel = new HistorialTramitesModel();
 
             if($observaciones){
@@ -117,6 +132,11 @@ class Inspector extends BaseController
        
            
         
+    }
+
+
+    public function generateArchivesPublicacion(){
+
     }
 
    
