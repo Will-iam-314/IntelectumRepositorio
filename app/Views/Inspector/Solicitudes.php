@@ -66,7 +66,7 @@
 
                             <?php elseif($t['estadoTramite'] === "Material Aprobado" && $t['inspectorAsignado'] == true): ?> 
 
-                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Generar Publicacion</a>
+                                <a href="<?= base_url('inspector/publicacion')?>" class="btn btn-sm btn-primary">Generar Publicacion</a>
 
                             <?php elseif($t['inspectorAsignado'] == true && $t['estadoTramite'] != "Observado" && $t['estadoTramite'] != "Observaciones Levantadas"): ?> 
 

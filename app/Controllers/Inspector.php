@@ -66,6 +66,9 @@ class Inspector extends BaseController
        
     }
 
+    public function getViewPublicacion(){
+        return view('Inspector/publicacion');
+    }
     
 
     public function registrarRevision($idMaterial,$codigoTramite){

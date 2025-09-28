@@ -27,7 +27,7 @@ class InspectoresModel extends Model
     protected $createdField  = 'date_created_inspector';
     protected $updatedField  = 'date_updated_inspector';
    
-     public function getInspector($idUser){
+    public function getInspector($idUser){
 
         try{
             $dataInspect = $this->where('id_usuario_inspector',$idUser)->first();

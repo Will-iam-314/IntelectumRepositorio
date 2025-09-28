@@ -11,6 +11,7 @@ use App\Models\UsersModel;
 use App\Models\SolicitantesModel;
 use App\Models\AdministradoresModel;
 use App\Models\InspectoresModel;
+use App\Models\DpiAdminModel;
 
 class Auth extends BaseController{
 
@@ -79,6 +80,19 @@ class Auth extends BaseController{
                         'apellidos' => $inspectorData['apellidos_inspector']
                     ];
                     $this->setSession($user,$dataRol);
+                    return redirect()->to(base_url('inspector/home')); 
+                
+                case 'dpi':
+                    $dpiAdminModel = new DpiAdminModel();
+                    $dpiAdminData = $dpiAdminModel->getDpiAdmin($user['id_usuario']);
+                    $dataRol=[
+                        'idDatarol' =>   $dpiAdminData['id_dpiadmin'],
+                        'nombres' =>   $dpiAdminData['nombres_dpiadmin'],
+                        'apellidos' =>  $dpiAdminData['apellidos_dpiadmin']
+                    ];
+                    $this->setSession($user,$dataRol);
+                    return redirect()->to(base_url('admin/home')); 
+
                 default:
                     return redirect()->to(base_url('/'));
 

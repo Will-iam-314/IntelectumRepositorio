@@ -50,12 +50,20 @@ $routes->group('inspector',['filter'=>'inspector'], function($routes){
     $routes->get('inspeccion/(:segment)/(:num)','Inspector::getViewInspeccion/$1/$2'); 
     $routes->get('inspeccionObservaciones/(:segment)/(:num)','Inspector::getViewInspeccionObservaciones/$1/$2'); 
 
+    $routes->get('publicacion','Inspector::getViewPublicacion');
+
     $routes->post('nuevaInspeccion/(:num)/(:segment)','Inspector::registrarRevision/$1/$2');
 
     //RUTAS PARA ARCHIVOS
     $routes->get('documentos/verTesis/(:segment)', 'Tramites::verFileTesis/$1');
     $routes->get('documentos/verDeclaracionJurada/(:segment)', 'Tramites::verFileDJ/$1');
     $routes->get('documentos/verAutorizacionPublicacion/(:segment)', 'Tramites::verFileAP/$1');
+
+});
+
+$routes->group('dpi',['filter'=>'dpi'], function($routes){
+
+    $routes->get('home','DpiAdmin::index');
 
 });
  
