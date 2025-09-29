@@ -13,31 +13,35 @@
         </div>
     </div>
 
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Estado de Publicación</h5>
-            <div class="d-flex align-items-center justify-content-between">
-                <p class="card-text mb-0 fs-5">¿Se publicó el material?</p>
-                
-                <div class="form-check form-switch form-check-inline me-2">
-                    <input class="form-check-input" type="checkbox" id="publicadoSwitch">
-                    <label class="form-check-label" for="publicadoSwitch" id="publicadoLabel">No</label>
+    <form action="<?= base_url('inspector/registrarURLpubliacion/'.$idTramite) ?>" method="post">
+        <?= csrf_field() ?>
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">Estado de Publicación</h5>
+                <div class="d-flex align-items-center justify-content-between">
+                    <p class="card-text mb-0 fs-5">¿Se publicó el material?</p>
+                    
+                    <div class="form-check form-switch form-check-inline me-2">
+                        <input class="form-check-input" type="checkbox" id="publicadoSwitch">
+                        <label class="form-check-label" for="publicadoSwitch" id="publicadoLabel">No</label>
+                    </div>
+                </div>
+
+                <div id="urlContainer" class="mt-3 d-none">
+                    <label for="urlPublicacion" class="form-label">URL de la Publicación:</label>
+                    <input type="url" class="form-control" id="urlPublicacion" name="urlPublicacion" placeholder="Ingrese el URL">
                 </div>
             </div>
-
-            <div id="urlContainer" class="mt-3 d-none">
-                <label for="urlPublicacion" class="form-label">URL de la Publicación:</label>
-                <input type="url" class="form-control" id="urlPublicacion" name="urlPublicacion" placeholder="https://ejemplo.com/publicacion">
-            </div>
         </div>
-    </div>
-    
-    <div class="d-grid gap-2">
-        <button type="submit" class="btn btn-success btn-lg" id="guardarBtn" disabled>Finalizar Publicacion</button>
-    </div>
+        
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-success btn-lg" id="guardarBtn" disabled>Guardar</button>
+        </div>
+    </form>
 </div>
 
 <?= $this->endSection();?>
+
 
 
 <?= $this->section('scripts');?>

@@ -23,7 +23,8 @@ class TramiteModel extends Model
         'autorizacionPublicacion_tramite',
         'id_estadotramite_tramite',
         'id_solicitante_tramite',
-        'id_materia_tramite'
+        'id_materia_tramite',
+        'urlpublicacion_tramite'
 
     ];
 
@@ -383,6 +384,20 @@ class TramiteModel extends Model
 
         
         return true;
+
+    }
+
+    public function saveURLpublicacion($idTramite,$URL){
+        
+        try{
+
+           $responseUpdate= $this->update($idTramite,['urlpublicacion_tramite' => $URL]);
+           return $responseUpdate;
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
 
     }
 

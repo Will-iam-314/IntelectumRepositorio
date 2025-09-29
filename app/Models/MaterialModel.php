@@ -15,6 +15,7 @@ class MaterialModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
 
+        'autores_materia',
         'titulo_materia',
         'id_tesi_materia',
         'tipo_materia'
@@ -31,6 +32,7 @@ class MaterialModel extends Model
 
     public function newMaterial($data,$fileT){
 
+        $autores = implode('/',$data['autores']);
         try{
 
             $tesiModel = new TesisModel();
@@ -38,6 +40,7 @@ class MaterialModel extends Model
 
             if($idTesis){
                 $idNewMaterial = $this->insert([
+                'autores_materia'=>$autores,
                 'titulo_materia'=>$data['tituloTesis'],
                 'id_tesi_materia'=> $idTesis,
                 'tipo_materia' => 1

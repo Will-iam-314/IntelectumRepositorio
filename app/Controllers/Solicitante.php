@@ -112,7 +112,7 @@ class Solicitante extends BaseController
         $post = $this->request->getPost(); 
         $solicitante = $this->solicitanteModel->getSolicitante(session('id'));
         $post['idsolicitante'] = $solicitante['id_solicitante'];
-        $fileTesis = $this->erquest->getFile('TesisFile');
+        $fileTesis = $this->request->getFile('TesisFile');
         $fileDJ = $this->request->getFile('DeclaracionJuradaFile');
         $fileAutorizacionPublicacion = $this->request->getFile('AutorizaciónPublicacioFile');
         

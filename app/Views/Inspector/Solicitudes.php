@@ -66,8 +66,12 @@
 
                             <?php elseif($t['estadoTramite'] === "Material Aprobado" && $t['inspectorAsignado'] == true): ?> 
 
-                                <a href="<?= base_url('inspector/publicacion')?>" class="btn btn-sm btn-primary">Generar Publicacion</a>
+                                <a href="<?= base_url('inspector/publicacion/'.$t['idTramite'])?>" class="btn btn-sm btn-primary">Generar Publicacion</a>
 
+                            <?php elseif($t['estadoTramite'] === "Material Publicado" && $t['inspectorAsignado'] == true): ?> 
+
+                                <span class="text-muted">generando constancia</span>
+                            
                             <?php elseif($t['inspectorAsignado'] == true && $t['estadoTramite'] != "Observado" && $t['estadoTramite'] != "Observaciones Levantadas"): ?> 
 
                                 <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Continuar Inspecccion</a> 
@@ -77,6 +81,7 @@
                                 <span class="text-muted">en espera a subida de correcciones</span>
                             
                             <?php elseif($t['estadoTramite'] === "Observaciones Levantadas" && $t['inspectorAsignado'] == true): ?> 
+
                                 <a href="<?= base_url('inspector/inspeccionObservaciones/'.$t['codigoTramite']).'/'. $t['idMaterial'] ?>" class="btn btn-sm btn-primary">Inspeccionar Correcciones</a> 
 
                             <?php else: ?> 

@@ -25,7 +25,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= base_url('') ?>">Solicitudes</a>
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('dpi/solicitudes') ?>">Solicitudes</a>
                     </li>
                 
                 

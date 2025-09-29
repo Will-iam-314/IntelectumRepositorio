@@ -66,8 +66,13 @@ class Inspector extends BaseController
        
     }
 
-    public function getViewPublicacion(){
-        return view('Inspector/publicacion');
+    public function getViewPublicacion($idTramite){
+        
+        $data = [
+            'idTramite' => $idTramite
+        ];
+
+        return view('Inspector/publicacion',$data);
     }
     
 
@@ -132,14 +137,34 @@ class Inspector extends BaseController
             return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo registrar la inspeccion');
         }
 
-       
-           
-        
+  
     }
 
 
     public function generateArchivesPublicacion(){
 
+    }
+
+    public function registrarPublicacion($idTramite){
+        $tramiteModel = new TramiteModel();
+        $post = $this->request->getPost(); 
+
+        $response = $tramiteModel->saveURLpublicacion($idTramite,$post['urlPublicacion']);
+
+        if($response){   
+
+            $historialModel = new HistorialTramitesModel();
+
+            $historialModel->newHistorialTramite(session('id'),$idTramite,session('rol'),6);
+            $tramiteModel->updateEstado($idTramite,6);
+
+            return redirect()->to('inspector/solicitudes')->with('success', 'URL de publicacion registrado Correctamente');
+
+        }else{
+            return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo registrar el URL de publicacion');
+        }
+        
+        
     }
 
    
