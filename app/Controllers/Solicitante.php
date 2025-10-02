@@ -57,10 +57,18 @@ class Solicitante extends BaseController
 
     public function getViewNuevaSolicitud(){
         $lineaModel = new LineasInvestigacionModel();
-        $docenteModel = new DocentesModel();
+        //$docenteModel = new DocentesModel();
+
+        //agregar datos del solicitante
+        $solicitante = $this->solicitanteModel->getSolicitante(session('id'));
+    
+        $nombreSolicitanteActual = $solicitante['nombres_solicitante'] . ' ' . $solicitante['apellidos_solicitante'] ;
+        $dniSolicitanteActual = $solicitante['dni_solicitante'];
 
         $data = [
-            'docentes' => $docenteModel->findAll(),
+            
+            'solicitanteActualNombres' => $nombreSolicitanteActual,
+            'solicitanteActualDNI' => $dniSolicitanteActual,
             'lineas' => $lineaModel->findAll()
         ];
  
@@ -96,6 +104,8 @@ class Solicitante extends BaseController
             'FechaSustentacion' => 'required',
             'TesisFile' => 'uploaded[TesisFile]|max_size[TesisFile,10240]|ext_in[TesisFile,pdf]',
             'Asesor' => 'required',
+            'AsesorDNI' => 'required',
+            'AsesorORCID' => 'required',
             'PresidenteJurado' => 'required',
             'PrimerMiembroJurado' => 'required',
             'SegundoMiembroJurado' => 'required',
@@ -103,7 +113,6 @@ class Solicitante extends BaseController
             'AutorizaciónPublicacioFile' => 'uploaded[AutorizaciónPublicacioFile]|max_size[AutorizaciónPublicacioFile,2048]|ext_in[AutorizaciónPublicacioFile,pdf]'
 
         ];
-
 
         if(!$this->validate($rules)){
             return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());

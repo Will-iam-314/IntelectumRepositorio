@@ -6,9 +6,11 @@
 <h1 class='px-5'>Nueva Solicitud</h1>
 
 <form class='px-5' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">
+    
     <?= csrf_field(); ?>
 
     <div class="border my-4">
+    
         <h4>DATOS DEL MATERIAL</h4>
         
         <label class="label-form" for="input_tituloTesis">Titulo de la Tesis</label>
@@ -19,6 +21,9 @@
         <button type="button" class="btn btn-outline-primary my-2" id="btn-show-autores">Agregar mas autores</button>
         
         <div id="autores-container" class="d-none"></div>
+
+        <input type="hidden" name="autores[0][nombre]" value="<?= $solicitanteActualNombres ?>">
+        <input type="hidden" name="autores[0][dni]" value="<?= $solicitanteActualDNI ?>">
 
         <label class="label-form" for="input_resumenTesis">Resumen </label>
         <textarea name="resumenTesis" class="input-form" id="input_resumenTesis" required><?= set_value('resumenTesis')?></textarea>
@@ -32,8 +37,20 @@
                 <option value="<?= $linea['id_linea']; ?>" <?= set_select('lineaInvestigacion', $linea['id_linea'])?>><?= $linea['nombre_linea']; ?></option>                      
             <?php endforeach ?>
         </select>
+        
+       
 
         <label class="label-form" for="input_CampoInvestigacion">Campo de Investigación</label>
+
+        <div id="iframe-container" class="my-3 d-none">
+            <button type="button" class="btn btn-outline-secondary mb-2" id="btn-close-iframe">Ocultar</button>
+            <div class="iframe-wrapper">
+                <iframe src="https://concytec-pe.github.io/Peru-CRIS/vocabularios/ocde_ford.html" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-info mt-2" id="btn-show-iframe">Ver Campos de Investigación</button>
+
         <input type="text" name="CampoInvestigacion" class="input-form" id="input_CampoInvestigacion" value="<?= set_value('CampoInvestigacion') ?>"  required>
 
         <label class="label-form" for="input_CampoAplicacion">Campo de Aplicación</label>
@@ -50,33 +67,23 @@
     <div class="border my-4">
         <h4>ASESOR Y JURADOS</h4>
 
-        <label class="label-form" for="select_Asesor">Asesor</label>
-        <select id="select_Asesor" name="Asesor" class="input-form">
-            <?php foreach($docentes as $docente): ?>
-                <option value="<?= $docente['id_docente']; ?>" <?= set_select('Asesor', $docente['id_docente'])?>><?= $docente['nombres_docente'].' '.$docente['apellidos_docente']; ?></option>                      
-            <?php endforeach ?>
-        </select>
+        <label class="label-form" for="input_AsesorNombres">Asesor (Nombres y Apellidos)</label>
+        <input type="text" name="Asesor" class="input-form" id="input_AsesorNombres" value="<?= set_value('AsesorNombres') ?>" required>
+        
+        <label class="label-form" for="input_AsesorDNI">Asesor (DNI)</label>
+        <input type="text" name="AsesorDNI" class="input-form" id="input_AsesorDNI" value="<?= set_value('AsesorDNI') ?>" required>
+
+        <label class="label-form" for="input_AsesorORCID">Asesor (ORCID)</label>
+        <input type="text" name="AsesorORCID" class="input-form" id="input_AsesorORCID" value="<?= set_value('AsesorORCID') ?>" required>
+
+        <label class="label-form" for="input_PresidenteJuradoNombres">Presidente (Nombres y Apellidos)</label>
+        <input type="text" name="PresidenteJurado" class="input-form" id="input_PresidenteJuradoNombres" value="<?= set_value('PresidenteJuradoNombres') ?>" required>
    
-        <label class="label-form" for="select_PresidenteJurado">Presidente</label>
-        <select id="select_PresidenteJurado" name="PresidenteJurado" class="input-form">
-            <?php foreach($docentes as $docente): ?>
-                <option value="<?= $docente['id_docente']; ?>" <?= set_select('PresidenteJurado', $docente['id_docente'])?>><?= $docente['nombres_docente'].' '.$docente['apellidos_docente']; ?></option>                      
-            <?php endforeach ?>
-        </select>
+        <label class="label-form" for="input_PrimerMiembroJuradoNombres">Primer Miembro (Nombres y Apellidos)</label>
+        <input type="text" name="PrimerMiembroJurado" class="input-form" id="input_PrimerMiembroJuradoNombres" value="<?= set_value('PrimerMiembroJuradoNombres') ?>" required>
 
-        <label class="label-form" for="select_PrimerMiembroJurado">Primer Miembro</label>
-        <select id="select_PrimerMiembroJurado" name="PrimerMiembroJurado" class="input-form">
-            <?php foreach($docentes as $docente): ?>
-                <option value="<?= $docente['id_docente']; ?>" <?= set_select('PrimerMiembroJurado', $docente['id_docente'])?>><?= $docente['nombres_docente'].' '.$docente['apellidos_docente']; ?></option>                      
-            <?php endforeach ?>
-        </select>
-
-        <label class="label-form" for="select_SegundoMiembroJurado">Segundo Miembro</label>
-        <select id="select_SegundoMiembroJurado" name="SegundoMiembroJurado" class="input-form">
-            <?php foreach($docentes as $docente): ?>
-                <option value="<?= $docente['id_docente']; ?>" <?= set_select('SegundoMiembroJurado', $docente['id_docente'])?>><?= $docente['nombres_docente'].' '.$docente['apellidos_docente']; ?></option>                      
-            <?php endforeach ?>
-        </select>
+        <label class="label-form" for="input_SegundoMiembroJuradoNombres">Segundo Miembro (Nombres y Apellidos)</label>
+        <input type="text" name="SegundoMiembroJurado" class="input-form" id="input_SegundoMiembroJuradoNombres" value="<?= set_value('SegundoMiembroJuradoNombres') ?>" required>
     </div>
 
     <div class="border my-4">
@@ -98,68 +105,115 @@
     <button type="submit" class="btn-style1 mt-3">
         Solicitar
     </button>
+
 </form>
 
 <?= $this->endSection();?>
 
----
 
 <?= $this->section('scripts');?>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Lógica para el manejo de autores
         const btnShowAutores = document.getElementById('btn-show-autores');
         const autoresContainer = document.getElementById('autores-container');
 
-        // Contenido del primer campo de autor para recrearlo
-        const firstAuthorHtml = `
-            <div class="input-group mb-3">
-                <input type="text" name="autores[]" class="form-control input-form autor-input" placeholder="Nombre completo del autor" required>
-                <button class="btn btn-outline-secondary btn-remove-autor" type="button">-</button>
-                <button class="btn btn-outline-secondary btn-add-autor" type="button">+</button>
-            </div>
-        `;
-
-        // Muestra el contenedor de autores y oculta el botón al hacer clic
+        // Muestra el contenedor y añade el primer autor si no hay ninguno
         btnShowAutores.addEventListener('click', function() {
-            // Verifica si el contenedor está vacío de campos de autor y lo rellena
             if (autoresContainer.querySelectorAll('.input-group').length === 0) {
-                autoresContainer.insertAdjacentHTML('beforeend', firstAuthorHtml);
+                addNewAuthorInput();
             }
             autoresContainer.classList.remove('d-none');
-            this.style.display = 'none'; // Oculta el botón
+            this.style.display = 'none';
         });
 
-        // Lógica para agregar y eliminar campos de autor dinámicamente
+        // Lógica para agregar y eliminar autores
         autoresContainer.addEventListener('click', function(event) {
             const clickedElement = event.target;
-
-            // Lógica para agregar un nuevo autor
+            
             if (clickedElement.classList.contains('btn-add-autor')) {
-                // Clona el primer campo, que siempre tendrá el botón de agregar
-                const newAuthorInputGroup = autoresContainer.querySelector('.input-group').cloneNode(true);
-                
-                // Limpia el valor del nuevo input
-                const newInput = newAuthorInputGroup.querySelector('.autor-input');
-                newInput.value = ''; 
-                newInput.placeholder = "Nombre completo de otro autor";
-
-                // Remueve el botón de agregar del nuevo campo clonado
-                newAuthorInputGroup.querySelector('.btn-add-autor').remove();
-                
-                autoresContainer.appendChild(newAuthorInputGroup);
+                addNewAuthorInput();
             } 
-            // Lógica para eliminar un autor
             else if (clickedElement.classList.contains('btn-remove-autor')) {
                 const inputGroupToRemove = clickedElement.closest('.input-group');
                 inputGroupToRemove.remove();
 
-                // Verifica si no queda ningún campo de autor y vuelve a mostrar el botón
                 if (autoresContainer.querySelectorAll('.input-group').length === 0) {
                     autoresContainer.classList.add('d-none');
                     btnShowAutores.style.display = 'block';
                 }
             }
         });
+
+        // Función para crear y añadir un nuevo autor con índice explícito
+        function addNewAuthorInput() {
+            const currentAuthors = autoresContainer.querySelectorAll('.input-group');
+            const newIndex = currentAuthors.length + 1; // El índice comienza después del autor principal (índice 0)
+
+            const newAuthorGroup = document.createElement('div');
+            newAuthorGroup.className = 'input-group mb-3';
+
+            const nameInput = document.createElement('input');
+            nameInput.type = 'text';
+            nameInput.name = `autores[${newIndex}][nombre]`;
+            nameInput.className = 'form-control autor-input-nombre';
+            nameInput.placeholder = 'Nombre completo del autor';
+            nameInput.required = true;
+
+            const dniInput = document.createElement('input');
+            dniInput.type = 'text';
+            dniInput.name = `autores[${newIndex}][dni]`;
+            dniInput.className = 'form-control autor-input-dni';
+            dniInput.placeholder = 'DNI';
+            dniInput.required = true;
+
+            const removeButton = document.createElement('button');
+            removeButton.className = 'btn btn-outline-secondary btn-remove-autor';
+            removeButton.type = 'button';
+            removeButton.textContent = '-';
+
+            const addButton = document.createElement('button');
+            addButton.className = 'btn btn-outline-secondary btn-add-autor';
+            addButton.type = 'button';
+            addButton.textContent = '+';
+            
+            newAuthorGroup.appendChild(nameInput);
+            newAuthorGroup.appendChild(dniInput);
+            newAuthorGroup.appendChild(removeButton);
+            newAuthorGroup.appendChild(addButton);
+
+            // Remueve el botón de agregar si ya hay un campo existente
+            const existingAddButton = autoresContainer.querySelector('.btn-add-autor');
+            if (existingAddButton) {
+                existingAddButton.remove();
+            }
+            
+            autoresContainer.appendChild(newAuthorGroup);
+        }
+    });
+
+    // Nueva lógica para mostrar y ocultar el iframe
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnShowIframe = document.getElementById('btn-show-iframe');
+        const btnCloseIframe = document.getElementById('btn-close-iframe');
+        const iframeContainer = document.getElementById('iframe-container');
+        const inputCampoInvestigacion = document.getElementById('input_CampoInvestigacion');
+        
+        btnShowIframe.addEventListener('click', function() {
+            iframeContainer.classList.remove('d-none');
+            // Desplaza el input hacia abajo
+            inputCampoInvestigacion.style.marginTop = '20px'; // Puedes ajustar este valor
+            this.style.display = 'none'; // Oculta el botón de mostrar
+        });
+
+        btnCloseIframe.addEventListener('click', function() {
+            iframeContainer.classList.add('d-none');
+            // Devuelve el input a su posición original
+            inputCampoInvestigacion.style.marginTop = '0';
+            btnShowIframe.style.display = 'block'; // Muestra de nuevo el botón
+        });
     });
 </script>
+
 <?= $this->endSection();?>

@@ -21,10 +21,10 @@ class TesisModel extends Model
         'campoaplicacion_tesi',
         'documento_tesi',
         'id_linea_tesi',
-        'id_docente_asesor_tesi',
-        'id_docente_jurado1_tesi',
-        'id_docente_jurado2_tesi',
-        'id_docente_jurado3_tesi'
+        'docente_asesor_tesi',
+        'docente_jurado1_tesi',
+        'docente_jurado2_tesi',
+        'docente_jurado3_tesi'
 
     ];
 
@@ -34,6 +34,8 @@ class TesisModel extends Model
     protected $updatedField  = 'date_updated_tesi';
   
     public function newTesis($data,$URLfile){
+      
+        $asesordata = $data['Asesor'].'|'.$data['AsesorDNI'].'|'.$data['AsesorORCID'];
 
         try{
 
@@ -46,10 +48,10 @@ class TesisModel extends Model
                 'campoaplicacion_tesi'=> $data['CampoAplicacion'],
                 'documento_tesi'=> $URLfile,
                 'id_linea_tesi'=> $data['lineaInvestigacion'],
-                'id_docente_asesor_tesi'=> $data['Asesor'],
-                'id_docente_jurado1_tesi'=> $data['PresidenteJurado'],
-                'id_docente_jurado2_tesi'=> $data['PrimerMiembroJurado'],
-                'id_docente_jurado3_tesi'=> $data['SegundoMiembroJurado']
+                'docente_asesor_tesi'=> $asesordata,
+                'docente_jurado1_tesi'=> $data['PresidenteJurado'],
+                'docente_jurado2_tesi'=> $data['PrimerMiembroJurado'],
+                'docente_jurado3_tesi'=> $data['SegundoMiembroJurado']
 
             ]);
             

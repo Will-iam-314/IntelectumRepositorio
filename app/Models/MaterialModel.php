@@ -32,7 +32,18 @@ class MaterialModel extends Model
 
     public function newMaterial($data,$fileT){
 
-        $autores = implode('/',$data['autores']);
+       
+
+        $autoresFormateados = array_map(function($autor) {
+            // Si la clave 'nombre' o 'dni' no existe, se usa una cadena vacía.
+            $nombre = $autor['nombre'] ?? '';
+            $dni = $autor['dni'] ?? '';
+            
+            return "{$nombre}|{$dni}";
+        }, $data['autores']);
+
+        // Usa implode para unir los strings con el separador '/'.
+        $autores = implode('/', $autoresFormateados);
         try{
 
             $tesiModel = new TesisModel();
