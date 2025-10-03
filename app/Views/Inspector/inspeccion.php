@@ -80,6 +80,19 @@
                         <li><strong>Título:</strong> <?= esc($tituloMaterial) ?></li>
                         <li><strong>Resumen:</strong> <?= esc($resumenTesis) ?></li>
                         <li><strong>Palabras clave:</strong> <?= esc($palabrasclaveTesis) ?></li>
+                        <li><strong>Autores:</strong> </li>
+                        <?php if (!empty($autores)): ?>
+                            <ul>
+                                <?php foreach ($autores as $autor): ?>
+                                    <li>
+                                        Nombre: <?= $autor['nombre'] ?? 'N/D' ?> 
+                                        (DNI: <?= $autor['dni'] ?? 'N/D' ?>)
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        <?php else: ?>
+                            <p>No se encontraron autores.</p>
+                        <?php endif; ?>
                     </ul>
 
                     <h5>Datos del Solicitante</h5>
@@ -92,10 +105,10 @@
 
                     <h5>Docentes</h5>
                     <ul>
-                        <li><strong>Asesor:</strong> <?= esc($nombresAsesor.' '.$apellidosAsesor) ?></li>
-                        <li><strong>Jurado 1:</strong> <?= esc($nombresJurado1.' '.$apellidosJurado1) ?></li>
-                        <li><strong>Jurado 2:</strong> <?= esc($nombresJurado2.' '.$apellidosJurado2) ?></li>
-                        <li><strong>Jurado 3:</strong> <?= esc($nombresJurado3.' '.$apellidosJurado3) ?></li>
+                        <li><strong>Asesor:</strong> <?= esc($Asesor) ?></li>
+                        <li><strong>Jurado 1:</strong> <?= esc($Jurado1) ?></li>
+                        <li><strong>Jurado 2:</strong> <?= esc($Jurado2) ?></li>
+                        <li><strong>Jurado 3:</strong> <?= esc($Jurado3) ?></li>
                     </ul>
                 </div>
 

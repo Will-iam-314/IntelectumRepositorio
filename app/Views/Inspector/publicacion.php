@@ -7,7 +7,7 @@
         <div class="card-body text-center">
             <h5 class="card-title">Archivos para Publicación</h5>
             <p class="card-text">Haz clic para descargar los archivos que serán publicados.</p>
-            <a href="<?= base_url('ruta/a/descargar/archivos') ?>" class="btn btn-primary btn-lg">
+            <a href="<?= base_url('inspector/downloadPaquete/'.$codigoTramite) ?>" class="btn btn-primary btn-lg">
                 <i class="fas fa-download"></i> Descargar archivos de publicación
             </a>
         </div>

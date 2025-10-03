@@ -66,10 +66,11 @@ class Inspector extends BaseController
        
     }
 
-    public function getViewPublicacion($idTramite){
+    public function getViewPublicacion($idTramite,$codigoTramite){
         
         $data = [
-            'idTramite' => $idTramite
+            'idTramite' => $idTramite,
+            'codigoTramite' => $codigoTramite
         ];
 
         return view('Inspector/publicacion',$data);
@@ -141,8 +142,76 @@ class Inspector extends BaseController
     }
 
 
-    public function generateArchivesPublicacion(){
+    public function generatePaquetePublicacion($idTramite){
+        // Ruta donde se va a crear el directorio
+        $directorio =WRITEPATH . "paquetes_temp/ITEM_1";
+ 
+        // 1. Crear el directorio si no existe
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0777, true);
+        }
 
+        // 2. Generar XML del dublin_core
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true; // Para que quede bonito
+
+        $dublin = $dom->createElement("dublin_core");
+        $dom->appendChild($dublin);
+
+        // Función para añadir un <dcvalue>
+        function addDcValue($dom, $parent, $text, $attrs = []) {
+            $dcvalue = $dom->createElement("dcvalue", $text);
+            foreach ($attrs as $k => $v) {
+                $dcvalue->setAttribute($k, $v);
+            }
+            $parent->appendChild($dcvalue);
+        }
+
+        // Agregar nodos
+        addDcValue($dom, $dublin, "Solicitud URL", ["element" => "identifier", "qualifier" => "other", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Mas info repositorio@unu.edu.pe", ["element" => "description", "language" => ""]);
+        addDcValue($dom, $dublin, "Mayta Rodríguez, Lesly Lucero", ["element" => "contributor", "qualifier" => "author", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Pérez Nolorve, Erick", ["element" => "contributor", "qualifier" => "author", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Modelo de gobernanza basado en BPM para mejorar la gestión de servicios en el grupo Uranio SAC", ["element" => "title", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "2025", ["element" => "date", "qualifier" => "issued", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Ferrari Fernández, Freddy Elar", ["element" => "contributor", "qualifier" => "advisor", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "La presea an principios de goados esperados incl.", ["element" => "description", "qualifier" => "abstract", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "BPM", ["element" => "subject", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Gestión", ["element" => "subject", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Servicios", ["element" => "subject", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Gestión de Tecnologías de Información", ["element" => "subject", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "spa", ["element" => "language", "qualifier" => "iso", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "PE", ["element" => "publisher", "qualifier" => "country"]);
+        addDcValue($dom, $dublin, "Universidad Nacional de Ucayali", ["element" => "publisher", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "https://creativecommons.org/licenses/by/4.0/", ["element" => "rights", "qualifier" => "uri"]);
+        addDcValue($dom, $dublin, "info:eu-repo/semantics/openAccess", ["element" => "rights", "language" => "en_US"]);
+        addDcValue($dom, $dublin, "Universidad Nacional de Ucayali", ["element" => "source", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "Repositorio institucional - UNU", ["element" => "source", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, "https://purl.org/pe-repo/ocde/ford#2.02.04", ["element" => "subject", "qualifier" => "ocde"]);
+        addDcValue($dom, $dublin, "info:eu-repo/semantics/bachelorThesis", ["element" => "type", "language" => "es_PE"]);
+
+
+        // Guardar el XML del dublin_core en ITEM_1
+        $dom->save($directorio . '/dublin_core.xml');
+
+        // 3. Crear el ZIP
+        $zipPath = WRITEPATH . 'paquetes_temp/ITEM_1.zip';
+        $zip = new \ZipArchive();
+
+        if ($zip->open($zipPath, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) === TRUE) {
+            $archivos = scandir($directorio);
+            foreach ($archivos as $archivo) {
+                if ($archivo != "." && $archivo != "..") {
+                    $zip->addFile($directorio . "/" . $archivo, $archivo);
+                }
+            }
+            $zip->close();
+        } else {
+            return "Error al crear el ZIP.";
+        }
+
+        // 4. Descargar el ZIP
+        return $this->response->download($zipPath, null)->setFileName("ITEM_1.zip");
     }
 
     public function registrarPublicacion($idTramite){

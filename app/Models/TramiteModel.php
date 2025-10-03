@@ -146,28 +146,26 @@ class TramiteModel extends Model
         try{
 
     
-            $tramites = $this->select('
+            $tramite = $this->select('
                 
                 material.id_materia as idMaterial,
                 material.titulo_materia as tituloMaterial, 
                 material.tipo_materia as tipomateriaMaterial, 
+                material.autores_materia as autores,
                 
                 tesis.documento_tesi as fileTesis, 
                 tesis.resumen_tesi as resumenTesis,
                 tesis.palabrasclave_tesi as palabrasclaveTesis,
                 
-                asesor.nombres_docente as nombresAsesor,
-                asesor.apellidos_docente as apellidosAsesor,
+                tesis.docente_asesor_tesi as Asesor,
+                tesis.docente_jurado1_tesi as Jurado1,
+                tesis.docente_jurado2_tesi as Jurado2,
+                tesis.docente_jurado3_tesi as Jurado3,
 
-                jurado1.nombres_docente as nombresJurado1,
-                jurado1.apellidos_docente as apellidosJurado1,
+                tesis.gradoAcademicoOptar_tesi as GradoAcademicoOptar,
+                tesis.descripcionGradoAcademico_tesi as DescripcionGradoOptar,
 
-                jurado2.nombres_docente as nombresJurado2,
-                jurado2.apellidos_docente as apellidosJurado2,
-
-                jurado3.nombres_docente as nombresJurado3,
-                jurado3.apellidos_docente as apellidosJurado3,
-
+               
                 tramites.id_tramite as idTramite,
                 tramites.codigo_tramite as codigoTramite, 
                 tramites.date_created_tramite as fechapresentacionTramite,
@@ -180,7 +178,7 @@ class TramiteModel extends Model
                 solicitantes.apellidos_solicitante as solicitanteApellido,
                 solicitantes.dni_solicitante as solicitanteDNI,
                 
-                escuelas.nombre_escuela as solicitanteEscuela
+                escuelas.nombre_escuela as solicitanteEscuela 
 
 
             ')
@@ -191,16 +189,53 @@ class TramiteModel extends Model
             ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
             
 
-            // joins con alias
-            ->join('docentes asesor','asesor.id_docente = tesis.id_docente_asesor_tesi','left')
-            ->join('docentes jurado1','jurado1.id_docente = tesis.id_docente_jurado1_tesi','left')
-            ->join('docentes jurado2','jurado2.id_docente = tesis.id_docente_jurado2_tesi','left')
-            ->join('docentes jurado3','jurado3.id_docente = tesis.id_docente_jurado3_tesi','left')
-
             ->where('tramites.codigo_tramite', $codigo)
             ->first();
+
             
-            return $tramites;
+
+            $datosArrayAsesor = explode('|',$tramite['Asesor']);
+
+            $Asesor = $datosArrayAsesor[0];
+            $dniAsesor = $datosArrayAsesor[1];
+            $orcidAsesor = $datosArrayAsesor[2];
+
+            $tramite['Asesor'] = $Asesor;
+            $tramite['dniAsesor'] = $dniAsesor;
+            $tramite['orcidAsesor'] = $orcidAsesor;
+
+
+            // 1. Dividir el string por el separador de autores ('/')
+            $autores_array_temp = explode('/', $tramite['autores']);
+
+            // Array para almacenar la información estructurada de cada autor
+            $autores_estructurados = [];
+
+            // 2. Iterar sobre cada autor para separar Nombre y DNI
+            foreach ($autores_array_temp as $autor_data) {
+                // Usar explode() para dividir los datos del autor por el pipe ('|')
+                // Usamos list() o la sintaxis corta ([]) para asignar directamente a variables
+                
+                // Aseguramos que el explode genere solo 2 elementos (Nombre y DNI)
+                $datos_separados = explode('|', $autor_data, 2);
+
+                // Verificamos que tengamos al menos 2 elementos antes de asignar
+                if (count($datos_separados) === 2) {
+                    // Asignación directa a variables
+                    $nombre = $datos_separados[0];
+                    $dni = $datos_separados[1];
+
+                    // 3. Almacenar la información en el array final estructurado
+                    $autores_estructurados[] = [
+                        'nombre' => trim($nombre), // Usamos trim para eliminar posibles espacios
+                        'dni' => trim($dni),
+                    ];
+                }
+            }
+
+            $tramite['autores'] = $autores_estructurados;
+
+            return $tramite;
 
         }catch(Exception $e){
             log_message('error', $e->getMessage());
@@ -212,29 +247,28 @@ class TramiteModel extends Model
          try{
 
     
+            
             $tramite = $this->select('
                 
                 material.id_materia as idMaterial,
                 material.titulo_materia as tituloMaterial, 
                 material.tipo_materia as tipomateriaMaterial, 
+                material.autores_materia as autores,
                 
                 tesis.id_tesi as idTesis,
                 tesis.documento_tesi as fileTesis, 
                 tesis.resumen_tesi as resumenTesis,
                 tesis.palabrasclave_tesi as palabrasclaveTesis,
                 
-                asesor.nombres_docente as nombresAsesor,
-                asesor.apellidos_docente as apellidosAsesor,
+                tesis.docente_asesor_tesi as Asesor,
+                tesis.docente_jurado1_tesi as Jurado1,
+                tesis.docente_jurado2_tesi as Jurado2,
+                tesis.docente_jurado3_tesi as Jurado3,
 
-                jurado1.nombres_docente as nombresJurado1,
-                jurado1.apellidos_docente as apellidosJurado1,
+                tesis.gradoAcademicoOptar_tesi as GradoAcademicoOptar,
+                tesis.descripcionGradoAcademico_tesi as DescripcionGradoOptar,
 
-                jurado2.nombres_docente as nombresJurado2,
-                jurado2.apellidos_docente as apellidosJurado2,
-
-                jurado3.nombres_docente as nombresJurado3,
-                jurado3.apellidos_docente as apellidosJurado3,
-
+               
                 tramites.id_tramite as idTramite,
                 tramites.codigo_tramite as codigoTramite, 
                 tramites.date_created_tramite as fechapresentacionTramite,
@@ -247,7 +281,7 @@ class TramiteModel extends Model
                 solicitantes.apellidos_solicitante as solicitanteApellido,
                 solicitantes.dni_solicitante as solicitanteDNI,
                 
-                escuelas.nombre_escuela as solicitanteEscuela,
+                escuelas.nombre_escuela as solicitanteEscuela 
 
 
             ')
@@ -256,16 +290,51 @@ class TramiteModel extends Model
             ->join('tesis','tesis.id_tesi = material.id_tesi_materia')
             ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
             ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
- 
             
-            // joins con alias
-            ->join('docentes asesor','asesor.id_docente = tesis.id_docente_asesor_tesi','left')
-            ->join('docentes jurado1','jurado1.id_docente = tesis.id_docente_jurado1_tesi','left')
-            ->join('docentes jurado2','jurado2.id_docente = tesis.id_docente_jurado2_tesi','left')
-            ->join('docentes jurado3','jurado3.id_docente = tesis.id_docente_jurado3_tesi','left')
 
             ->where('tramites.codigo_tramite', $codigo)
             ->first();
+
+            $datosArrayAsesor = explode('|',$tramite['Asesor']);
+
+            $Asesor = $datosArrayAsesor[0];
+            $dniAsesor = $datosArrayAsesor[1];
+            $orcidAsesor = $datosArrayAsesor[2];
+
+            $tramite['Asesor'] = $Asesor;
+            $tramite['dniAsesor'] = $dniAsesor;
+            $tramite['orcidAsesor'] = $orcidAsesor;
+
+
+            // 1. Dividir el string por el separador de autores ('/')
+            $autores_array_temp = explode('/', $tramite['autores']);
+
+            // Array para almacenar la información estructurada de cada autor
+            $autores_estructurados = [];
+
+            // 2. Iterar sobre cada autor para separar Nombre y DNI
+            foreach ($autores_array_temp as $autor_data) {
+                // Usar explode() para dividir los datos del autor por el pipe ('|')
+                // Usamos list() o la sintaxis corta ([]) para asignar directamente a variables
+                
+                // Aseguramos que el explode genere solo 2 elementos (Nombre y DNI)
+                $datos_separados = explode('|', $autor_data, 2);
+
+                // Verificamos que tengamos al menos 2 elementos antes de asignar
+                if (count($datos_separados) === 2) {
+                    // Asignación directa a variables
+                    $nombre = $datos_separados[0];
+                    $dni = $datos_separados[1];
+
+                    // 3. Almacenar la información en el array final estructurado
+                    $autores_estructurados[] = [
+                        'nombre' => trim($nombre), // Usamos trim para eliminar posibles espacios
+                        'dni' => trim($dni),
+                    ];
+                }
+            }
+
+            $tramite['autores'] = $autores_estructurados;
 
             $revisionMaterialModel = new MaterialRevisionesModel;
             $observaciones = $revisionMaterialModel->select('observacion_materiarevision as observaciones')

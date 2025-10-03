@@ -31,14 +31,11 @@
         <label class="label-form" for="input_keywordsTesis">Palabras Clave </label>
         <textarea name="keywordsTesis" class="input-form" id="input_keywordsTesis" required><?= set_value('keywordsTesis')?></textarea>
         
-        <label class="label-form" for="select_lineaInvestigacion">Linea de Investigación</label>
-        <select id="select_lineaInvestigacion" name="lineaInvestigacion" class="input-form">
-            <?php foreach($lineas as $linea): ?>
-                <option value="<?= $linea['id_linea']; ?>" <?= set_select('lineaInvestigacion', $linea['id_linea'])?>><?= $linea['nombre_linea']; ?></option>                      
-            <?php endforeach ?>
-        </select>
+        <label class="label-form" for="input_lineaInvestigacion">Linea de Investigación</label>
+        <input type="text" name="lineaInvestigacion" class="input-form" id="input_lineaInvestigacion" value="<?= set_value('lineaInvestigacion') ?>" required >
         
-       
+        
+        
 
         <label class="label-form" for="input_CampoInvestigacion">Campo de Investigación</label>
 
@@ -65,8 +62,23 @@
     </div>
 
     <div class="border my-4">
-        <h4>ASESOR Y JURADOS</h4>
+        <h4 class="mt-4">GRADO ACADÉMICO A OPTAR</h4>
+        
+        <label class="label-form" for="select_gradoTipo">Tipo de Grado</label>
+        <select id="select_gradoTipo" name="gradoTipo" class="input-form" required>
+            <option value="" disabled selected>Seleccione el tipo de grado</option>
+            <option value="titulo profesional" <?= set_select('gradoTipo', 'titulo profesional')?>>Título Profesional</option> 
+            <option value="segunda especialidad" <?= set_select('gradoTipo', 'segunda especialidad')?>>Segunda Especialidad</option> 
+            <option value="maestria" <?= set_select('gradoTipo', 'maestria')?>>Maestría</option> 
+            <option value="doctorado" <?= set_select('gradoTipo', 'doctorado')?>>Doctorado</option> 
+        </select>
+        
+        <label class="label-form" for="input_gradoDescripcion">Descripción del Grado (Ej: Nombre de la Maestría)</label>
+        <input type="text" name="gradoDescripcion" class="input-form" id="input_gradoDescripcion" value="<?= set_value('gradoDescripcion') ?>" required>
+    </div>
 
+    <div class="border my-4">
+        <h4>ASESOR Y JURADOS</h4>
         <label class="label-form" for="input_AsesorNombres">Asesor (Nombres y Apellidos)</label>
         <input type="text" name="Asesor" class="input-form" id="input_AsesorNombres" value="<?= set_value('AsesorNombres') ?>" required>
         
@@ -119,12 +131,12 @@
         const btnShowAutores = document.getElementById('btn-show-autores');
         const autoresContainer = document.getElementById('autores-container');
 
-        // Muestra el contenedor y añade el primer autor si no hay ninguno
         btnShowAutores.addEventListener('click', function() {
-            if (autoresContainer.querySelectorAll('.input-group').length === 0) {
-                addNewAuthorInput();
-            }
             autoresContainer.classList.remove('d-none');
+            // Solo agregar el primer input si no existe
+            if (autoresContainer.children.length === 0) {
+                addNewAuthorInput(true); // Pasar 'true' para el primer autor
+            }
             this.style.display = 'none';
         });
 
@@ -134,20 +146,19 @@
             
             if (clickedElement.classList.contains('btn-add-autor')) {
                 addNewAuthorInput();
-            } 
-            else if (clickedElement.classList.contains('btn-remove-autor')) {
+            } else if (clickedElement.classList.contains('btn-remove-autor')) {
                 const inputGroupToRemove = clickedElement.closest('.input-group');
                 inputGroupToRemove.remove();
 
-                if (autoresContainer.querySelectorAll('.input-group').length === 0) {
+                if (autoresContainer.children.length === 0) {
                     autoresContainer.classList.add('d-none');
                     btnShowAutores.style.display = 'block';
                 }
             }
         });
 
-        // Función para crear y añadir un nuevo autor con índice explícito
-        function addNewAuthorInput() {
+        // Función para crear y añadir un nuevo autor
+        function addNewAuthorInput(isFirst = false) {
             const currentAuthors = autoresContainer.querySelectorAll('.input-group');
             const newIndex = currentAuthors.length + 1; // El índice comienza después del autor principal (índice 0)
 
@@ -167,7 +178,11 @@
             dniInput.className = 'form-control autor-input-dni';
             dniInput.placeholder = 'DNI';
             dniInput.required = true;
-
+            
+            newAuthorGroup.appendChild(nameInput);
+            newAuthorGroup.appendChild(dniInput);
+            
+            // Lógica para los botones de remover y agregar
             const removeButton = document.createElement('button');
             removeButton.className = 'btn btn-outline-secondary btn-remove-autor';
             removeButton.type = 'button';
@@ -178,22 +193,21 @@
             addButton.type = 'button';
             addButton.textContent = '+';
             
-            newAuthorGroup.appendChild(nameInput);
-            newAuthorGroup.appendChild(dniInput);
+            // Se agregan ambos botones para que el último input siempre tenga el [+]
             newAuthorGroup.appendChild(removeButton);
             newAuthorGroup.appendChild(addButton);
 
-            // Remueve el botón de agregar si ya hay un campo existente
+            // Remueve el botón de agregar del autor anterior (si existe) para que solo el último lo tenga
             const existingAddButton = autoresContainer.querySelector('.btn-add-autor');
             if (existingAddButton) {
                 existingAddButton.remove();
             }
-            
+
             autoresContainer.appendChild(newAuthorGroup);
         }
     });
 
-    // Nueva lógica para mostrar y ocultar el iframe
+    // Lógica para mostrar y ocultar el iframe
     document.addEventListener('DOMContentLoaded', function () {
         const btnShowIframe = document.getElementById('btn-show-iframe');
         const btnCloseIframe = document.getElementById('btn-close-iframe');
