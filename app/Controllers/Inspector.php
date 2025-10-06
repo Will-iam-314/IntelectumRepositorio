@@ -142,21 +142,19 @@ class Inspector extends BaseController
     }
 
 
-    public function generatePaquetePublicacion($idTramite){
+    public function generatePaquetePublicacion($codigoTramite){
+        $tramiteModel = new TramiteModel();
+        $datosTramite = $tramiteModel->getTramite($codigoTramite);
+       
+
+
         // Ruta donde se va a crear el directorio
         $directorio =WRITEPATH . "paquetes_temp/ITEM_1";
  
-        // 1. Crear el directorio si no existe
+        //Crear el directorio si no existe
         if (!is_dir($directorio)) {
             mkdir($directorio, 0777, true);
         }
-
-        // 2. Generar XML del dublin_core
-        $dom = new \DOMDocument('1.0', 'UTF-8');
-        $dom->formatOutput = true; // Para que quede bonito
-
-        $dublin = $dom->createElement("dublin_core");
-        $dom->appendChild($dublin);
 
         // Función para añadir un <dcvalue>
         function addDcValue($dom, $parent, $text, $attrs = []) {
@@ -166,20 +164,55 @@ class Inspector extends BaseController
             }
             $parent->appendChild($dcvalue);
         }
+         
+
+
+        /**
+         * =====================================================
+         * 1. CREAR dublin_core.xml
+         * =====================================================
+        */
+        
+        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $dom->formatOutput = true; // Para que quede bonito
+
+        $dublin = $dom->createElement("dublin_core");
+        $dom->appendChild($dublin);
+
+        
 
         // Agregar nodos
         addDcValue($dom, $dublin, "Solicitud URL", ["element" => "identifier", "qualifier" => "other", "language" => "es_PE"]);
         addDcValue($dom, $dublin, "Mas info repositorio@unu.edu.pe", ["element" => "description", "language" => ""]);
-        addDcValue($dom, $dublin, "Mayta Rodríguez, Lesly Lucero", ["element" => "contributor", "qualifier" => "author", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "Pérez Nolorve, Erick", ["element" => "contributor", "qualifier" => "author", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "Modelo de gobernanza basado en BPM para mejorar la gestión de servicios en el grupo Uranio SAC", ["element" => "title", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "2025", ["element" => "date", "qualifier" => "issued", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "Ferrari Fernández, Freddy Elar", ["element" => "contributor", "qualifier" => "advisor", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "La presea an principios de goados esperados incl.", ["element" => "description", "qualifier" => "abstract", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "BPM", ["element" => "subject", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "Gestión", ["element" => "subject", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "Servicios", ["element" => "subject", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "Gestión de Tecnologías de Información", ["element" => "subject", "language" => "es_PE"]);
+        
+        if (!empty($datosTramite['autores']) && is_array($datosTramite['autores'])) {
+            foreach ($datosTramite['autores'] as $autor) {
+                $nombreCompleto = $autor['nombre'];
+                addDcValue($dom, $dublin, $nombreCompleto, [
+                    "element" => "contributor",
+                    "qualifier" => "author",
+                    "language" => "es_PE"
+                ]);
+            }
+        }
+
+        addDcValue($dom, $dublin, $datosTramite['tituloMaterial'], ["element" => "title", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, date("Y", strtotime($datosTramite['fechaSustentacion'])), ["element" => "date", "qualifier" => "issued", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, $datosTramite['Asesor'], ["element" => "contributor", "qualifier" => "advisor", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, $datosTramite['resumenTesis'], ["element" => "description", "qualifier" => "abstract", "language" => "es_PE"]);
+        
+        if (!empty($datosTramite['palabrasclaveTesis']) && is_array($datosTramite['palabrasclaveTesis'])) {
+            foreach ($datosTramite['palabrasclaveTesis'] as $palabraClave) {
+                $palabrasclaves = $palabraClave;
+                addDcValue($dom, $dublin,  $palabrasclaves, [
+                    "element" => "subject",
+                    "language" => "es_PE"
+                ]);
+            }
+        }
+
+     
+        addDcValue($dom, $dublin, $datosTramite['lineaInvestigacion'], ["element" => "subject", "language" => "es_PE"]);
         addDcValue($dom, $dublin, "spa", ["element" => "language", "qualifier" => "iso", "language" => "es_PE"]);
         addDcValue($dom, $dublin, "PE", ["element" => "publisher", "qualifier" => "country"]);
         addDcValue($dom, $dublin, "Universidad Nacional de Ucayali", ["element" => "publisher", "language" => "es_PE"]);
@@ -187,12 +220,104 @@ class Inspector extends BaseController
         addDcValue($dom, $dublin, "info:eu-repo/semantics/openAccess", ["element" => "rights", "language" => "en_US"]);
         addDcValue($dom, $dublin, "Universidad Nacional de Ucayali", ["element" => "source", "language" => "es_PE"]);
         addDcValue($dom, $dublin, "Repositorio institucional - UNU", ["element" => "source", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, "https://purl.org/pe-repo/ocde/ford#2.02.04", ["element" => "subject", "qualifier" => "ocde"]);
-        addDcValue($dom, $dublin, "info:eu-repo/semantics/bachelorThesis", ["element" => "type", "language" => "es_PE"]);
+        addDcValue($dom, $dublin, $datosTramite['campoInvestigacion'], ["element" => "subject", "qualifier" => "ocde"]);
 
+        if($datosTramite['GradoAcademicoOptar'] == 'titulo profesional'){
+            addDcValue($dom, $dublin, "info:eu-repo/semantics/bachelorThesis", ["element" => "type", "language" => "es_PE"]);
+        }
+
+        if($datosTramite['GradoAcademicoOptar'] == 'segunda especialidad'){
+            addDcValue($dom, $dublin, "info:eu-repo/semantics/bachelorThesis", ["element" => "type", "language" => "es_PE"]);   
+        }
+
+        if($datosTramite['GradoAcademicoOptar'] == 'maestria'){
+            addDcValue($dom, $dublin, "info:eu-repo/semantics/masterThesis", ["element" => "type", "language" => "es_PE"]);      
+        }
+
+        if($datosTramite['GradoAcademicoOptar'] == 'doctorado'){
+            addDcValue($dom, $dublin, "info:eu-repo/semantics/doctoralThesis", ["element" => "type", "language" => "es_PE"]);
+        }
+
+       
 
         // Guardar el XML del dublin_core en ITEM_1
         $dom->save($directorio . '/dublin_core.xml');
+
+        /**
+         * =====================================================
+         * 2. CREAR metadata_renati.xml
+         * =====================================================
+        **/
+
+        $domRenati = new \DOMDocument('1.0', 'UTF-8');
+        $domRenati->formatOutput = true;
+
+        $dublinRenati = $domRenati->createElement("dublin_core");
+        $dublinRenati->setAttribute("schema", "renati");
+        $domRenati->appendChild($dublinRenati);
+        
+        // Agregar nodos
+        addDcValue($domRenati, $dublinRenati, $datosTramite['dniAsesor'], ["element" => "advisor", "qualifier" => "dni"]);
+        addDcValue($domRenati, $dublinRenati, $datosTramite['orcidAsesor'], ["element" => "advisor", "qualifier" => "orcid"]);
+
+        if (!empty($datosTramite['autores']) && is_array($datosTramite['autores'])) {
+            foreach ($datosTramite['autores'] as $autor) {
+                if (!empty($autor['dni'])) {
+                    addDcValue($domRenati, $dublinRenati, $autor['dni'], ["element" => "author", "qualifier" => "dni"]);
+                }
+            }
+        }
+
+        addDcValue($domRenati, $dublinRenati, $datosTramite['campoAplicacion'], ["element" => "discipline"]);
+
+        // Nivel académico (según el grado)
+        switch (strtolower($datosTramite['GradoAcademicoOptar'])) {
+            case 'titulo profesional':
+                $nivel = "https://purl.org/pe-repo/renati/level#tituloProfesional";
+                break;
+            case 'segunda especialidad':
+                $nivel = "	https://purl.org/pe-repo/renati/level#tituloSegundaEspecialidad";
+                break;
+            case 'maestria':
+                $nivel = "https://purl.org/pe-repo/renati/level#maestro";
+                break;
+            case 'doctorado':
+                $nivel = "https://purl.org/pe-repo/renati/level#doctor";
+                break;
+            default:
+                $nivel = "";
+        }
+
+        addDcValue($domRenati, $dublinRenati, $nivel, ["element" => "level"]);
+
+        addDcValue($domRenati, $dublinRenati, "https://purl.org/pe-repo/renati/type#tesis", ["element" => "type"]);
+
+     
+        addDcValue($domRenati, $dublinRenati, $datosTramite['Jurado1'], ["element" => "juror"]);
+        addDcValue($domRenati, $dublinRenati, $datosTramite['Jurado2'], ["element" => "juror"]);
+        addDcValue($domRenati, $dublinRenati, $datosTramite['Jurado3'], ["element" => "juror"]);
+
+        $domRenati->save($directorio . '/metadata_renati.xml');
+
+        /**
+         * =====================================================
+         * 3. CREAR metadata_thesis.xml
+         * =====================================================
+        **/
+
+        $domThesis = new \DOMDocument('1.0', 'UTF-8');
+        $domThesis->formatOutput = true;
+
+        $dublinThesis = $domThesis->createElement("dublin_core");
+        $dublinThesis->setAttribute("schema", "thesis");
+        $domThesis->appendChild($dublinThesis);
+
+        // Agregar nodos
+        addDcValue($domThesis, $dublinThesis, "Universidad Nacional de Ucayali. Facultad de ". $datosTramite['solicitanteFacultad'], ["element" => "degree", "qualifier" => "grantor","language"=>"es_PE"]);
+        addDcValue($domThesis, $dublinThesis, $datosTramite['lineaInvestigacion'], ["element" => "degree", "qualifier" => "discipline","language"=>"es_PE"]);
+        addDcValue($domThesis, $dublinThesis, $datosTramite['GradoAcademicoOptar'], ["element" => "degree", "qualifier" => "name","language"=>"es_PE"]);
+
+        $domThesis->save($directorio . '/metadata_thesis.xml');
 
         // 3. Crear el ZIP
         $zipPath = WRITEPATH . 'paquetes_temp/ITEM_1.zip';

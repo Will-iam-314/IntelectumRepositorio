@@ -156,12 +156,16 @@ class TramiteModel extends Model
                 tesis.documento_tesi as fileTesis, 
                 tesis.resumen_tesi as resumenTesis,
                 tesis.palabrasclave_tesi as palabrasclaveTesis,
+                tesis.fechaSustentacion_tesi as fechaSustentacion,
                 
                 tesis.docente_asesor_tesi as Asesor,
                 tesis.docente_jurado1_tesi as Jurado1,
                 tesis.docente_jurado2_tesi as Jurado2,
                 tesis.docente_jurado3_tesi as Jurado3,
 
+                tesis.campoinvestigacion_tesi as campoInvestigacion,
+                tesis.campoaplicacion_tesi as campoAplicacion,
+                tesis.linea_tesi as lineaInvestigacion,
                 tesis.gradoAcademicoOptar_tesi as GradoAcademicoOptar,
                 tesis.descripcionGradoAcademico_tesi as DescripcionGradoOptar,
 
@@ -178,8 +182,9 @@ class TramiteModel extends Model
                 solicitantes.apellidos_solicitante as solicitanteApellido,
                 solicitantes.dni_solicitante as solicitanteDNI,
                 
-                escuelas.nombre_escuela as solicitanteEscuela 
+                escuelas.nombre_escuela as solicitanteEscuela, 
 
+                facultades.nombre_facultad as solicitanteFacultad
 
             ')
             ->join('material', 'material.id_materia = tramites.id_materia_tramite')
@@ -187,6 +192,7 @@ class TramiteModel extends Model
             ->join('tesis','tesis.id_tesi = material.id_tesi_materia')
             ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
             ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
+            ->join('facultades','facultades.id_facultad = escuelas.id_facultad_escuela ')
             
 
             ->where('tramites.codigo_tramite', $codigo)
@@ -203,6 +209,9 @@ class TramiteModel extends Model
             $tramite['Asesor'] = $Asesor;
             $tramite['dniAsesor'] = $dniAsesor;
             $tramite['orcidAsesor'] = $orcidAsesor;
+
+            $arrayPalabrasClave = explode(",", $tramite['palabrasclaveTesis']);
+            $tramite['palabrasclaveTesis'] = $arrayPalabrasClave;
 
 
             // 1. Dividir el string por el separador de autores ('/')

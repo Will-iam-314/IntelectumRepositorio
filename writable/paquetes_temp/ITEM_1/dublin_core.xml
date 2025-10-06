@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dublin_core>
-  <dcvalue element="identifier" qualifier="other" language="es_PE">Solicitud URLs</dcvalue>
+  <dcvalue element="identifier" qualifier="other" language="es_PE">Solicitud URL</dcvalue>
   <dcvalue element="description" language="">Mas info repositorio@unu.edu.pe</dcvalue>
-  <dcvalue element="contributor" qualifier="author" language="es_PE">Mayta Rodríguez, Lesly Lucero</dcvalue>
-  <dcvalue element="contributor" qualifier="author" language="es_PE">Pérez Nolorve, Erick</dcvalue>
-  <dcvalue element="title" language="es_PE">Modelo de gobernanza basado en BPM para mejorar la gestión de servicios en el grupo Uranio SAC</dcvalue>
+  <dcvalue element="contributor" qualifier="author" language="es_PE">pepe Camelo Rico</dcvalue>
+  <dcvalue element="title" language="es_PE">prueba tramie 01</dcvalue>
   <dcvalue element="date" qualifier="issued" language="es_PE">2025</dcvalue>
-  <dcvalue element="contributor" qualifier="advisor" language="es_PE">Ferrari Fernández, Freddy Elar</dcvalue>
-  <dcvalue element="description" qualifier="abstract" language="es_PE">La presea an principios de goados esperados incl.</dcvalue>
-  <dcvalue element="subject" language="es_PE">BPM</dcvalue>
-  <dcvalue element="subject" language="es_PE">Gestión</dcvalue>
-  <dcvalue element="subject" language="es_PE">Servicios</dcvalue>
-  <dcvalue element="subject" language="es_PE">Gestión de Tecnologías de Información</dcvalue>
+  <dcvalue element="contributor" qualifier="advisor" language="es_PE">jorge luis hilario rivas</dcvalue>
+  <dcvalue element="description" qualifier="abstract" language="es_PE">resumen de la tesis loremipsuADSJFBADSJKFGHASFSF</dcvalue>
+  <dcvalue element="subject" language="es_PE">prueba</dcvalue>
+  <dcvalue element="subject" language="es_PE"> TEST</dcvalue>
+  <dcvalue element="subject" language="es_PE"> 01</dcvalue>
+  <dcvalue element="subject" language="es_PE">calidad del aire y medio ambiente</dcvalue>
   <dcvalue element="language" qualifier="iso" language="es_PE">spa</dcvalue>
   <dcvalue element="publisher" qualifier="country">PE</dcvalue>
   <dcvalue element="publisher" language="es_PE">Universidad Nacional de Ucayali</dcvalue>
@@ -19,6 +18,6 @@
   <dcvalue element="rights" language="en_US">info:eu-repo/semantics/openAccess</dcvalue>
   <dcvalue element="source" language="es_PE">Universidad Nacional de Ucayali</dcvalue>
   <dcvalue element="source" language="es_PE">Repositorio institucional - UNU</dcvalue>
-  <dcvalue element="subject" qualifier="ocde">https://purl.org/pe-repo/ocde/ford#2.02.04</dcvalue>
+  <dcvalue element="subject" qualifier="ocde">https://purl.org/pe-repo/ocde/ford#1.01.01</dcvalue>
   <dcvalue element="type" language="es_PE">info:eu-repo/semantics/bachelorThesis</dcvalue>
 </dublin_core>

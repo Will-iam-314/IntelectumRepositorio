@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dublin_core schema="renati">
+  <dcvalue element="advisor" qualifier="dni">123456768</dcvalue>
+  <dcvalue element="advisor" qualifier="orcid">https://orcid.org/0000-0003-1283-5630</dcvalue>
+  <dcvalue element="author" qualifier="dni">12345467</dcvalue>
+  <dcvalue element="discipline">123123123</dcvalue>
+  <dcvalue element="level">https://purl.org/pe-repo/renati/level#tituloProfesional</dcvalue>
+  <dcvalue element="type">https://purl.org/pe-repo/renati/type#tesis</dcvalue>
+  <dcvalue element="juror">arturo yupanqui</dcvalue>
+  <dcvalue element="juror">hullo galvez</dcvalue>
+  <dcvalue element="juror">cloti rios</dcvalue>
+</dublin_core>
