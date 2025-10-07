@@ -319,7 +319,61 @@ class Inspector extends BaseController
 
         $domThesis->save($directorio . '/metadata_thesis.xml');
 
-        // 3. Crear el ZIP
+
+        /**
+         * =====================================================
+         * 4. Poner archivo de tesis y renombramiento
+         * =====================================================
+        **/
+
+        $archivoMaterialTesis = WRITEPATH.'uploads/material/tesis/TesisFile_'.$codigoTramite.'.pdf';
+        
+
+        
+        $fecha = $datosTramite['fechaSustentacion']; // Ejemplo: "2025-10-05"
+        $dt = new \DateTime($fecha);
+        $mes = (int)$dt->format('m'); // Devuelve 1-12
+        $anio = (int)$dt->format('Y'); // Devuelve el año (ej. 2025)
+
+        $Carrera = str_replace(' ', '-', $datosTramite['DescripcionGradoOptar']);
+
+
+        $autores = $datosTramite['autores'];
+
+        $nombresProcesados = [];
+
+        foreach ($autores as $autor) {
+            // Reemplazar espacios por guiones en el nombre
+            $nombreFormateado = str_replace(' ', '-', $autor['nombre']);
+            $nombresProcesados[] = $nombreFormateado;
+        }
+
+        // Unir todos los nombres con "_"
+        $cadenaAutores = implode('_', $nombresProcesados);
+
+
+        $nuevoNombreArchivo = 'B'.$mes.'_'.$anio.'_'.strtoupper($Carrera).'_T_'.strtoupper($cadenaAutores).'.pdf';
+
+        $nuevoArchivo = $directorio.'/'.$nuevoNombreArchivo; 
+
+        if (file_exists($archivoMaterialTesis)) {
+            copy($archivoMaterialTesis, $nuevoArchivo); // o rename() si quieres moverlo
+        }
+        
+        /**
+         * =====================================================
+         * 4. Archivo contents
+         * =====================================================
+        **/
+
+        $rutaArchivContent = $directorio.'/contents';
+        $contenidoContents = $nuevoNombreArchivo;
+        file_put_contents($rutaArchivContent, $contenidoContents);
+        
+        
+        
+        
+        //  Crear el ZIP
         $zipPath = WRITEPATH . 'paquetes_temp/ITEM_1.zip';
         $zip = new \ZipArchive();
 
