@@ -12,6 +12,9 @@
     "require": {
         "php": "^8.1",
         "codeigniter4/framework": "^4.0",
+        "dompdf/dompdf": "^3.1",
+        "endroid/qr-code": "^6.0",
+        "setasign/fpdi-tcpdf": "^2.3",
         "tecnickcom/tcpdf": "^6.10"
     },
     "require-dev": {

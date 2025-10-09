@@ -62,7 +62,7 @@
                         <td>
                             <?php if ($t['estadoTramite'] === "Material Publicado"): ?>
 
-                                <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 0 ?>" class="btn btn-sm btn-primary">Emitir Constancia</a>
+                                <a href="<?= base_url('dpi/generarConstancia/'.$t['codigoTramite']) ?>" class="btn btn-sm btn-primary">Emitir Constancia</a>
 
                             <?php else: ?> 
 

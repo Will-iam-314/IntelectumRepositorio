@@ -99,7 +99,11 @@
         <p><strong>Título:</strong> <?= esc($tituloMaterial) ?></p>
         <p><strong>Tipo de materia:</strong> <?= esc($tipomateriaMaterial) ?></p>
         <p><strong>Resumen:</strong> <?= esc($resumenTesis) ?></p>
-        <p><strong>Palabras clave:</strong> <?= esc($palabrasclaveTesis) ?></p>
+        <p><strong>Palabras clave:</strong>
+        
+        <?php foreach($palabrasclaveTesis as $keywords){echo($keywords.',');}; ?>
+                
+        </p>
         <p><strong>Archivo de Tesis:</strong> 
             <?php if(!empty($fileTesis)): ?>
                 <a href="<?= base_url('solicitante/documentos/verTesis/'.$fileTesis) ?>" target="_blank">Ver archivo</a>

@@ -42,7 +42,7 @@ $routes->group('admin',['filter'=>'administrador'], function($routes){
 
 });
 
-$routes->group('inspector',['filter'=>'inspector'], function($routes){
+$routes->group('inspector',['filter'=>'inspector'], function($routes){   
 
     $routes->get('home','Inspector::index');
     $routes->get('solicitudes','Inspector::getViewSolicitudes');
@@ -68,6 +68,10 @@ $routes->group('dpi',['filter'=>'dpi'], function($routes){
 
     $routes->get('home','DpiAdmin::index');
     $routes->get('solicitudes','DpiAdmin::getViewSolicitudes');
+    $routes->get('generarConstancia/(:segment)','DpiAdmin::generarConstancia/$1');
+   
 
 });
+
+$routes->get('Constancia/(:segment)','DpiAdmin::verConstancia/$1');
  
