@@ -55,6 +55,21 @@ class Solicitante extends BaseController
         
     } 
 
+    public function getViewConstancias(){
+        $tramiteModel = new TramiteModel();
+        $datosTramites = $tramiteModel->getTramitesSolicitante(session('datarol_id'));
+
+        $tramitesConConstancia=[];
+        foreach($datosTramites as $tramites){
+            if($tramites['estado'] == 'Constancia Emitida'){
+                $tramitesConConstancia[] = $tramites;
+            }
+            
+        }
+
+        return view('Solicitante/Constancias',['tramites'=>$tramitesConConstancia]);
+    }
+
     public function getViewNuevaSolicitud(){
         $lineaModel = new LineasInvestigacionModel();
         //$docenteModel = new DocentesModel();

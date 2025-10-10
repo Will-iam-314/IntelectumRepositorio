@@ -26,6 +26,8 @@ $routes->group('solicitante',['filter'=>'solicitante'], function($routes){
 
     $routes->get('observaciones/(:segment)','Solicitante::getViewObservaciones/$1');
 
+    $routes->get('constancias','Solicitante::getViewConstancias');
+
     $routes->post('nuevaSoli','Solicitante::nuevaSolicitud');
     $routes->post('levantarObservaciones','Solicitante::levantarObservaciones');
 

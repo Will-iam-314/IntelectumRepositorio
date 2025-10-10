@@ -29,7 +29,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Constancias</a> 
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/constancias') ?>">Constancias</a> 
                     </li>
 
 

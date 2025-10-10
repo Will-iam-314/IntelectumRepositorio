@@ -175,6 +175,7 @@ class TramiteModel extends Model
                 tramites.date_created_tramite as fechapresentacionTramite,
                 tramites.declaracionJurada_tramite as fileDeclaracionJuradaTramite,
                 tramites.autorizacionPublicacion_tramite as fileAutorizacionPublicacionTramite,
+                tramites.urlpublicacion_tramite as urlPublicacion,
 
                 estadotramites.nombres_estadotramite as estadoTramite,
 

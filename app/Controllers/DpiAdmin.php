@@ -26,7 +26,7 @@ class DpiAdmin extends BaseController
 
     public function getViewSolicitudes(){
         $tramitesModel = new TramiteModel();
-        $historialModel = new HistorialTramitesModel();
+        
 
         $dataTramite = $tramitesModel->getTramites();
 
@@ -37,41 +37,78 @@ class DpiAdmin extends BaseController
 
     public function generarConstancia($codigoTramite){
 
+        $tramitesModel = new TramiteModel(); 
+        $dataTramite = $tramitesModel->getTramite($codigoTramite);
+
         /*
 
-            1. CADA CONSTANCIA TIENE UN CODIGO ASIQ EU CREAR LA FUNCION PARA GENERAR EL CODIGO
-            2. LA BD EN TRAMITE DEBE DE TENER UNA ATRIBUTO PARA EL CODIGO DE LA CONSTANCIA
-            3. COMO LA RUTA DE LA CONSTANCIA ESTA EN WRITABLE CREAR UNA FUNCION PARA LEER DICHO PDF
             4. NOMENCLATURA PARA EL NOMBRE DE LA CONSTANCIA: constancia_*codigo/serieconstnacia_*codigotramite
-            5. generar qr.
-
 
         */
 
-        // --- 0. DATOS SIMULADOS ---
-        $numConstancia = "00225-" . date('Y');
-        $tituloTrabajo = "INCIDENCIA DE LA INVERSIÓN PÚBLICA EN LAS ACTIVIDADES ECONÓMICAS DEL DISTRITO DE MANANTAY 2010-2024";
+        //**************  CONTRUCCION DEL NUMERO DE CONSTANCIA *********************//
+
+            //    Empezamos en la posición 3 (índice 3), que es el primer '0'.
+            $sinPrefijo = substr($codigoTramite, 3); // Resultado: '000125' 
+
+            // 2. Extraer el número de trámite (los primeros 4 dígitos del string restante)
+            $numeroTramite = substr($sinPrefijo, 0, 4); // Resultado: '0001'
+
+            // 3. Extraer el año (los últimos 2 dígitos del string restante)
+            //    Empezamos en la posición 4 (índice 4), o usamos un índice negativo.
+            $anioCorto = substr($sinPrefijo, 4, 2); // Resultado: '25'
+
+            // 4. Construir el año completo
+            $anioCompleto = '20' . $anioCorto; // Resultado: '2025'
+
+            // 5. Combinar los resultados con el guion
+            $numConstancia = $numeroTramite . '-' . $anioCompleto;
+
+        //**** TITULO DEL MATERIAÑ */
+            $tituloTrabajo = $dataTramite['tituloMaterial'];
+
+        //***** AUTORES */
+            $autores=[];
+            foreach($dataTramite['autores'] as $autor){
+                $autores[]=$autor['nombre'];
+            }
         
-        // 🔑 DATOS DE AUTORES: Ahora es un array de nombres
-        $autores = [
-            "Guzman Novoa, Luis Angel",
-            "Mendoza Ramos, Ana Lucía"
-            
-        ];
+        //*** URL PUBLICACION */
+            $urlRepositorio = $dataTramite['urlPublicacion'];
         
-        $autoresTexto = implode(', ', $autores); // Une los autores en una sola cadena
-        
-        $urlRepositorio = "https://hdl.handle.net/20.500.14621/7940";
-        $fechaEmision = "Pucallpa 8 de octubre del " . date('Y');
+        //*** FECHA ACTUAL */
+            $mesesEnEspanol = [
+                1 => 'enero',
+                'febrero',
+                'marzo',
+                'abril',
+                'mayo',
+                'junio',
+                'julio',
+                'agosto',
+                'septiembre',
+                'octubre',
+                'noviembre',
+                'diciembre'
+            ];
+
+            $dia = date('d');
+            $numeroMes = date('n'); // 'n' da el número del mes sin ceros iniciales (1 a 12)
+            $anio = date('Y');
+
+            $nombreMes = $mesesEnEspanol[$numeroMes];
+
+            $fechaEmision = "Pucallpa ".$dia." de ".$nombreMes." del " . $anio;
         
         // 🚨 RUTA DE IMÁGENES:
-        $rutaLogo = FCPATH.'assets/img/unu.png'; 
-        $rutaFirma = FCPATH . 'images/firma_director.png'; //
+            $rutaLogo = FCPATH.'assets/img/unu.png'; 
+            $rutaFirma = FCPATH . 'assets/img/firmaDirector.png'; 
 
         // --- 0. PREPARACIÓN DE RUTAS ---
-        $rutaGuardaPdf = WRITEPATH. "uploads/constancias/constancia_{$codigoTramite}.pdf";
-        $qrPath = WRITEPATH . 'uploads/constancias/qrs/qr_' . $codigoTramite . '.png';
+            $rutaGuardaPdf = WRITEPATH. "uploads/constancias/constancia_{$codigoTramite}.pdf";
+            $qrPath = WRITEPATH . 'uploads/constancias/qrs/qr_' . $codigoTramite . '.png';
        
+        
         // 1️⃣ Crear el QR
         $urlConstancia = base_url('Constancia/'.$codigoTramite);
         
@@ -148,25 +185,16 @@ class DpiAdmin extends BaseController
         );
         $pdf->SetFont('helvetica', '', 12); 
         
-        // --- 2.5 CAJA DE AUTOR(ES) (DINÁMICA) ---
+        // --- 2.5 CAJA DE AUTOR(ES)---
         $pdf->Ln(5);
-        $x_inicio = $pdf->GetX();
-        $y_inicio = $pdf->GetY();
-        $ancho_col1 = 30; // Ancho fijo para "Autor(es)"
-        $ancho_col2 = 155; // Ancho restante (175 - 30)
+        $pdf->SetFont('helvetica', 'B', 14);
+        $pdf->Cell(0, 6,'Autor(es)', 1, 1, 'C', 0, '', 0, false, 'T', 'M');
 
-        // 🔑 1. Calcular la altura que ocupará la lista de autores
-       
         
-        // 🔑 2. Dibujar la celda de la etiqueta "Autor(es)" con la altura calculada
-        $pdf->Ln(5);
-        $pdf->SetFont('helvetica', 'B', 12);
-        $pdf->MultiCell($ancho_col1, 10, 'Autor(es)', 1, 'L', 0, 0, '', '', true, 0, false, true, 0, 'M');
-        
-        // 🔑 3. Dibujar la celda de los nombres con la misma altura
-        $pdf->Ln(5);
-        $pdf->SetFont('helvetica', '', 11);
-        $pdf->MultiCell($ancho_col2, 10, $autoresTexto, 1, 'L', 0, 0, '', '', true, 0, false, true, 0, 'T'); 
+        foreach($autores as $autor){
+            $pdf->SetFont('helvetica', '', 12);
+            $pdf->Cell(0, 6, $autor, 1, 1, 'C', 0, '', 0, false, 'T', 'M');
+        }
         
         // --- 2.6 URL DEL REPOSITORIO ---
         $pdf->Ln(8);
@@ -176,7 +204,7 @@ class DpiAdmin extends BaseController
         // Caja de la URL
         $pdf->Ln(8);
         $pdf->SetFont('helvetica', '', 12);
-        $pdf->Cell(0, 6, $urlRepositorio, 1, 1, 'C', 0, '', 0, false, 'T', 'M');
+        $pdf->Cell(0, 8, $urlRepositorio, 1, 1, 'C', 0, '', 0, false, 'T', 'M');
         
         // --- 2.7 QR y FIRMA (Sección Inferior) ---
         
@@ -184,32 +212,33 @@ class DpiAdmin extends BaseController
         $y_firma_seccion = $pdf->GetY();
         
         // POSICIÓN DEL QR (Izquierda)
-        $qrWidth = 45; 
+        $qrWidth = 55; 
         $qrX = 25; 
         $qrY = $y_firma_seccion; 
         $pdf->Image($qrPath, $qrX, $qrY, $qrWidth, $qrWidth, 'PNG');
         
         // FECHA (Derecha, arriba de la firma)
         $pdf->SetFont('helvetica', '', 11);
-        $pdf->SetXY($qrX + $qrWidth + 50, $y_firma_seccion); 
+        $pdf->SetXY($qrX + $qrWidth +45, $y_firma_seccion); 
         $pdf->Write(0, $fechaEmision);
 
         // IMAGEN DE FIRMA (Derecha, debajo de la fecha)
         if (file_exists($rutaFirma)) {
             // Posición ajustada para alinear con la imagen de referencia
-            $pdf->Image($rutaFirma, $qrX + $qrWidth + 50, $y_firma_seccion + 10, 50, 30, 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        }
-        
-        // Nombre y Cargo del Director (Debajo de la firma)
-        $pdf->SetFont('helvetica', 'B', 10);
-        $pdf->SetXY($qrX + $qrWidth + 50, $y_firma_seccion + 35); 
-        $pdf->Cell(0, 5, 'Mg. JOSÉ MANUEL CÁRDENAS BERNAOLA', 0, 1, 'L');
-        $pdf->SetFont('helvetica', '', 10);
-        $pdf->SetXY($qrX + $qrWidth + 50, $y_firma_seccion + 39);
-        $pdf->Cell(0, 5, 'Director de Producción Intelectual', 0, 1, 'L');
+            $pdf->Image($rutaFirma, $qrX + $qrWidth+10 , $y_firma_seccion + 10, 80, 45, 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        }       
+      
 
         // --- 3️⃣ GUARDAR Y DESCARGAR ---
         $pdf->Output($rutaGuardaPdf, 'F');
+
+        //**** ACTUALIZAR ESTADO DEL TRAMITE Y GUARDAR HISTORIAL DEL TRAMITE */
+
+        $historialModel = new HistorialTramitesModel();
+        $tramitesModel->updateEstado($dataTramite['idTramite'], 7);
+        $historialModel->newHistorialTramite(session('id'),$dataTramite['idTramite'],session('rol'),7);
+
+
        
         return view('dpi/Constancia',['codigoTramite' => $codigoTramite]);
         
@@ -222,7 +251,8 @@ class DpiAdmin extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException("Archivo no encontrado");
         }
         //return $this->response->download($ruta, null)->setFileName($nombreArchivo); 
-
-        return $this->response->setHeader('Content-Type', 'application/pdf')->setBody(file_get_contents($ruta));
+        return $this->response
+               ->setHeader('Content-Type', 'application/pdf')
+               ->setBody(file_get_contents($ruta));
     }
 }
