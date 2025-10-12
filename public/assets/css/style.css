@@ -1,6 +1,9 @@
 :root{
     --color-azulOscuro : #013D73;
     --color-celeste: #3F81BB;
+    --color-celeste-clarito:#DEEBF7;
+    --color-gris:#F2F2F2;
+
 }
 
 body{
@@ -9,7 +12,7 @@ body{
 
 .label-form{
     display: block;
-    color: #767171;
+    color: #969595;
     font-weight: bold;
     font-family: Arial;
     margin-top:15px;
@@ -18,21 +21,39 @@ body{
 }
 
 input::placeholder {
-  color: #AFABAB;        /* Cambia el color */
-  font-size: 16px;
+  color: #dbdada;        /* Cambia el color */
+  font-size: 15px;
 }
+
 
 .input-form{
     display: block;
     width: 100%;
     outline: none;
-    border: 1px solid #AFABAB;
+    border: 1px solid #dad9d9;
     border-radius: 5px;
     padding: 8px 10px;
     color:rgb(21, 21, 21);
     font-size:17px;
     
 
+}
+
+.select-form{
+
+    
+    outline: none;  
+    width: 100%;
+    border: 1px solid #dad9d9 ;
+    border-radius: 5px;
+    padding: 8px 10px;
+    color:rgb(21, 21, 21);
+    font-size:17px;
+    
+}
+
+.select-form:focus{
+    border: 1px solid var(--color-celeste);
 }
 
 .input-form:focus{
@@ -56,6 +77,10 @@ a{
     font-weight: bold;
 }
 
+.btn-style1:hover{
+    background-color: #3878b1;
+}
+
 .btn-style2-google{
     width: 100%;
     padding: 8px;
@@ -63,7 +88,7 @@ a{
     border-radius: 10px;
     background-color: white;
     color:#595959;
-    font-size: 17px;
+    font-size: 1rem;
     
 }
 
@@ -86,3 +111,5 @@ a{
     margin-bottom: 0;
     margin-top: 20px;
 }
+
+

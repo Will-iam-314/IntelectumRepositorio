@@ -18,10 +18,10 @@
 
             <?= csrf_field(); ?> 
             <label class="label-form" for="input_mail">Correo Electronico</label>
-            <input type="email" name="email" class="input-form" id="input_mail" spellcheck="false" required>
+            <input type="email" name="email" class="input-form" id="input_mail" spellcheck="false"  required>
 
             <label class="label-form" for="input_password">Contraseña</label>
-            <input type="password" name="password" class="input-form" id="input_password" spellcheck="false" required>
+            <input type="password" name="password" class="input-form" id="input_password" spellcheck="false"  required>
 
             <div class="text-end mt-3">
                 <a href="">¿Olvidaste tu Contraseña?</a>
@@ -32,7 +32,7 @@
                 <div class= 'alert alert-danger my-3' role='alert'>
                 <?= session()->getFlashdata('errors');?>
                 </div>
-
+ 
             <?php  endif; ?>
 
             <button type="submit" class="btn-style1 mt-3">
@@ -46,7 +46,7 @@
         </form>
 
         <div  class=" mt-3">
-            <span id="text-end-body-Auth" >¿No tienes una Cuenta? </span><a href="<?= base_url('registrarse') ; ?>">Crea una aqui</a>
+            <span id="text-end-body-Auth" >¿No tienes una cuenta? </span><a href="<?= base_url('registrarse') ; ?>">Crea una aquí</a>
         </div>
     </div>
     <div id="footer-Auth">
