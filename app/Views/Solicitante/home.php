@@ -2,9 +2,16 @@
 
 <?= $this->section('content');?>
 
-<h1>HOME SOLICITANTE</h1>
 
-<a href="<?= base_url('solicitante/solicitud'); ?>">Solicitar Constancia URL</a>
+<div class="d-flex justify-content-between">
+    <span class="title-modules">Inicio</span>
+
+    <div class="d-flex align-items-center btn-solicitar-inhome ">
+      <a href="<?= base_url('solicitante/solicitud'); ?>">Nueva Solicitud</a>
+    </div>
+    
+</div>
+
 
 <?php if(!empty($tramite)): ?>
 

@@ -6,22 +6,33 @@
     <title><?=  name_system(); ?></title>
     <link rel="icon" type="image/png" href="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.2') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=1.0') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.4') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=1.1') ?>">
 
 </head>
-<body>
+<body class="body-templates">
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Intelectum</a>
+    <nav class="navbar navbar-expand-xl bg-body-tertiary py-2 px-1">
+        <div  class="container-xl ">
+
+            <div class="d-flex">
+                <div id="cont-logo-menu">
+                    <img id="" height="45" width="45" src="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>" alt="">
+                </div>
+                
+                <div class="d-flex flex-column justify-content-center " >
+                    <span id="title-menu">Intelectum</span>
+                    <span id="subtitle-menu">Repositorio</span>
+                </div>
+            </div>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/home') ?>">Home</a>
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/home') ?>">Inicio</a>
                     </li>
 
                     <li class="nav-item">
@@ -39,10 +50,10 @@
                             Perfil
                         </a>
                         <ul class="dropdown-menu">
-                            <li><?php echo(session('nombres').' '.session('apellidos')) ?></li>
-                            <li><?= session('correo') ?></li>
+                            <li style="padding:0px 15px;" class="fw-bold"><?php echo(session('nombres').' '.session('apellidos')) ?></li>
+                            <li style="padding:0px 15px;"><?= session('correo') ?></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="<?= base_url('logout') ; ?>">Cerrar sesion</a></li>
+                            <li  ><a style="color:red;" class="dropdown-item fw-bold" href="<?= base_url('logout') ; ?>">Cerrar sesion</a></li>
                         </ul>
                     </li>
                     
@@ -52,7 +63,7 @@
         </div>
     </nav>
  
-    <div id="contenedor" class=" border container">
+    <div  class="container mt-4 cont-layouts">
         <?= $this->renderSection('content') ?>        
     </div>
 

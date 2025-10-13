@@ -24,7 +24,7 @@
             <input type="password" name="password" class="input-form" id="input_password" spellcheck="false"  required>
 
             <div class="text-end mt-3">
-                <a href="">¿Olvidaste tu Contraseña?</a>
+                <a class="a-link-default" href="">¿Olvidaste tu Contraseña?</a>
             </div>
 
             <?php if(session()->getFlashdata('errors')!==null): ?>
@@ -46,7 +46,7 @@
         </form>
 
         <div  class=" mt-3">
-            <span id="text-end-body-Auth" >¿No tienes una cuenta? </span><a href="<?= base_url('registrarse') ; ?>">Crea una aquí</a>
+            <span id="text-end-body-Auth" >¿No tienes una cuenta? </span><a class="a-link-default" href="<?= base_url('registrarse') ; ?>">Crea una aquí</a>
         </div>
     </div>
     <div id="footer-Auth">

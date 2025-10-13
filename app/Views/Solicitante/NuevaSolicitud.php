@@ -3,9 +3,9 @@
 <?= $this->section('content');?>
 
 <button onclick='confirmarRegreso()'>Atras</button>
-<h1 class='px-5'>Nueva Solicitud</h1>
+<span class='title-modules'>Nueva Solicitud</span>
 
-<form class='px-5' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">
+<form class='' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">
     
     <?= csrf_field(); ?>
 

@@ -93,7 +93,7 @@
 
           
           <div class="text-center mt-3">
-              <a href="<?= base_url(); ?>">Iniciar sesión</a>
+              <a class="a-link-default" href="<?= base_url(); ?>">Iniciar sesión</a>
           </div>
         </form>
 

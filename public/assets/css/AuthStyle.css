@@ -1,12 +1,12 @@
-body{
-    background: #CDD5DB;
-}
+
 
 #contenedor-Auth{
     
   display: grid;
   place-items: center; /* Centra vertical y horizontal */
   height: 100vh;
+  margin:0;
+  width: 100%;
     
 }
 
@@ -21,7 +21,8 @@ body{
 }
 
 #container-Auth-register{
-    width: min(700px, 90%); 
+    margin-left: 10px;
+    margin-right: 100px;
     background: #ffffff;
     padding: 30px 50px;
     border-radius: 10px;

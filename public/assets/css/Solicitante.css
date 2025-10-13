@@ -6,3 +6,25 @@
     background-color: #d4d4d4;
     
 }
+
+.btn-solicitar-inhome{
+  background-color: var(--color-celeste);
+  padding: 0px 20px;
+  border-radius: 7px;
+  cursor: pointer;
+
+}
+
+.btn-solicitar-inhome:hover{
+  background-color: #3878b1;
+}
+
+.btn-solicitar-inhome a{
+  text-decoration: none;
+  color:white ;
+  font-weight: bold;
+
+}
+
+/* SOLICITAR STYLES ***/
+
