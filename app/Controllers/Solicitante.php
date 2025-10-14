@@ -24,6 +24,10 @@ class Solicitante extends BaseController
         $this->solicitanteModel = new SolicitantesModel();
     }
 
+    public function getViewTemporal(){
+        return view('Auth/verificacionExitosaCorreo');
+    }
+
     public function index()
 
     {

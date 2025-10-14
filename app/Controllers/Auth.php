@@ -31,6 +31,10 @@ class Auth extends BaseController{
         return view('Auth/verificacionCorreo');
     }
 
+    public function getViewRecuperarPassword(){
+        return view('Auth/recuperarPassword'); 
+    }
+
     public function authentication(){
         $rules = [
             'email' => 'required|valid_email',

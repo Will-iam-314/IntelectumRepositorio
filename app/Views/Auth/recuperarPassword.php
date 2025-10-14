@@ -15,22 +15,26 @@
         </div> 
     </div>
     <div class="mt-3">
-        <div id="label-registro">
-            <span>REGISTRO</span><span style="color:#333F50 !important;"> Verificación de Correo</span>
+        <div class="text-center" id="label-registro">
+            <span>Recuperar Contraseña</span>
         </div>
 
         <p class="mt-2" style="text-align: justify;">
-            Hemos enviado un código de verificación a tu correo electrónico. Por favor, ingrésalo a continuación para confirmar tu cuenta.
+            Ingresa el correo electrónico asociado a tu cuenta. Te enviaremos un código de verificación para restablecer tu contraseña.
         </p>
         
-        <form method="POST" action="<?= base_url('verificacion')?>" autocomplete="off" onsubmit= "mostrarLoading()">
+        <form method="POST" action="<?= base_url('')?>" autocomplete="off" onsubmit= "mostrarLoading()">
 
             <?= csrf_field(); ?>
 
             
-            <label class="label-form" for="input_names">Código</label>
-            <input type="text" name="codigo" class="input-form" id="input_codigo" placeholder="Ingrese el Código"   required autofocus>
+            <label class="label-form" for="input_names">Correo</label>
+            <input type="text" name="correo_recuperar" class="input-form" id="input_correo_recuperar" placeholder="Ingrese el Correo electronico"   required autofocus>
 
+            <div class="text-start mt-2">
+                <a class="a-link-default" href="<?= base_url(''); ?>">Ya tengo un código</a>
+            </div>
+            
             <?php if(session()->getFlashdata('errors')!==null): ?>
 
                 <div class= 'alert alert-danger my-3 ' role='alert'>
@@ -48,8 +52,8 @@
             <?php  endif; ?>
 
             
-            <button type="submit" class="btn-style1 mt-3">
-                Verificar Código
+            <button type="submit" class="btn-style1 mt-4">
+                Enviar
             </button>
 
             

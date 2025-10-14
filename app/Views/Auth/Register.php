@@ -3,10 +3,10 @@
 <?= $this->section('content');?>
 
 
-<div id="container-Auth-register">
+<div id="container-Auth-v2">
     <div class="text-center">
 
-        <div  id="heder-Auth-register">
+        <div  id="heder-Auth-register"> 
             <div class="d-flex justify-content-center align-items-center" id="title-Auth">
                 <img class="me-2" width=45  src="<?= base_url('assets/icons/IntelectumLogo.png')?>" alt="">
                 <span class="ms-1" id="title-name-Auth"><?= name_system(); ?></span>
@@ -54,12 +54,12 @@
                             <option value="<?= $carrera['id_escuela']; ?>" <?= set_select('carrera', $carrera['id_escuela'])?>><?= $carrera['nombre_escuela']; ?></option>                    
                         <?php endforeach ?>
                     </select>
-                    <span id="descripcion-select-carrera">escuela profesional del cual esta tramitando el diploma</span>
+                    <span id="descripcion-select-carrera">Escuela profesional del cual esta tramitando el diploma</span>
                 </div>
 
           </div>
 
-          <label class="label-form" for="input_correo">Correo Electronico</label>
+          <label id="label-input-correo" class="label-form" for="input_correo">Correo Electronico</label>
           <input type="email" name="email" class="input-form" id="input_correo" value="<?= set_value('email') ?>" spellcheck="false" required>
 
            <div class="row">

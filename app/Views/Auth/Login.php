@@ -4,7 +4,7 @@
 
 
 <div id="container-Auth-2">
-    <div  id="heder-Auth">
+    <div  >
         <div class="d-flex justify-content-center align-items-center" id="title-Auth">
             <img class="me-2" width=45  src="<?= base_url('assets/icons/IntelectumLogo.png')?>" alt="">
             <span class="ms-1" id="title-name-Auth"><?= name_system(); ?></span>
@@ -13,7 +13,7 @@
             <span>Repositorio</span>
         </div>
     </div>
-    <div id="body-Auth">
+    <div >
         <form method="POST" action="<?= base_url('auth')?>" autocomplete="off" onsubmit= "mostrarLoading()">
 
             <?= csrf_field(); ?> 
@@ -24,7 +24,7 @@
             <input type="password" name="password" class="input-form" id="input_password" spellcheck="false"  required>
 
             <div class="text-end mt-3">
-                <a class="a-link-default" href="">¿Olvidaste tu Contraseña?</a>
+                <a class="a-link-default" href="<?= base_url('recuperarPass')?>">¿Olvidaste tu Contraseña?</a>
             </div>
 
             <?php if(session()->getFlashdata('errors')!==null): ?>
