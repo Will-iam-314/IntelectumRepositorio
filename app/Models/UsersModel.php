@@ -129,7 +129,7 @@ class UsersModel extends Model
                 );
 
                 $mail = new MailService();
-                $mail->sendMail_RecoverPass($email,$token);
+                $mail->sendMail_RecoverPassCode($email,$token);
 
 
                 return true;
@@ -168,6 +168,32 @@ class UsersModel extends Model
             log_message('error', $e->getMessage());
             return false;
         }
+    }
+
+    public function updatePassword($idUser,$data){
+        try{
+            $user = $this->where(['id_usuario'=>$idUser])->first();
+            if($user){
+                $this->update($user['id_usuario'],
+                
+                    [
+                        'password_usuario'=>password_hash($data['nevo_password'], PASSWORD_DEFAULT)
+                        
+                    ]
+                
+                );
+                $mail = new MailService();
+                $mail->sendMail_RecoverPass($user['email_usuario']);
+                return true;
+            }else{
+                return false;
+            }
+           
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+
     }
 
     public function validateUser($email,$password){

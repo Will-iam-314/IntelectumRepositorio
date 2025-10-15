@@ -23,7 +23,7 @@
             El código fue verificado exitosamente, a continuación, registre su nueva contraseña.
         </p>
         
-        <form method="POST" action="<?= base_url('')?>" autocomplete="off" onsubmit= "mostrarLoading()">
+        <form method="POST" action="<?= base_url('actualizarPassword/'.$idUser)?>" autocomplete="off" onsubmit= "mostrarLoading()">
 
             <?= csrf_field(); ?>
 
@@ -45,9 +45,13 @@
             <?php  endif; ?>
 
             <?php if(isset($error)): ?>
+                
+                 
 
                 <div class= 'alert alert-danger my-3' role='alert'>
-                    <?= $error ?>
+                    <?php foreach ($error as $err): ?>
+                      <?= esc($err) ?>
+                    <?php endforeach ?>
                 </div>
 
             <?php  endif; ?>

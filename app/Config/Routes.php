@@ -20,6 +20,7 @@ $routes->post('verificacion','Users::verificarUsuario');
 
 $routes->post('recuperarPassword','Users::recuperarPass');
 $routes->post('verificarRecuperacion','Users::validarCodigoRecuperacionPass');
+$routes->post('actualizarPassword/(:num)','Users::actualizarPass/$1');
 
 $routes->post('auth','Auth::authentication');
  

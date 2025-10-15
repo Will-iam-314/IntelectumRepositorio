@@ -30,8 +30,10 @@
            
             <label class="label-form" for="input_codigo_recuperar">Codigo</label>
             <input type="text" name="codigo_recuperar" class="input-form" id="input_codigo_recuperar" placeholder="Ingrese el Codigo"   required autofocus>
-
-           
+ 
+            <div class="text-start mt-2">
+                <a class="a-link-default" href="<?= base_url('recuperarPass'); ?>">Obtener Codigo</a>
+            </div>
             
             <?php if(session()->getFlashdata('errors')!==null): ?>
 

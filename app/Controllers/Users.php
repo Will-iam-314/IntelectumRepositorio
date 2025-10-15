@@ -149,9 +149,43 @@ class Users extends BaseController
         if($User_data){
             return view('Auth/cambioPassword',['idUser' => $User_data]);
         }else{
-            return redirect()->back()->withInput()->with('errors','Codigo Incorrecto');
+            return redirect()->back()->withInput()->with('errors','Codigo Incorrecto o ya usado');
         }
 
+    }
+
+    public function actualizarPass($idUser){
+        $rules = [
+            'nevo_password' => [
+                'rules' => 'required|min_length[8]|max_length[50]',
+                'errors'=> [
+                    'required' => 'Ingrese una Cotraseña',
+                    'min_length'  => 'La Contraseña debe de tener al menos 8 caracteres',
+                    'max_length' => 'La Contraseña es demaciado larga'
+                    
+                ]
+            ],
+            're_password' => [
+                'rules' => 'matches[nevo_password]',
+                'errors' => [
+                    'matches' => 'Las Contraseñas no Coinciden'
+                ]
+            ] 
+        ];
+
+        if(!$this->validate($rules)){
+            
+            return view('Auth/cambioPassword',['error' => $this->validator->getErrors(),'idUser' => $idUser]);
+        }
+
+        $post = $this->request->getPost();
+
+        $boolUpdate= $this->usersModel->updatePassword($idUser,$post);
+        if($boolUpdate){
+            return view('Auth/recuperacionExitosaPassword');
+        }else{
+            return redirect()->back()->withInput()->with('errors','Hubo un error al actualizar la contraseña');
+        }
     }
 
 

@@ -25,7 +25,7 @@ class Solicitante extends BaseController
     }
 
     public function getViewTemporal(){
-        return view('Auth/verificacionExitosaCorreo');
+        return view('Auth/recuperacionExitosaPassword');
     }
 
     public function index()
