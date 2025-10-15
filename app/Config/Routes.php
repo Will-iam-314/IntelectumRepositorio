@@ -12,10 +12,15 @@ $routes->get('login','Auth::getViewlogin',['filter'=>'AuthRedirect']);
 $routes->get('registrarse','Auth::getViewregistro',['filter'=>'AuthRedirect']);
 $routes->get('verificar','Auth::getViewVerificacion',['filter'=>'AuthRedirect']);
 $routes->get('recuperarPass','Auth::getViewRecuperarPassword',['filter'=>'AuthRedirect']);
+$routes->get('verificarRecuperacion','Auth::getViewValCodigoRecuperacionPassword',['filter'=>'AuthRedirect']);
 $routes->get('logout','Auth::logout');
 
 $routes->post('registro','Users::nuevoUsuario');
 $routes->post('verificacion','Users::verificarUsuario');
+
+$routes->post('recuperarPassword','Users::recuperarPass');
+$routes->post('verificarRecuperacion','Users::validarCodigoRecuperacionPass');
+
 $routes->post('auth','Auth::authentication');
  
 

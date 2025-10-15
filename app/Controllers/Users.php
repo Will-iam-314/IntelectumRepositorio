@@ -94,5 +94,65 @@ class Users extends BaseController
 
     
 
+    public function recuperarPass(){
+
+        $rules = [
+            'correo_recuperar' => [
+                'rules' => 'required|valid_email',
+                'errors'=> [
+                    'required' => 'El correo es Obligatorio',
+                    'valid_email'  => 'El correo ingresado es invalido'
+                    
+                ]
+            ]
+        ];
+
+        if(!$this->validate($rules)){
+            return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
+        }
+
+        $post = $this->request->getPost();
+
+        $boolEnvioyVerificacion = $this->usersModel->sendTokenRecoverPass($post['correo_recuperar']);
+
+        if($boolEnvioyVerificacion){
+            return redirect('verificarRecuperacion');
+        }else{
+            return redirect()->back()->withInput()->with('errors','El correo ingresado no esta asociado a ninguna cuenta');
+        }
+
+        
+  
+    }
+
+    public function validarCodigoRecuperacionPass(){
+        $rules = [
+            'codigo_recuperar' => [
+                'rules' => 'required|integer|exact_length[5]',
+                'errors'=> [
+                    'required' => 'El codigo es Obligatorio',
+                    'integer'  => 'Formato de codigo no permitido',
+                    'exact_length' => 'El codigo ingresado es muy extenso o muy corto'
+                    
+                ]
+            ]
+        ];
+
+        if(!$this->validate($rules)){
+            return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
+        }
+
+        $post = $this->request->getPost();
+
+        $User_data = $this->usersModel->validateRecoverPass($post['codigo_recuperar']);
+
+        if($User_data){
+            return view('Auth/cambioPassword',['idUser' => $User_data]);
+        }else{
+            return redirect()->back()->withInput()->with('errors','Codigo Incorrecto');
+        }
+
+    }
+
 
 }

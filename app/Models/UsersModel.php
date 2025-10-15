@@ -23,8 +23,8 @@ class UsersModel extends Model
         'rol_usuario',
         'estado_usuario',
         'activation_token_usuario',
-        'reset_token_usuario',
-        'reset_token_expired_usuario' 
+        'reset_token_usuario'
+    
 
     ];
 
@@ -94,6 +94,72 @@ class UsersModel extends Model
                 );
 
                 return true;
+            }else{
+                return false;
+            }
+           
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
+
+    public function sendTokenRecoverPass($email){
+
+        try{
+            $user = $this->where('email_usuario', $email)
+            ->groupStart()
+                ->where('estado_usuario', 1)
+                ->orWhere('estado_usuario', 3)
+            ->groupEnd()
+            ->first();
+             
+            $token = str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);     
+
+            if($user){
+                
+
+                $this->update($user['id_usuario'],
+                
+                    [
+                        'estado_usuario'=>3,
+                        'reset_token_usuario'=>$token
+                    ]
+                
+                );
+
+                $mail = new MailService();
+                $mail->sendMail_RecoverPass($email,$token);
+
+
+                return true;
+            }else{
+                return false;
+            }
+
+           
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+
+    }
+
+    public function validateRecoverPass($token){
+        try{
+            $user = $this->where(['reset_token_usuario'=>$token, 'estado_usuario'=> 3])->first();
+            if($user){
+                $this->update($user['id_usuario'],
+                
+                    [
+                        'estado_usuario'=>1,
+                        'reset_token_usuario'=>''
+                    ]
+                
+                );
+
+                return $user['id_usuario'];
             }else{
                 return false;
             }

@@ -23,16 +23,16 @@
             Ingresa el correo electrónico asociado a tu cuenta. Te enviaremos un código de verificación para restablecer tu contraseña.
         </p>
         
-        <form method="POST" action="<?= base_url('')?>" autocomplete="off" onsubmit= "mostrarLoading()">
+        <form method="POST" action="<?= base_url('recuperarPassword')?>" autocomplete="off" onsubmit= "mostrarLoading()">
 
             <?= csrf_field(); ?>
 
-            
-            <label class="label-form" for="input_names">Correo</label>
+           
+            <label class="label-form" for="input_correo_recuperar">Correo</label>
             <input type="text" name="correo_recuperar" class="input-form" id="input_correo_recuperar" placeholder="Ingrese el Correo electronico"   required autofocus>
 
             <div class="text-start mt-2">
-                <a class="a-link-default" href="<?= base_url(''); ?>">Ya tengo un código</a>
+                <a class="a-link-default" href="<?= base_url('verificarRecuperacion'); ?>">Ya tengo un código</a>
             </div>
             
             <?php if(session()->getFlashdata('errors')!==null): ?>

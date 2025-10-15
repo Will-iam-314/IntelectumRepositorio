@@ -35,6 +35,10 @@ class Auth extends BaseController{
         return view('Auth/recuperarPassword'); 
     }
 
+    public function getViewValCodigoRecuperacionPassword(){
+        return view('Auth/validacionCodigoRecuperacionPassword');
+    }
+
     public function authentication(){
         $rules = [
             'email' => 'required|valid_email',
@@ -123,6 +127,9 @@ class Auth extends BaseController{
 
         $this->session->set($data);
     }
+
+
+   
 
     public function logout(){
         if($this->session->get('logged_in')){
