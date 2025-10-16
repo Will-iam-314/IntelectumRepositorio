@@ -81,6 +81,7 @@ input::placeholder {
     color:white;
     font-size: 17px;
     font-weight: bold;
+    text-align: center;
 }
 
 .btn-style1:hover{
@@ -117,6 +118,8 @@ input::placeholder {
     margin-bottom: 0;
     margin-top: 20px;
 }
+
+
 
 /*MENU STYLES*/
 
@@ -174,6 +177,11 @@ input::placeholder {
     line-height: 8px;
     margin-bottom: 10px;
 }
+
+/***FOOTER***/
+
+
+
 /***********/
 
 .title-modules{
@@ -181,4 +189,11 @@ input::placeholder {
     font-size:30px;
     font-weight: bold;
     color: var(--color-azul-BienOscuro);
+   
+    
+}
+
+button {
+  all: unset;
+  cursor: pointer;
 }

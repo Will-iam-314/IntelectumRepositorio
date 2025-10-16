@@ -2,14 +2,20 @@
 
 <?= $this->section('content');?>
 
-<button onclick='confirmarRegreso()'>Atras</button>
-<span class='title-modules'>Nueva Solicitud</span>
+
+
+
+ <div class="d-flex align-items-center">
+        
+        <button onclick='confirmarRegreso()'> <img class="me-1" style="margin-top:-3px;" width=30 height=30 src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="home"> </button>
+        <span class="title-modules ms-2">Nueva Solicitud</span>
+    </div>
 
 <form class='' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">
     
     <?= csrf_field(); ?>
 
-    <div class="border my-4">
+    <div class="border my-4 container-default">
     
         <h4>DATOS DEL MATERIAL</h4>
         
@@ -61,7 +67,7 @@
     
     </div>
 
-    <div class="border my-4">
+    <div class="border my-4 container-default">
         <h4 class="mt-4">GRADO ACADÉMICO A OPTAR</h4>
         
         <label class="label-form" for="select_gradoTipo">Tipo de Grado</label>
@@ -77,7 +83,7 @@
         <input type="text" name="gradoDescripcion" class="input-form" id="input_gradoDescripcion" value="<?= set_value('gradoDescripcion') ?>" required>
     </div>
 
-    <div class="border my-4">
+    <div class="border my-4 container-default">
         <h4>ASESOR Y JURADOS</h4>
         <label class="label-form" for="input_AsesorNombres">Asesor (Nombres y Apellidos)</label>
         <input type="text" name="Asesor" class="input-form" id="input_AsesorNombres" value="<?= set_value('AsesorNombres') ?>" required>
@@ -98,7 +104,7 @@
         <input type="text" name="SegundoMiembroJurado" class="input-form" id="input_SegundoMiembroJuradoNombres" value="<?= set_value('SegundoMiembroJuradoNombres') ?>" required>
     </div>
 
-    <div class="border my-4">
+    <div class="border my-4 container-default">
         <h4>DOCUMENTOS</h4>
         
         <label class="label-form" for="input_DeclaracionJuradaFile">Declaracion Jurada</label>

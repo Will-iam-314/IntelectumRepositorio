@@ -6,8 +6,8 @@
     <title><?=  name_system(); ?></title>
     <link rel="icon" type="image/png" href="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.4') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=1.1') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.5') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=1.2') ?>">
 
 </head>
 <body class="body-templates">
@@ -67,6 +67,8 @@
         <?= $this->renderSection('content') ?>        
     </div>
 
+
+
   
     <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -78,6 +80,8 @@
             </div>
         </div>
     </div>
+
+    
 
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>

@@ -4,10 +4,14 @@
 
 
 <div class="d-flex justify-content-between">
-    <span class="title-modules">Inicio</span>
+    <div class="d-flex align-items-center">
+        <img class="me-1" width=30 height=30 src="<?=base_url('assets/icons/home-azul.png')?>" alt="home">
+        <span class="title-modules">Inicio</span>
+    </div>
+    
 
     <div class="d-flex align-items-center btn-solicitar-inhome ">
-      <a href="<?= base_url('solicitante/solicitud'); ?>">Nueva Solicitud</a>
+      <a href="<?= base_url('solicitante/solicitud'); ?>"><img style="margin-top:-3px;" width=21 src="<?= base_url('assets/icons/mas-white.png') ?>" alt=""> Nueva Solicitud</a>
     </div>
     
 </div>
@@ -80,8 +84,12 @@
     </div>
 
 <?php else: ?>
-    <div class="alert alert-info mt-3">
-        Sin trámites por el momento.
+    <div class="container-default mt-4">
+        <div class="msg-nothing">
+            <img class="mb-3" src="<?= base_url('assets/icons/box-empty-gray.png') ?>" alt="">
+            <span class="d-block" >Sin trámites por el momento.</span>
+        </div>
+        
     </div>
 <?php endif; ?>
 

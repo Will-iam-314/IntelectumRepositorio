@@ -26,5 +26,25 @@
 
 }
 
+.container-default{
+  background-color: white;
+  border-radius: 10px;
+  border:1px solid rgb(209, 209, 209);
+  padding: 50px;
+}
+
+@media (max-width: 992px) {
+  .container-default{
+    padding: 25px;
+  }
+}
+
+.msg-nothing{
+  text-align: center;
+  margin:100px;
+  color:rgb(198, 198, 198);
+  font-size: 20px;
+
+}
 /* SOLICITAR STYLES ***/
 
