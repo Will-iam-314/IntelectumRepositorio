@@ -193,7 +193,3 @@ input::placeholder {
     
 }
 
-button {
-  all: unset;
-  cursor: pointer;
-}

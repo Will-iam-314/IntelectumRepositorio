@@ -7,7 +7,7 @@
 
  <div class="d-flex align-items-center">
         
-        <button onclick='confirmarRegreso()'> <img class="me-1" style="margin-top:-3px;" width=30 height=30 src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="home"> </button>
+        <button style="all: unset;cursor: pointer;" onclick='confirmarRegreso()'> <img class="me-1" style="margin-top:-3px;" width=30 height=30 src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="home"> </button>
         <span class="title-modules ms-2">Nueva Solicitud</span>
     </div>
 

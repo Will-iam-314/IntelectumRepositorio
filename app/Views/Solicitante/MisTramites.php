@@ -2,9 +2,20 @@
 
 <?= $this->section('content');?>
 
-<h3 class="mb-3">Mis Trámites</h3>
 
-<a href="<?= base_url('solicitante/solicitud'); ?>">Solicitar Constancia URL</a>
+
+<div class="d-flex justify-content-between mb-4">
+    <div class="d-flex align-items-center">
+        <img class="me-1" width=30 height=30 src="<?=base_url('assets/icons/documento-azul.png')?>" alt="home">
+        <span class="title-modules">Mis Trámites</span>
+    </div>
+    
+
+    <div class="d-flex align-items-center btn-solicitar-inhome ">
+      <a href="<?= base_url('solicitante/solicitud'); ?>"><img style="margin-top:-3px;" width=21 src="<?= base_url('assets/icons/mas-white.png') ?>" alt=""> Nueva Solicitud</a>
+    </div>
+    
+</div>
 
   <!-- Barra de búsqueda -->
   <input type="text" id="search" class="form-control mb-3" placeholder="Buscar por título o código...">
@@ -77,9 +88,18 @@
           </div>
         </div>
       <?php endforeach; ?>
+
     <?php else: ?>
-      <p>No se encontraron trámites.</p>
+
+      <div class="container-default mt-4">
+        <div class="msg-nothing">
+            <img class="mb-3" src="<?= base_url('assets/icons/box-empty-gray.png') ?>" alt="">
+            <span class="d-block" >Sin trámites por el momento.</span>
+        </div>
+      </div>
+
     <?php endif; ?>
+
   </div>
 
   <!-- Paginación -->
