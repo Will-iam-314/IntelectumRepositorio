@@ -17,24 +17,28 @@
 
     <div class="border my-4 container-default">
     
-        <h4>DATOS DEL MATERIAL</h4>
+        <span class="tarjet-cyan mb-3">Datos del Material</span>
+        
         
         <label class="label-form" for="input_tituloTesis">Titulo de la Tesis</label>
+        <span class="description-input">Digitar sin comillas y tenga encuenta que tal como ingrese el titulo, se mostrará en su Constancia.</span>
         <input type="text" name="tituloTesis" class="input-form" id="input_tituloTesis" value="<?= set_value('tituloTesis') ?>" required autofocus>
 
         <label class="label-form" for="">Autor(es)</label>
-        <p class='m-0'>Por dejecto usted es un autor, precionar el boton si el material cuenta con mas autores</p>
-        <button type="button" class="btn btn-outline-primary my-2" id="btn-show-autores">Agregar mas autores</button>
+        <span class="description-input">Por defecto usted es un autor, preciona el boton si el material cuenta con mas autores</span>
+        <button type="button" class="btn-style2 " id="btn-show-autores">Agregar mas autores</button>
         
-        <div id="autores-container" class="d-none"></div>
+        <div id="autores-container" class="d-none mt-2"></div>
 
         <input type="hidden" name="autores[0][nombre]" value="<?= $solicitanteActualNombres ?>">
         <input type="hidden" name="autores[0][dni]" value="<?= $solicitanteActualDNI ?>">
 
         <label class="label-form" for="input_resumenTesis">Resumen </label>
+        <span class="description-input">Ingresar el resumen de su tesis en español y correctamente redactado.</span>
         <textarea name="resumenTesis" class="input-form" id="input_resumenTesis" required><?= set_value('resumenTesis')?></textarea>
 
         <label class="label-form" for="input_keywordsTesis">Palabras Clave </label>
+        <span class="description-input">Mínimo 03 palabras clave coherentes separados por una coma (,). La inicial de cada palabra clave debe ir con Mayúscula.</span>
         <textarea name="keywordsTesis" class="input-form" id="input_keywordsTesis" required><?= set_value('keywordsTesis')?></textarea>
         
         <label class="label-form" for="input_lineaInvestigacion">Linea de Investigación</label>
@@ -174,30 +178,67 @@
             const nameInput = document.createElement('input');
             nameInput.type = 'text';
             nameInput.name = `autores[${newIndex}][nombre]`;
-            nameInput.className = 'form-control autor-input-nombre';
+            nameInput.style = 'outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px;margin-right:10px;width:44%;';
+            
+            nameInput.className = ' autor-input-nombre';
             nameInput.placeholder = 'Nombre completo del autor';
             nameInput.required = true;
+
+            nameInput.addEventListener('focus',()=>{nameInput.style.border='1px solid #3F81BB';});
+            nameInput.addEventListener('blur',()=>{nameInput.style.border='1px solid #dad9d9';});
 
             const dniInput = document.createElement('input');
             dniInput.type = 'text';
             dniInput.name = `autores[${newIndex}][dni]`;
-            dniInput.className = 'form-control autor-input-dni';
+            dniInput.style= 'outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px; width:43%;'
+            dniInput.className = 'autor-input-dni';
             dniInput.placeholder = 'DNI';
             dniInput.required = true;
+
+            dniInput.addEventListener('focus',()=>{dniInput.style.border='1px solid #3F81BB';});
+            dniInput.addEventListener('blur',()=>{dniInput.style.border='1px solid #dad9d9';});
             
             newAuthorGroup.appendChild(nameInput);
             newAuthorGroup.appendChild(dniInput);
             
             // Lógica para los botones de remover y agregar
             const removeButton = document.createElement('button');
-            removeButton.className = 'btn btn-outline-secondary btn-remove-autor';
+            removeButton.className = 'btn-remove-autor';
             removeButton.type = 'button';
+            removeButton.style='width:5%;margin-left:10px;font-size:20px;font-weight:bold;color:white; border-radius:7px;border:none; background-color:rgba(226, 64, 78, 1);';
             removeButton.textContent = '-';
 
             const addButton = document.createElement('button');
-            addButton.className = 'btn btn-outline-secondary btn-add-autor';
+            addButton.className = ' btn-add-autor';
             addButton.type = 'button';
+            addButton.style='width:5%;margin-left:10px;font-size:20px;font-weight:bold;color:white; border-radius:7px;border:none; background-color:rgba(106, 197, 132, 1);'
             addButton.textContent = '+';
+
+            ////
+
+            const mq = window.matchMedia("(max-width: 1200px)");
+            
+            function aplicarEstiloResponsive(e) {
+                if (e.matches) {
+                    nameInput.style = "outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px;margin-right:10px;width:35%;";
+                    dniInput.style= 'outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px; width:35%;';
+                    addButton.style='width:10%;margin-left:10px;font-size:20px;font-weight:bold;color:white; border-radius:7px;border:none; background-color:rgba(106, 197, 132, 1);';
+                    removeButton.style='width:10%;margin-left:10px;font-size:20px;font-weight:bold;color:white; border-radius:7px;border:none; background-color:rgba(226, 64, 78, 1);';
+                } else {
+                    nameInput.style = "outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px;margin-right:10px;width:44%;";
+                    dniInput.style= 'outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px; width:43%;';
+                    addButton.style='width:5%;margin-left:10px;font-size:20px;font-weight:bold;color:white; border-radius:7px;border:none; background-color:rgba(106, 197, 132, 1);';
+                    removeButton.style='width:5%;margin-left:10px;font-size:20px;font-weight:bold;color:white; border-radius:7px;border:none; background-color:rgba(226, 64, 78, 1);';
+                }
+            }
+
+            // 1️⃣ Ejecutar cuando carga la página
+            aplicarEstiloResponsive(mq);
+
+            // 2️⃣ Mantenerlo escuchando en tiempo real (como un bucle)
+            mq.addEventListener("change", aplicarEstiloResponsive);
+
+
             
             // Se agregan ambos botones para que el último input siempre tenga el [+]
             newAuthorGroup.appendChild(removeButton);

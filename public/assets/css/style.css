@@ -88,6 +88,26 @@ input::placeholder {
     background-color: #3878b1;
 }
 
+.btn-style2{
+    padding: 7px 15px;
+    border: 1px solid var(--color-celeste);
+    border-radius: 10px;
+    background-color: white;
+    color:var(--color-celeste);
+    font-size: 15px;
+    text-align: center;
+}
+
+.btn-style2:hover{
+    padding: 7px 15px;
+    border: 1px solid var(--color-celeste);
+    border-radius: 10px;
+    background-color: var(--color-celeste);
+    color:white;
+    font-size: 15px;
+    text-align: center;
+}
+
 .btn-style2-google{
     width: 100%;
     padding: 8px;

@@ -48,3 +48,19 @@
 }
 /* SOLICITAR STYLES ***/
 
+.tarjet-cyan{
+  background-color:#C1E9FF ;
+  display: inline-block;
+  padding: 7px 20px;
+  border-radius: 10px;
+  font-size:20px;
+  font-weight: bold;
+  color: #3179B5;
+}
+
+.description-input{
+  color:#a1badb;
+  margin-bottom: 10px;
+  display: block;
+  font-size:14px;
+}

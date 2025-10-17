@@ -79,7 +79,14 @@
                     <ul>
                         <li><strong>Título:</strong> <?= esc($tituloMaterial) ?></li>
                         <li><strong>Resumen:</strong> <?= esc($resumenTesis) ?></li>
-                        <li><strong>Palabras clave:</strong> <?= esc($palabrasclaveTesis) ?></li>
+                        <li><strong>Palabras clave:</strong> 
+                     
+                        <?php foreach($palabrasclaveTesis as $palabraClave){
+                            echo($palabraClave.", ");
+                        } ?>
+
+                        </li>
+
                         <li><strong>Autores:</strong> </li>
                         <?php if (!empty($autores)): ?>
                             <ul>
