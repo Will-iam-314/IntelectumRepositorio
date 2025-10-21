@@ -42,8 +42,19 @@
         <textarea name="keywordsTesis" class="input-form" id="input_keywordsTesis" required><?= set_value('keywordsTesis')?></textarea>
         
         <label class="label-form" for="input_lineaInvestigacion">Linea de Investigación</label>
+        <span class="description-input">Haz clic en “Ver lineas”, busca la que se relacione con tu investigación y cópiala en el campo.</span>
+        <div id="iframe-container-lineas" class="mt-1 mb-3 d-none">
+            <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-lineas">Ocultar</button>
+            <div class="iframe-wrapper">
+                <iframe class='iframe-styles' src="<?= base_url('docs/Lineas_investigacion.pdf') ?>" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+            </div>
+        </div>
+        <button type="button" class="btn-style2 mb-3" id="btn-show-iframe-lineas">Ver lineas</button>
         <input type="text" name="lineaInvestigacion" class="input-form" id="input_lineaInvestigacion" value="<?= set_value('lineaInvestigacion') ?>" required >
         
+
+       
+
         
         
 
@@ -55,10 +66,12 @@
                 <iframe src="https://concytec-pe.github.io/Peru-CRIS/vocabularios/ocde_ford.html" frameborder="0" style="width: 100%; height: 500px;"></iframe>
             </div>
         </div>
-
         <button type="button" class="btn btn-info mt-2" id="btn-show-iframe">Ver Campos de Investigación</button>
 
         <input type="text" name="CampoInvestigacion" class="input-form" id="input_CampoInvestigacion" value="<?= set_value('CampoInvestigacion') ?>"  required>
+
+
+
 
         <label class="label-form" for="input_CampoAplicacion">Campo de Aplicación</label>
         <input type="text" name="CampoAplicacion" class="input-form" id="input_CampoAplicacion" value="<?= set_value('CampoAplicacion') ?>"  required>
@@ -256,9 +269,27 @@
 
     // Lógica para mostrar y ocultar el iframe
     document.addEventListener('DOMContentLoaded', function () {
+
+        //Iframe para lineas de investigacion
+        const btnShowIframeLineas = document.getElementById('btn-show-iframe-lineas');
+        const btnCloseIframeLineas = document.getElementById('btn-close-iframe-lineas');
+        const iframeContainerLineas = document.getElementById('iframe-container-lineas');
+
+        btnShowIframeLineas.addEventListener('click',function(){
+            iframeContainerLineas.classList.remove('d-none');
+            this.style.display = 'none'; //oculta el boton mostrar
+        });
+
+        btnCloseIframeLineas.addEventListener('click',function(){
+            iframeContainerLineas.classList.add('d-none');
+            btnShowIframeLineas.style.display = 'block';
+        });
+
+        /*//botones para campo investigacion
         const btnShowIframe = document.getElementById('btn-show-iframe');
         const btnCloseIframe = document.getElementById('btn-close-iframe');
         const iframeContainer = document.getElementById('iframe-container');
+
         const inputCampoInvestigacion = document.getElementById('input_CampoInvestigacion');
         
         btnShowIframe.addEventListener('click', function() {
@@ -273,7 +304,7 @@
             // Devuelve el input a su posición original
             inputCampoInvestigacion.style.marginTop = '0';
             btnShowIframe.style.display = 'block'; // Muestra de nuevo el botón
-        });
+        });*/
     });
 </script>
 

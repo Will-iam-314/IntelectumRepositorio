@@ -59,8 +59,14 @@
 }
 
 .description-input{
-  color:#a1badb;
+  color:#547b9c;
   margin-bottom: 10px;
   display: block;
-  font-size:14px;
+  font-size:14.5px;
+}
+
+.iframe-styles{
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #dad9d9 ;
 }

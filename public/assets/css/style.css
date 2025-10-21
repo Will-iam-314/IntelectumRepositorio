@@ -4,6 +4,7 @@
     --color-celeste: #3F81BB;
     --color-celeste-clarito:#DEEBF7;
     --color-gris:#F2F2F2;
+    --color-rojo: rgba(226, 64, 78, 1);
 
 }
 
@@ -91,7 +92,7 @@ input::placeholder {
 .btn-style2{
     padding: 7px 15px;
     border: 1px solid var(--color-celeste);
-    border-radius: 10px;
+    border-radius: 7px;
     background-color: white;
     color:var(--color-celeste);
     font-size: 15px;
@@ -99,13 +100,10 @@ input::placeholder {
 }
 
 .btn-style2:hover{
-    padding: 7px 15px;
-    border: 1px solid var(--color-celeste);
-    border-radius: 10px;
+    
     background-color: var(--color-celeste);
     color:white;
-    font-size: 15px;
-    text-align: center;
+    
 }
 
 .btn-style2-google{
@@ -119,6 +117,20 @@ input::placeholder {
     
 }
 
+.btn-style3-danger{
+    padding: 7px 15px;
+    border: 1px solid var(--color-rojo);
+    border-radius: 7px;
+    background-color: white;
+    color:var(--color-rojo);
+    font-size: 15px;
+    text-align: center;
+}
+
+.btn-style3-danger:hover{
+    background-color: var(--color-rojo);
+    color:white;
+}
 
 .contenedor-modal-load{
     text-align: center;
