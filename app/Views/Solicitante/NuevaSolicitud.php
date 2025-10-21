@@ -55,18 +55,15 @@
 
        
 
-        
-        
-
         <label class="label-form" for="input_CampoInvestigacion">Campo de Investigación</label>
-
-        <div id="iframe-container" class="my-3 d-none">
-            <button type="button" class="btn btn-outline-secondary mb-2" id="btn-close-iframe">Ocultar</button>
+        <span class="description-input">Descripciojn*.</span>
+        <div id="iframe-container-CampoInvestigacion" class="mt-1 mb-3  d-none">
+            <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-CampoInvestigacion">Ocultar</button>
             <div class="iframe-wrapper">
-                <iframe src="https://concytec-pe.github.io/Peru-CRIS/vocabularios/ocde_ford.html" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+                <iframe class='iframe-styles' src="https://concytec-pe.github.io/Peru-CRIS/vocabularios/ocde_ford.html" frameborder="0" style="width: 100%; height: 500px;"></iframe>
             </div>
         </div>
-        <button type="button" class="btn btn-info mt-2" id="btn-show-iframe">Ver Campos de Investigación</button>
+        <button type="button" class="btn-style2 mb-3" id="btn-show-iframe-CampoInvestigacion">Ver Campos de Investigación</button>
 
         <input type="text" name="CampoInvestigacion" class="input-form" id="input_CampoInvestigacion" value="<?= set_value('CampoInvestigacion') ?>"  required>
 
@@ -285,26 +282,21 @@
             btnShowIframeLineas.style.display = 'block';
         });
 
-        /*//botones para campo investigacion
-        const btnShowIframe = document.getElementById('btn-show-iframe');
-        const btnCloseIframe = document.getElementById('btn-close-iframe');
-        const iframeContainer = document.getElementById('iframe-container');
+        //botones para campo investigacion
+        const btnShowIframeCampoInvs = document.getElementById('btn-show-iframe-CampoInvestigacion');
+        const btnCloseIframeCampoInvs = document.getElementById('btn-close-iframe-CampoInvestigacion');
+        const iframeContainerCampoInvs = document.getElementById('iframe-container-CampoInvestigacion');
 
-        const inputCampoInvestigacion = document.getElementById('input_CampoInvestigacion');
         
-        btnShowIframe.addEventListener('click', function() {
-            iframeContainer.classList.remove('d-none');
-            // Desplaza el input hacia abajo
-            inputCampoInvestigacion.style.marginTop = '20px'; // Puedes ajustar este valor
+        btnShowIframeCampoInvs.addEventListener('click', function() {
+            iframeContainerCampoInvs.classList.remove('d-none');
             this.style.display = 'none'; // Oculta el botón de mostrar
         });
 
-        btnCloseIframe.addEventListener('click', function() {
-            iframeContainer.classList.add('d-none');
-            // Devuelve el input a su posición original
-            inputCampoInvestigacion.style.marginTop = '0';
-            btnShowIframe.style.display = 'block'; // Muestra de nuevo el botón
-        });*/
+        btnCloseIframeCampoInvs.addEventListener('click', function() {
+            iframeContainerCampoInvs.classList.add('d-none');
+            btnShowIframeCampoInvs.style.display = 'block'; // Muestra de nuevo el botón
+        });
     });
 </script>
 
