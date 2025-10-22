@@ -84,7 +84,7 @@
                         <?php foreach($palabrasclaveTesis as $palabraClave){
                             echo($palabraClave.", ");
                         } ?>
-
+ 
                         </li>
 
                         <li><strong>Autores:</strong> </li>

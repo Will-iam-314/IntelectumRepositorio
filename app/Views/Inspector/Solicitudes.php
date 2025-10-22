@@ -57,7 +57,7 @@
                         <td><?= esc($t['nombreCompletoSolicitante']) ?></td>
                         <td><?= esc($t['tituloMaterial']) ?></td>
                         <td><?= esc($t['tipomateriaMaterial']) ?></td>
-                        <td><?= esc(date('d/m/Y', strtotime($t['fechapresentacionTramite']))) ?></td>
+                        <td><?= esc(date('d/m/Y', strtotime($t['fechapresentacionTramite']))) ?></td> 
                         <td><?= esc($t['estadoTramite']) ?></td>
                         <td>
                             <?php if ($t['estadoTramite'] === "Solicitud Presentada" && $t['inspectorAsignado'] == false): ?>

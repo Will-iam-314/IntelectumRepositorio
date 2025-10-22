@@ -315,6 +315,9 @@ class TramiteModel extends Model
             $tramite['dniAsesor'] = $dniAsesor;
             $tramite['orcidAsesor'] = $orcidAsesor;
 
+            $arrayPalabrasClave = explode(",", $tramite['palabrasclaveTesis']);
+            $tramite['palabrasclaveTesis'] = $arrayPalabrasClave;
+
 
             // 1. Dividir el string por el separador de autores ('/')
             $autores_array_temp = explode('/', $tramite['autores']);
