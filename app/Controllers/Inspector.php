@@ -199,7 +199,10 @@ class Inspector extends BaseController
         addDcValue($dom, $dublin, $datosTramite['tituloMaterial'], ["element" => "title", "language" => "es_PE"]);
         addDcValue($dom, $dublin, date("Y", strtotime($datosTramite['fechaSustentacion'])), ["element" => "date", "qualifier" => "issued", "language" => "es_PE"]);
         addDcValue($dom, $dublin, $datosTramite['Asesor'], ["element" => "contributor", "qualifier" => "advisor", "language" => "es_PE"]);
-        addDcValue($dom, $dublin, $datosTramite['resumenTesis'], ["element" => "description", "qualifier" => "abstract", "language" => "es_PE"]);
+
+        $resumenDeTesisSinEspacios = preg_replace('/\s+/', ' ', str_replace(["\r", "\n"], " ", $datosTramite['resumenTesis']));
+
+        addDcValue($dom, $dublin, $resumenDeTesisSinEspacios, ["element" => "description", "qualifier" => "abstract", "language" => "es_PE"]);
         
         if (!empty($datosTramite['palabrasclaveTesis']) && is_array($datosTramite['palabrasclaveTesis'])) {
             foreach ($datosTramite['palabrasclaveTesis'] as $palabraClave) {
@@ -352,7 +355,7 @@ class Inspector extends BaseController
         $cadenaAutores = implode('_', $nombresProcesados);
 
 
-        $nuevoNombreArchivo = 'B'.$mes.'_'.$anio.'_'.strtoupper($Carrera).'_T_'.strtoupper($cadenaAutores).'.pdf';
+        $nuevoNombreArchivo = 'B'.$mes.'_'.$anio.'_UNU_'.strtoupper($Carrera).'_T_'.strtoupper($cadenaAutores).'.pdf';
 
         $nuevoArchivo = $directorio.'/'.$nuevoNombreArchivo; 
 

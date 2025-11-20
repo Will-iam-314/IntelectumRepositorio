@@ -44,8 +44,9 @@
   margin:100px;
   color:rgb(198, 198, 198);
   font-size: 20px;
-
+   
 }
+
 /* SOLICITAR STYLES ***/
 
 .tarjet-cyan{
@@ -69,4 +70,10 @@
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid #dad9d9 ;
+}
+
+.icon-help-question{
+  color:rgb(2, 109, 197);
+  cursor:pointer;
+  font-size:18px;
 }

@@ -2,24 +2,20 @@
 
 <?= $this->section('content');?>
 
-
-
-
  <div class="d-flex align-items-center">
         
         <button style="all: unset;cursor: pointer;" onclick='confirmarRegreso()'> <img class="me-1" style="margin-top:-3px;" width=30 height=30 src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="home"> </button>
         <span class="title-modules ms-2">Nueva Solicitud</span>
     </div>
 
-<form class='' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">
+<form class='mb-4' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">
     
     <?= csrf_field(); ?>
 
-    <div class="border my-4 container-default">
+    <div class="border my-4 container-default">          
     
-        <span class="tarjet-cyan mb-3">Datos del Material</span>
-        
-        
+        <span class="tarjet-cyan mb-3">Datos de la Tesis</span>  
+            
         <label class="label-form" for="input_tituloTesis">Titulo de la Tesis</label>
         <span class="description-input">Digitar sin comillas y tenga encuenta que tal como ingrese el titulo, se mostrará en su Constancia.</span>
         <input type="text" name="tituloTesis" class="input-form" id="input_tituloTesis" value="<?= set_value('tituloTesis') ?>" required autofocus>
@@ -41,6 +37,9 @@
         <span class="description-input">Mínimo 03 palabras clave coherentes separados por una coma (,). La inicial de cada palabra clave debe ir con Mayúscula.</span>
         <textarea name="keywordsTesis" class="input-form" id="input_keywordsTesis" required><?= set_value('keywordsTesis')?></textarea>
         
+
+
+
         <label class="label-form" for="input_lineaInvestigacion">Linea de Investigación</label>
         <span class="description-input">Haz clic en “Ver lineas”, busca la que se relacione con tu investigación y cópiala en el campo.</span>
         <div id="iframe-container-lineas" class="mt-1 mb-3 d-none">
@@ -56,7 +55,10 @@
        
 
         <label class="label-form" for="input_CampoInvestigacion">Campo de Investigación</label>
-        <span class="description-input">Descripciojn*.</span>
+        <div class="d-flex">
+            <span class="description-input">Haz clic en "Ver Campos de Investigacion", busca el campo que mas se relacione con tu investigación y cópiala en el campo. </span>
+            <i class="fa fa-question-circle icon-help-question ms-2" aria-hidden="true"></i>
+        </div>
         <div id="iframe-container-CampoInvestigacion" class="mt-1 mb-3  d-none">
             <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-CampoInvestigacion">Ocultar</button>
             <div class="iframe-wrapper">
@@ -64,68 +66,116 @@
             </div>
         </div>
         <button type="button" class="btn-style2 mb-3" id="btn-show-iframe-CampoInvestigacion">Ver Campos de Investigación</button>
-
         <input type="text" name="CampoInvestigacion" class="input-form" id="input_CampoInvestigacion" value="<?= set_value('CampoInvestigacion') ?>"  required>
 
 
 
 
         <label class="label-form" for="input_CampoAplicacion">Campo de Aplicación</label>
+        <div class="d-flex">
+            <span class="description-input">Haz clic en "Ver Campos de Aplicación", busca el campo que mas se relacione con tu investigación y cópia el codigo numerico de 6 digitos y pegalo en el campo. </span>
+            <i class="fa fa-question-circle icon-help-question" aria-hidden="true"></i>
+        </div>
+        <div id="iframe-container-CampoAplicacion" class="mt-1 mb-3 d-none">
+            <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-CampoAplicacion">Ocultar</button>
+            <div class="iframe-wrapper">
+                <iframe class='iframe-styles' src="<?= base_url('docs/Campos_Aplicacion.pdf') ?>" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+            </div>
+        </div>            
+        <button type="button" class="btn-style2 mb-3" id="btn-show-iframe-CampoAplicacion">Ver Campos de Aplicación</button>            
         <input type="text" name="CampoAplicacion" class="input-form" id="input_CampoAplicacion" value="<?= set_value('CampoAplicacion') ?>"  required>
+
+
+
+
     
         <label class="label-form" for="input_FechaSustentacion">Fecha de Sustentacion</label>
         <input type="date" name="FechaSustentacion" class="input-form" id="input_FechaSustentacion" value="<?= set_value('FechaSustentacion') ?>"  required >
 
         <label class="label-form" for="input_TesisFile">Archivo de la Tesis</label>
-        <input type="file" name="TesisFile" class="input-form" id="input_TesisFile" accept=".pdf"  required>
+        <div class="">
+            <span class="description-input"> Cargar el Archivo de las tesis con el siguiente formato: </span>
+            <ul class="description-input">
+                <li>Pg.1.  Caratula (sin numeración)</li>
+                <li>Pg.2.  Acta de Sustentación y/o Defensa de la Tesis</li>
+                <li>Pg.3.  Constancia Originalidad del Trabajo de Investigación (COTI)</li>
+                <li>Pg.4.  Autorización de Publicación | descargue y rellene el formato que mas se acomode a su situacion (<a href="<?= base_url('docs/Formatos_Autorizacion_publicacion.pdf') ?>" target=_blank>Descargar Formatos</a>)</li>
+                <li>Pg.5.  En adelante el contenido de la tesis desde la Dedicatoria hasta los Anexos, tal como lo señala su reglamento.</li>
+            </ul>
+            
+        </div>
+        <input type="file" name="TesisFile" class="form-control" id="input_TesisFile" accept=".pdf"  required>
     
     </div>
 
     <div class="border my-4 container-default">
-        <h4 class="mt-4">GRADO ACADÉMICO A OPTAR</h4>
+        <span class="tarjet-cyan mb-3">Datos del Grado Academico a Optar</span>
         
         <label class="label-form" for="select_gradoTipo">Tipo de Grado</label>
         <select id="select_gradoTipo" name="gradoTipo" class="input-form" required>
-            <option value="" disabled selected>Seleccione el tipo de grado</option>
+            <option value="" disabled selected>Seleccione el grado</option>
             <option value="titulo profesional" <?= set_select('gradoTipo', 'titulo profesional')?>>Título Profesional</option> 
             <option value="segunda especialidad" <?= set_select('gradoTipo', 'segunda especialidad')?>>Segunda Especialidad</option> 
             <option value="maestria" <?= set_select('gradoTipo', 'maestria')?>>Maestría</option> 
             <option value="doctorado" <?= set_select('gradoTipo', 'doctorado')?>>Doctorado</option> 
         </select>
         
-        <label class="label-form" for="input_gradoDescripcion">Descripción del Grado (Ej: Nombre de la Maestría)</label>
+        <label class="label-form" for="input_gradoDescripcion">Descripción del Grado</label>
+        <div class="">
+            <div class="d-flex">
+                <span class="description-input">Describa el Grado a Optar segun corresponda</span>
+                <i class="fa fa-question-circle icon-help-question ms-3" aria-hidden="true"></i>
+            </div>
+            
+            <ul class="description-input">
+                Ejemplo:
+                <li><strong>Titulo Profesion:</strong>  Licenciatura en ... , Ingenieria en ... , </li>
+                <li><strong>Mestria:</strong>  Gestion Publica ,  </li>
+                
+          
+            </ul>
+            
+        </div>
         <input type="text" name="gradoDescripcion" class="input-form" id="input_gradoDescripcion" value="<?= set_value('gradoDescripcion') ?>" required>
     </div>
 
     <div class="border my-4 container-default">
-        <h4>ASESOR Y JURADOS</h4>
-        <label class="label-form" for="input_AsesorNombres">Asesor (Nombres y Apellidos)</label>
+         <span class="tarjet-cyan mb-3">Datos del Asesor</span>
+
+        <label class="label-form" for="input_AsesorNombres">Nombres y Apellidos</label>
         <input type="text" name="Asesor" class="input-form" id="input_AsesorNombres" value="<?= set_value('AsesorNombres') ?>" required>
         
-        <label class="label-form" for="input_AsesorDNI">Asesor (DNI)</label>
+        <label class="label-form" for="input_AsesorDNI">DNI</label>
         <input type="text" name="AsesorDNI" class="input-form" id="input_AsesorDNI" value="<?= set_value('AsesorDNI') ?>" required>
 
-        <label class="label-form" for="input_AsesorORCID">Asesor (ORCID)</label>
+        <label class="label-form" for="input_AsesorORCID">ORCID</label>
         <input type="text" name="AsesorORCID" class="input-form" id="input_AsesorORCID" value="<?= set_value('AsesorORCID') ?>" required>
 
-        <label class="label-form" for="input_PresidenteJuradoNombres">Presidente (Nombres y Apellidos)</label>
-        <input type="text" name="PresidenteJurado" class="input-form" id="input_PresidenteJuradoNombres" value="<?= set_value('PresidenteJuradoNombres') ?>" required>
-   
-        <label class="label-form" for="input_PrimerMiembroJuradoNombres">Primer Miembro (Nombres y Apellidos)</label>
-        <input type="text" name="PrimerMiembroJurado" class="input-form" id="input_PrimerMiembroJuradoNombres" value="<?= set_value('PrimerMiembroJuradoNombres') ?>" required>
-
-        <label class="label-form" for="input_SegundoMiembroJuradoNombres">Segundo Miembro (Nombres y Apellidos)</label>
-        <input type="text" name="SegundoMiembroJurado" class="input-form" id="input_SegundoMiembroJuradoNombres" value="<?= set_value('SegundoMiembroJuradoNombres') ?>" required>
+       
     </div>
 
     <div class="border my-4 container-default">
-        <h4>DOCUMENTOS</h4>
+
+        <span class="tarjet-cyan mb-3">Datos del los Jurados</span>            
+
+        <label class="label-form" for="input_PresidenteJuradoNombres">Nombres y Apellidos del Presidente</label>
+        <input type="text" name="PresidenteJurado" class="input-form" id="input_PresidenteJuradoNombres" value="<?= set_value('PresidenteJurado') ?>" required>
+   
+        <label class="label-form" for="input_PrimerMiembroJuradoNombres">Nombres y Apellidos del Primer Miembro</label>
+        <input type="text" name="PrimerMiembroJurado" class="input-form" id="input_PrimerMiembroJuradoNombres" value="<?= set_value('PrimerMiembroJurado') ?>" required>
+
+        <label class="label-form" for="input_SegundoMiembroJuradoNombres">Nombres y Apellidos del Segundo Miembro</label>
+        <input type="text" name="SegundoMiembroJurado" class="input-form" id="input_SegundoMiembroJuradoNombres" value="<?= set_value('SegundoMiembroJurado') ?>" required>           
+    </div>
+
+    <div class="border my-4 container-default">
+        <span class="tarjet-cyan mb-3">Documentos del Tramite</span> 
         
         <label class="label-form" for="input_DeclaracionJuradaFile">Declaracion Jurada</label>
-        <input type="file" name="DeclaracionJuradaFile" class="input-form" id="input_DeclaracionJuradaFile" required accept=".pdf">
+        <input type="file" name="DeclaracionJuradaFile" class="form-control" id="input_DeclaracionJuradaFile" required accept=".pdf">
 
         <label class="label-form" for="input_AutorizaciónPublicacioFile">Autorizacion de Publicación</label>
-        <input type="file" name="AutorizaciónPublicacioFile" class="input-form" id="input_AutorizaciónPublicacioFile" required accept=".pdf">
+        <input type="file" name="AutorizaciónPublicacioFile" class="form-control" id="input_AutorizaciónPublicacioFile" required accept=".pdf">
     </div>
 
     <?php if(session()->getFlashdata('errors')!==null): ?>
@@ -134,7 +184,7 @@
         </div>
     <?php endif; ?>
 
-    <button type="submit" class="btn-style1 mt-3">
+    <button type="submit" class="btn-style1 mt-2">
         Solicitar
     </button>
 
@@ -282,7 +332,7 @@
             btnShowIframeLineas.style.display = 'block';
         });
 
-        //botones para campo investigacion
+        //iframe para campo investigacion
         const btnShowIframeCampoInvs = document.getElementById('btn-show-iframe-CampoInvestigacion');
         const btnCloseIframeCampoInvs = document.getElementById('btn-close-iframe-CampoInvestigacion');
         const iframeContainerCampoInvs = document.getElementById('iframe-container-CampoInvestigacion');
@@ -296,6 +346,21 @@
         btnCloseIframeCampoInvs.addEventListener('click', function() {
             iframeContainerCampoInvs.classList.add('d-none');
             btnShowIframeCampoInvs.style.display = 'block'; // Muestra de nuevo el botón
+        });
+
+        //iframe para  campo de aplicacion
+        const btnShowIframeCampoApli = document.getElementById('btn-show-iframe-CampoAplicacion');
+        const btnCloseIframeCampoApli = document.getElementById('btn-close-iframe-CampoAplicacion');
+        const iframeContainerCampoApli = document.getElementById('iframe-container-CampoAplicacion');
+
+        btnShowIframeCampoApli.addEventListener('click',function(){
+            iframeContainerCampoApli.classList.remove('d-none');
+            this.style.display = 'none';
+        });
+
+        btnCloseIframeCampoApli.addEventListener('click',function(){
+            iframeContainerCampoApli.classList.add('d-none');
+            btnShowIframeCampoApli.style.display = 'block';
         });
     });
 </script>

@@ -219,13 +219,13 @@ class DpiAdmin extends BaseController
         
         // FECHA (Derecha, arriba de la firma)
         $pdf->SetFont('helvetica', '', 11);
-        $pdf->SetXY($qrX + $qrWidth +45, $y_firma_seccion); 
+        $pdf->SetXY($qrX + $qrWidth +40, $y_firma_seccion); 
         $pdf->Write(0, $fechaEmision);
 
         // IMAGEN DE FIRMA (Derecha, debajo de la fecha)
         if (file_exists($rutaFirma)) {
             // Posición ajustada para alinear con la imagen de referencia
-            $pdf->Image($rutaFirma, $qrX + $qrWidth+10 , $y_firma_seccion + 10, 80, 45, 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+            $pdf->Image($rutaFirma, $qrX + $qrWidth+10 , $y_firma_seccion + 10, 75, 50, 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         }       
       
 

@@ -39,27 +39,26 @@
             <div class="mb-3 d-flex align-items-center">
                 <div class="flex-grow-1 me-2">
                     <label for="tituloMaterial" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="tituloMaterial" name="tituloMaterial" value="<?= esc($tituloMaterial) ?>" disabled>
+                    <input type="text" class="form-control" id="tituloMaterial" name="tituloMaterial" value="<?= esc($tituloMaterial) ?>" >
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary edit-button" data-target="tituloMaterial">✏️</button>
+          
             </div>
-            
+           
+         
+
             <div class="mb-3 d-flex align-items-center">
                 <div class="flex-grow-1 me-2">
-                    <label for="resumenTesis" class="form-label">Resumen:</label>
-                    <textarea class="form-control" id="resumenTesis" name="resumenTesis" rows="5" disabled><?= esc($resumenTesis) ?></textarea>
+                    <label for="autores" class="form-label">Autores:</label>
+                    <?php foreach($autores as $i => $autor):  ?>
+                        <input type="text" class="form-control" id="autor[<?= $i ?>]" name="autor[<?= $i ?>][nombre]" value="<?=esc($autor['nombre']) ?>" >
+                        <input type="text" name="autor[<?= $i ?>][dni]" value="<?=esc($autor['dni'])?>">
+                    <?php endforeach; ?>
+                    
                 </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary edit-button" data-target="resumenTesis">✏️</button>
+                
             </div>
             
-            <div class="mb-3 d-flex align-items-center">
-                <div class="flex-grow-1 me-2">
-                    <label for="palabrasClaveTesis" class="form-label">Palabras Clave:</label>
-                    <input type="text" class="form-control" id="palabrasClaveTesis" name="palabrasClaveTesis" value="<?= esc($palabrasclaveTesis) ?>" disabled>
-                </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary edit-button" data-target="palabrasClaveTesis">✏️</button>
-            </div>
-            
+           
             <div class="mb-3">
                 <label for="fileTesis" class="form-label">Archivo de Tesis:</label>
                 <?php if(!empty($fileTesis)): ?>
@@ -68,6 +67,7 @@
                 <input class="form-control mt-2" type="file" name="fileTesis" id="fileTesis">
                 <div class="form-text">Sube el nuevo archivo de Tesis (PDF).</div>
             </div>
+
         </div>
     </div>
     
@@ -103,22 +103,3 @@
 
 <?= $this->endSection();?>
 
-
-<?= $this->section('scripts');?>
-<script>
-
-
-    document.querySelectorAll('.edit-button').forEach(button => {
-        button.addEventListener('click', function() {
-            const targetId = this.getAttribute('data-target');
-            const targetInput = document.getElementById(targetId);
-            
-            if (targetInput) {
-                targetInput.removeAttribute('disabled');
-                targetInput.focus();
-                this.style.display = 'none'; // Opcional: Oculta el botón después de usarse
-            }
-        });
-    });
-</script>
-<?= $this->endSection();?>

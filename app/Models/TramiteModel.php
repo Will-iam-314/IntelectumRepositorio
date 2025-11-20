@@ -211,7 +211,7 @@ class TramiteModel extends Model
             $tramite['dniAsesor'] = $dniAsesor;
             $tramite['orcidAsesor'] = $orcidAsesor;
 
-            $arrayPalabrasClave = explode(",", $tramite['palabrasclaveTesis']);
+            $arrayPalabrasClave = array_map('trim', explode(",", $tramite['palabrasclaveTesis']));
             $tramite['palabrasclaveTesis'] = $arrayPalabrasClave;
 
 
@@ -315,7 +315,7 @@ class TramiteModel extends Model
             $tramite['dniAsesor'] = $dniAsesor;
             $tramite['orcidAsesor'] = $orcidAsesor;
 
-            $arrayPalabrasClave = explode(",", $tramite['palabrasclaveTesis']);
+            $arrayPalabrasClave = array_map('trim', explode(",", $tramite['palabrasclaveTesis']));
             $tramite['palabrasclaveTesis'] = $arrayPalabrasClave;
 
 
@@ -417,14 +417,32 @@ class TramiteModel extends Model
         if(isset($data["tituloMaterial"])){
             $materialModel->update($data['idMaterial'], ['titulo_materia' => $data["tituloMaterial"]] );
         }
+
+        if(isset($data['autor'])){
+            $autoresConcatenados = [];
+
+            foreach ($data['autor'] as $autor) {
+                // nombre|dni
+                $autoresConcatenados[] = $autor['nombre'] . '|' . $autor['dni'];
+            }
+
+            // Unimos cada autor por "/" → nombre|dni/nombre|dni
+            $cadenaAutores = implode('/', $autoresConcatenados);
+
+            // Guardamos en la BD una sola vez
+            $materialModel->update(
+                $data['idMaterial'],
+                ['autores_materia' => $cadenaAutores]
+            );
+        }
         
-        if(isset($data["resumenTesis"])){
+        /*if(isset($data["resumenTesis"])){
             $tesisModel->update($data['idTesis'],['resumen_tesi' =>$data["resumenTesis"]]);
         }
 
         if(isset($data["palabrasClaveTesis"])){
             $tesisModel->update($data['idTesis'],['palabrasclave_tesi' =>$data["palabrasClaveTesis"]]);
-        }
+        }*/
 
         // Archivo de Tesis
         if (isset($dataFiles['fileTesis']) && $dataFiles['fileTesis']->isValid() && !$dataFiles['fileTesis']->hasMoved()) {

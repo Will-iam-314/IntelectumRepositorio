@@ -72,7 +72,7 @@
 
                                 <span class="text-muted">generando constancia</span>
                             
-                            <?php elseif($t['inspectorAsignado'] == true && $t['estadoTramite'] != "Observado" && $t['estadoTramite'] != "Observaciones Levantadas"): ?> 
+                            <?php elseif($t['inspectorAsignado'] == true && $t['estadoTramite'] != "Observado" && $t['estadoTramite'] != "Observaciones Levantadas" && $t['estadoTramite'] != "Constancia Emitida") : ?> 
 
                                 <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/'. 1 ?>" class="btn btn-sm btn-primary">Continuar Inspecccion</a> 
 
@@ -83,6 +83,10 @@
                             <?php elseif($t['estadoTramite'] === "Observaciones Levantadas" && $t['inspectorAsignado'] == true): ?> 
 
                                 <a href="<?= base_url('inspector/inspeccionObservaciones/'.$t['codigoTramite']).'/'. $t['idMaterial'] ?>" class="btn btn-sm btn-primary">Inspeccionar Correcciones</a> 
+
+                            <?php elseif($t['estadoTramite'] === "Constancia Emitida"): ?> 
+
+                                <span class="text-muted">Constancia Emitida - sin accion</span>
 
                             <?php else: ?> 
 

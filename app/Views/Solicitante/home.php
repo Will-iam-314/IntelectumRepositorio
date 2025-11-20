@@ -80,6 +80,14 @@
                 </p>
             </div>
 
+            <?php if ($tramite['estado'] === 'Observado'): ?>
+                <div class="text-center mt-4">
+                    
+                    <a href="<?= base_url('solicitante/observaciones/'.esc($tramite['codigo']) ) ?>" class="btn btn-warning btn-lg">ver y levantar Observaciones</a>
+                    
+                </div>
+            <?php endif; ?>
+
         </div>
     </div>
 

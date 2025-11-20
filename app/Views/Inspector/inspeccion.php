@@ -95,14 +95,18 @@
                                         Nombre: <?= $autor['nombre'] ?? 'N/D' ?> 
                                         (DNI: <?= $autor['dni'] ?? 'N/D' ?>)
                                     </li>
-                                <?php endforeach; ?>
-                            </ul>
+                                <?php endforeach; ?>    
+                            </ul>    
+
+
+
+                            
                         <?php else: ?>
                             <p>No se encontraron autores.</p>
                         <?php endif; ?>
                     </ul>
 
-                    <h5>Datos del Solicitante</h5>
+                    <h5>Datos del Solicitante</h5>  
                     <ul>
                         <li><strong>Nombres:</strong> <?= esc($solicitanteNombre) ?></li>
                         <li><strong>Apellidos:</strong> <?= esc($solicitanteApellido) ?></li>

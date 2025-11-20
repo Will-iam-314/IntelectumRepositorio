@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dublin_core schema="thesis">
-  <dcvalue element="degree" qualifier="grantor" language="es_PE">Universidad Nacional de Ucayali. Facultad de Ciencias Económicas, Administrativas y Contables</dcvalue>
-  <dcvalue element="degree" qualifier="discipline" language="es_PE">calidad del aire y medio ambiente</dcvalue>
+  <dcvalue element="degree" qualifier="grantor" language="es_PE">Universidad Nacional de Ucayali. Facultad de Ingeniería de Sistemas e Ingeniería Civil</dcvalue>
+  <dcvalue element="degree" qualifier="discipline" language="es_PE">Ecología y Educación Ambiental</dcvalue>
   <dcvalue element="degree" qualifier="name" language="es_PE">titulo profesional</dcvalue>
 </dublin_core>
