@@ -2,131 +2,162 @@
 
 <?= $this->section('content');?>
 
-<button onclick='Regresar()'>Atrás</button>
+<div class="d-flex flex-wrap align-items-center gap-2">       
+    <button class="btn btn-link p-0 border-0" onclick='Regresar()'>
+        <img class="me-1" width="30" height="30" src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="Regresar"> 
+    </button>
+ 
+    <span class="title-modules">Detalle del Trámite</span> 
+    <span class="codigo-title-detalleTramite"><?= esc($tramite['codigoTramite']) ?></span>
+</div>
 
-<h1>DETALLE TRAMITE</h1>
+<div class="container-default mt-4 shadow-sm">
 
-<div class="card w-100 shadow-sm">
-    <div class="card-header">
-        <strong>Estado actual:</strong> <?= $estadoTramite; ?>
+
+    <div class="container-title-reciente">
+        <span class="titulo-estado-tramite-detalleTramite">Estado Actual: </span>
+
+        <?php if( $tramite['estadoTramite'] == 'Observado' ): ?>
+            <span class="estado-tramite-detalleTramite-observado"><?= $tramite['estadoTramite']; ?></span>
+        <?php elseif($tramite['estadoTramite'] == 'Material Aprobado'):?>
+            <span class="estado-tramite-detalleTramite"><?= $tramite['estadoTramite']; ?></span>
+        <?php else:?>
+            <span class="estado-tramite-detalleTramite"><?= $tramite['estadoTramite']; ?></span>
+        <?php endif;?>
+        
+
     </div>
 
-    <div class="card-body">
-        <div class="mb-4">
-            <div class="progress" style="height: 30px;">
-                <?php 
-                    $etapas = ['Solicitud Presentada', 'Inspector Asignado', 'En revisión', 'Observado', 'Observaciones Levantadas', 'Material Aprobado', 'Material Publicado', 'Constancia Emitida'];
-                    $estadoActual = $estadoTramite;
+    <!-- Stepper de progreso -->
+    <div class="stepper-container">
+        <?php 
+            $estadoActual = $tramite['estadoTramite'];
 
-                    // Filtrar etapas dinámicamente
-                    $mostrarEtapas = [];
-                    foreach ($etapas as $etapa) {
-                        if (in_array($etapa, ['Observado', 'Observaciones Levantadas'])) {
-                            if ($estadoActual === $etapa || array_search($estadoActual, $etapas) > array_search($etapa, $etapas)) {
-                                $mostrarEtapas[] = $etapa;
-                            }
-                        } else {
-                            $mostrarEtapas[] = $etapa;
-                        }
+            // Filtrar etapas dinámicamente
+            $mostrarEtapas = [];
+            foreach ($etapas as $etapa) {
+                if (in_array($etapa, ['Observado', 'Observaciones Levantadas'])) {
+                    if ($estadoActual === $etapa || array_search($estadoActual, $etapas) > array_search($etapa, $etapas)) {
+                        $mostrarEtapas[] = $etapa;
                     }
+                } else {
+                    $mostrarEtapas[] = $etapa;
+                }
+            }
 
-                    $total = count($mostrarEtapas);
-                    $indiceActual = array_search($estadoActual, $mostrarEtapas);
+            $total = count($mostrarEtapas);
+            $indiceActual = array_search($estadoActual, $mostrarEtapas);
 
-                    foreach($mostrarEtapas as $i => $etapa):
-                        $color = ($i <= $indiceActual) ? 'bg-primary' : 'bg-light text-dark';
-                ?>
-                        <div class="progress-bar <?= $color ?>" role="progressbar" style="width: <?= 100/$total ?>%">
-                            <?= $etapa ?>
-                        </div>
-                <?php endforeach; ?>
+            foreach($mostrarEtapas as $i => $etapa):
+                $isActive = ($i <= $indiceActual);
+                $circleClass = $isActive ? 'active' : 'inactive';
+                $labelClass = $isActive ? 'active' : 'inactive';
+        ?>
+            <div class="stepper-item <?= $isActive ? 'active' : '' ?>">
+                <?php if($i < $total - 1): ?>
+                    <?php 
+                        // La línea solo es activa si la SIGUIENTE etapa también está activa
+                        $nextIsActive = ($i + 1 <= $indiceActual);
+                    ?>
+                    <div class="stepper-line <?= $nextIsActive ? 'active' : '' ?>"></div>
+                <?php endif; ?>
+                
+                <div class="stepper-circle <?= $circleClass ?>">
+                    <?= $i + 1 ?>
+                </div>
+                <div class="stepper-label <?= $labelClass ?>">
+                    <?= esc($etapa) ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    
+    <?php if ($tramite['estadoTramite'] === 'Observado'): ?>
+        <div class="text-center mt-4 mb-5">
+            
+            <a href="<?= base_url('solicitante/observaciones/'.esc($tramite['codigoTramite']) ) ?>" class="btn-style4">Ver y Levantar Observaciones</a>
+            
+        </div>
+    <?php endif; ?>
+
+    <div class="card-tramite mb-3">
+        <div>
+            <div class="titulo-proyecto"><?= esc($tramite['tituloMaterial']); ?></div>
+            <div class="fecha-proyecto">
+                Fecha de Presentación: <?= esc(date('d/m/Y', strtotime($tramite['fechapresentacionTramite']))); ?>
             </div>
         </div>
-
-        <div>
-            <p><strong>Título:</strong> <?= $tituloMaterial; ?></p>
-            <p><strong>Fecha de presentación:</strong> <?= date('d/m/Y', strtotime($fechapresentacionTramite)); ?></p>
-            <p><strong>Días transcurridos:</strong> 
+        <div class="dias-badge mt-3">
+            <span>
                 <?php
-                    $fechaPresentacion = new DateTime($fechapresentacionTramite);
-                    $hoy = new DateTime();
-                    $dias = $hoy->diff($fechaPresentacion)->days;
-                    echo $dias;
-                ?> días
-            </p>
+                $fechaPresentacion = new DateTime($tramite['fechapresentacionTramite']);
+                $hoy = new DateTime();
+                $dias = $hoy->diff($fechaPresentacion)->days;
+                echo $dias;
+                ?>
+            </span>
+            
+            Días Transcurridos
         </div>
     </div>
-</div>
 
-<?php if ($estadoTramite === 'Observado'): ?>
-    <div class="text-center mt-4">
+    <div class="contendor-archivos-detalleTramite">
+        <h2 class="archivos-titulo-detalleTramite">Archivos</h2>
         
-        <a href="<?= base_url('solicitante/observaciones/'.esc($codigoTramite) ) ?>" class="btn btn-warning btn-lg">ver y levantar Observaciones</a>
+        <div class="row g-4">
         
-    </div>
-<?php endif; ?>
+            <!-- Archivo 1: Declaración Jurada -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <?php if(!empty($tramite['fileDeclaracionJuradaTramite'])): ?>
+                    <a href="<?= base_url('solicitante/documentos/verDeclaracionJurada/'.$tramite['fileDeclaracionJuradaTramite']) ?>" 
+                    target="_blank" 
+                    class="archivo-card-detalleTramite">
+                        <i class="fas fa-file-pdf archivo-icon-detalleTramite"></i>
+                        <div class="archivo-nombre-detalleTramite">Declaración Jurada</div>
+                    </a>
+                <?php else: ?>
+                    <div class="archivo-card-detalleTramite disabled-detalleTramite">
+                        <i class="fas fa-file-pdf archivo-icon-detalleTramite"></i>
+                        <div class="archivo-nombre-detalleTramite">Declaración Jurada</div>
+                        <div class="archivo-estado-detalleTramite">No disponible</div>
+                    </div>
+                <?php endif; ?>
+            </div>
 
-<div class="card mb-4 shadow-sm">
-    <div class="card-header bg-primary text-white">
-        <strong>📑 Datos del Trámite</strong>
+            <!-- Archivo 2: Autorización de Publicación -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <?php if(!empty($tramite['fileAutorizacionPublicacionTramite'])): ?>
+                    <a href="<?= base_url('solicitante/documentos/verAutorizacionPublicacion/'.$tramite['fileAutorizacionPublicacionTramite']) ?>" 
+                    target="_blank" 
+                    class="archivo-card-detalleTramite">
+                        <i class="fas fa-file-pdf archivo-icon-detalleTramite"></i>
+                        <div class="archivo-nombre-detalleTramite">Autorización de Publicación</div>
+                    </a>
+                <?php else: ?>
+                    <div class="archivo-card-detalleTramite disabled-detalleTramite">
+                        <i class="fas fa-file-pdf archivo-icon-detalleTramite"></i>
+                        <div class="archivo-nombre-detalleTramite">Autorización de Publicación</div>
+                        <div class="archivo-estado-detalleTramite">No disponible</div>
+                    </div>
+                <?php endif; ?>
+            </div>
+
+        </div>
     </div>
-    <div class="card-body">
-        <p><strong>Código:</strong> <?= esc($codigoTramite) ?></p>
-        <p><strong>Fecha de presentación:</strong> <?= date('d/m/Y', strtotime($fechapresentacionTramite)) ?></p>
-        <p><strong>Estado:</strong> <?= esc($estadoTramite) ?></p>
-        <p><strong>Declaración jurada:</strong> 
-            <?php if(!empty($fileDeclaracionJuradaTramite)): ?>
-                <a href="<?= base_url('solicitante/documentos/verDeclaracionJurada/'.$fileDeclaracionJuradaTramite) ?>" target="_blank">Ver archivo</a>
-            <?php else: ?>
-                <span class="text-muted">No disponible</span>
-            <?php endif; ?>
-        </p>
-        <p><strong>Autorización de publicación:</strong> 
-            <?php if(!empty($fileAutorizacionPublicacionTramite)): ?>
-                <a href="<?= base_url('solicitante/documentos/verAutorizacionPublicacion/'.$fileAutorizacionPublicacionTramite) ?>" target="_blank">Ver archivo</a>
-            <?php else: ?>
-                <span class="text-muted">No disponible</span>
-            <?php endif; ?>
-        </p>
-    </div>
+   
+
+   
+    
+
+
+
+
+    
 </div>
 
-<div class="card mb-4 shadow-sm">
-    <div class="card-header bg-success text-white">
-        <strong>📘 Datos de la Tesis</strong>
-    </div>
-    <div class="card-body">
-        <p><strong>Título:</strong> <?= esc($tituloMaterial) ?></p>
-        <p><strong>Tipo de materia:</strong> <?= esc($tipomateriaMaterial) ?></p>
-        <p><strong>Resumen:</strong> <?= esc($resumenTesis) ?></p>
-        <p><strong>Palabras clave:</strong>
-        
-        <?php foreach($palabrasclaveTesis as $keywords){echo($keywords.',');}; ?>
-                
-        </p>
-        <p><strong>Archivo de Tesis:</strong> 
-            <?php if(!empty($fileTesis)): ?>
-                <a href="<?= base_url('solicitante/documentos/verTesis/'.$fileTesis) ?>" target="_blank">Ver archivo</a>
-            <?php else: ?>
-                <span class="text-muted">No disponible</span>
-            <?php endif; ?>
-        </p>
-    </div>
-</div>
 
-<div class="card mb-4 shadow-sm">
-    <div class="card-header bg-info text-white">
-        <strong>👨‍🏫 Docentes</strong>
-    </div>
-    <div class="card-body">
-        <p><strong>Asesor:</strong> <?= esc($Asesor) ?></p>
-        <hr>
-        <p><strong>Miembros del Jurado Evaluador</strong></p>
-        <p><strong>Presidente de Jurados:</strong> <?= esc($Jurado1) ?></p>
-        <p><strong>Primer Miembro:</strong> <?= esc($Jurado2) ?></p>
-        <p><strong>Segundo Miembro:</strong> <?= esc($Jurado3) ?></p>
-    </div>
-</div>
+
+
 
 <?= $this->endSection();?>
 

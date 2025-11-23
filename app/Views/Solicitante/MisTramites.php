@@ -23,7 +23,7 @@
     <span class="ms-2">Filtros</span>
   </div>
   <!-- Barra de búsqueda -->
-   <label for="search" class="label-form">Titulo</label>
+   <label for="search" class="label-form">Titulo o Codigo</label>
   <input type="text" id="search" class="input-form " placeholder="Buscar por título o código...">
 
   <!-- Filtros -->

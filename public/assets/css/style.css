@@ -3,7 +3,7 @@
     --color-azul-BienOscuro: #333F50;
     --color-celeste: #3F81BB;
     --color-celeste-clarito:#DEEBF7;
-    --color-gris:#F2F2F2;
+    --color-gris:rgb(240, 240, 240);
     --color-rojo: rgba(226, 64, 78, 1);
     --color-verde: #6ac584;
 }
@@ -127,6 +127,7 @@ input::placeholder {
     color:var(--color-rojo);
     font-size: 15px;
     text-align: center;
+    text-decoration: none;
 }
 
 .btn-style4{
@@ -263,6 +264,5 @@ input::placeholder {
     font-weight: bold;
     color: var(--color-azul-BienOscuro);
    
-    
 }
 

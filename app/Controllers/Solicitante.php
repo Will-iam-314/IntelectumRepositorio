@@ -96,9 +96,14 @@ class Solicitante extends BaseController
 
     public function getViewDetalleTramite($codigoTramite){
         $tramiteModel = new TramiteModel();
+        $estadosTramite = new EstadosTramitesModel();
+
         $datosTramite = $tramiteModel->getTramite($codigoTramite);
+        $estados = $estadosTramite->getAllEstadosTramites();
+        $etapas = array_column($estados,'nombres_estadotramite');
+
         if($datosTramite){
-            return view('Solicitante/DetalleTramite',$datosTramite);
+            return view('Solicitante/DetalleTramite',['tramite'=> $datosTramite,'etapas'=>$etapas] );
         }
     }
 
