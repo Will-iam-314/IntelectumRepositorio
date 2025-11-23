@@ -220,7 +220,7 @@
         margin-top: 0;
         margin-left: 15px;
         max-width: none;
-        font-size: 14px;
+        font-size: 17px;
     }
 
     .stepper-line {
@@ -239,7 +239,7 @@
     }
 
     .stepper-item.active::after {
-        background-color: #0d6efd;
+        background-color: var(--color-celeste)
     }
 
     .stepper-item:last-child::after {
@@ -279,7 +279,7 @@
     }
 
     .stepper-label {
-        font-size: 13px;
+        font-size: 17px;
     }
 
     .stepper-item::after {
@@ -287,7 +287,7 @@
     }
 
     .card-tramite .titulo-proyecto {
-        font-size: 15px;
+        font-size: 17px;
         text-align: justify;
     }
 
@@ -345,4 +345,89 @@
   color:rgb(2, 109, 197);
   cursor:pointer;
   font-size:18px;
+}
+
+/*----------MIS TRAMITES------*/
+
+.container-title-filtros-misTramites{
+  display: inline-block;
+  font-size:20px;
+  background-color: rgb(240, 240, 240);
+  border-radius:10px;
+  padding:5px 20px;
+  color: var(--color-azul-BienOscuro);
+  font-weight: bold;
+}
+
+.container-filtros-misTramites{
+  background-color: white;
+  margin-bottom: 30px;
+  padding: 25px 30px;
+  border-radius:10px;
+
+}
+
+.container-tramites-mitramites{
+
+  background-color: white;
+  padding: 20px 25px;
+  cursor: pointer;
+  border-radius:10px;
+  margin-bottom: 20px;
+
+}
+
+.container-tramites-mitramites:hover{
+  background-color: rgb(241, 242, 243);
+}
+
+.miTramites-Codgio{
+  font-size: 21px;
+  font-weight: bold;
+  color: var(--color-celeste);
+}
+
+.miTramites-titulo{
+  
+  color: var(--color-azul-BienOscuro);
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.miTramites-fecha{
+  font-size: 16px;
+  color: var(--color-azul-BienOscuro);
+}
+
+.miTramites-estado{
+  background-color: var(--color-celeste);
+  display: inline-block;
+  padding: 3px 15px;
+  color:white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius:100px;
+  font-weight: bold;
+}
+
+.miTramites-estado-observado{
+  background-color: var(--color-rojo);
+  display: inline-block;
+  padding: 3px 15px;
+  color:white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius:100px;
+  font-weight: bold;
+}
+
+.miTramites-estado-Aprobado{
+  background-color: var(--color-verde);
+  display: inline-block;
+  padding: 3px 15px;
+  color:white;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius:100px;
+  font-weight: bold;
 }

@@ -5,7 +5,7 @@
     --color-celeste-clarito:#DEEBF7;
     --color-gris:#F2F2F2;
     --color-rojo: rgba(226, 64, 78, 1);
-
+    --color-verde: #6ac584;
 }
 
 body{
@@ -160,7 +160,6 @@ input::placeholder {
 .container-default{
   background-color: white;
   border-radius: 10px;
-  border:1px solid rgb(209, 209, 209);
   padding: 50px;
 }
 

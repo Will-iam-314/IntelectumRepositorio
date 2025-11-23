@@ -17,25 +17,31 @@
     
 </div>
 
+<div class="container-filtros-misTramites shadow-sm">
+  <div class="container-title-filtros-misTramites">
+    <i class="fa fa-search" aria-hidden="true"></i>
+    <span class="ms-2">Filtros</span>
+  </div>
   <!-- Barra de búsqueda -->
-  <input type="text" id="search" class="form-control mb-3" placeholder="Buscar por título o código...">
+   <label for="search" class="label-form">Titulo</label>
+  <input type="text" id="search" class="input-form " placeholder="Buscar por título o código...">
 
   <!-- Filtros -->
   <div class="row mb-4">
     <!-- Fecha inicio -->
     <div class="col-md-3">
-      <label for="fechaInicio" class="form-label">Fecha desde</label>
-      <input type="date" id="fechaInicio" class="form-control">
+      <label for="fechaInicio" class="label-form">Fecha desde</label>
+      <input type="date" id="fechaInicio" class="input-form">
     </div>
     <!-- Fecha fin -->
     <div class="col-md-3">
-      <label for="fechaFin" class="form-label">Fecha hasta</label>
-      <input type="date" id="fechaFin" class="form-control">
+      <label for="fechaFin" class="label-form">Fecha hasta</label>
+      <input type="date" id="fechaFin" class="input-form">
     </div>
     <!-- Estado -->
     <div class="col-md-3">
-      <label for="estadoFiltro" class="form-label">Estado</label>
-      <select id="estadoFiltro" class="form-select">
+      <label for="estadoFiltro" class="label-form">Estado</label>
+      <select id="estadoFiltro" class="select-form">
         <option value="">Todos</option>
         <?php 
         if (!empty($tramites)) {
@@ -49,8 +55,8 @@
     </div>
     <!-- Tipo de materia -->
     <div class="col-md-3">
-      <label for="tipoFiltro" class="form-label">Tipo de Materia</label>
-      <select id="tipoFiltro" class="form-select">
+      <label for="tipoFiltro" class="label-form">Tipo de Materia</label>
+      <select id="tipoFiltro" class="select-form">
         <option value="">Todos</option>
         <?php 
         if (!empty($tramites)) {
@@ -63,44 +69,51 @@
       </select>
     </div>
   </div>
+</div>
 
-  <!-- Contenedor de tarjetas -->
-  <div id="tramitesContainer">
-    <?php if (!empty($tramites)): ?>
-      <?php foreach($tramites as $t): ?>
-        <div class="tramite-card mb-3" 
-             data-titulo="<?= strtolower($t['titulo']) ?>" 
-             data-codigo="<?= strtolower($t['codigo']) ?>"
-             data-fecha="<?= $t['fechapresentacion'] ?>"
-             data-estado="<?= strtolower($t['estado']) ?>"
-             data-tipo="<?= strtolower($t['tipomateria']) ?>">
+<!-- Contenedor de tarjetas -->
+<div id="tramitesContainer">
+  <?php if (!empty($tramites)): ?>
+    <?php foreach($tramites as $t): ?>
+      <div class="tramite-card mb-3" 
+          data-titulo="<?= strtolower($t['titulo']) ?>" 
+          data-codigo="<?= strtolower($t['codigo']) ?>"
+          data-fecha="<?= $t['fechapresentacion'] ?>"
+          data-estado="<?= strtolower($t['estado']) ?>"
+          data-tipo="<?= strtolower($t['tipomateria']) ?>"
+        >
 
-          <div class="card p-3 w-100 card-clickable" onclick="window.location.href='<?= site_url('solicitante/detalleTramite/'.$t['codigo']) ?>'">
-            <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <h5 class="card-title mb-1"><?= esc($t['titulo']) ?></h5>
-                <p class="mb-0"><strong>Código:</strong> <?= esc($t['codigo']) ?></p>
-                <p class="mb-0"><strong>Tipo:</strong> <?= esc($t['tipomateria']) ?></p>
-                <p class="mb-0"><strong>Fecha:</strong> <?= date('d/m/Y', strtotime($t['fechapresentacion'])) ?></p>
-              </div>
-              <span class="badge bg-primary"><?= esc($t['estado']) ?></span>
-            </div>
-          </div>
+        <div class="container-tramites-mitramites shadow-sm" onclick="window.location.href='<?= site_url('solicitante/detalleTramite/'.$t['codigo']) ?>'">
+                   
+          <p class="miTramites-Codgio mb-0" > <?= esc($t['codigo']) ?></p>
+          <h5 class="miTramites-titulo mb-0"><?= esc($t['titulo']) ?></h5>
+          <?php if( $t['estado'] == 'Observado' ): ?>
+            <span class="miTramites-estado-observado"><?= esc($t['estado']) ?></span>
+          <?php elseif($t['estado'] == 'Material Aprobado'):?>
+            <span class="miTramites-estado-Aprobado"><?= esc($t['estado']) ?></span>
+          <?php else:?>
+            <span class="miTramites-estado"><?= esc($t['estado']) ?></span>
+          <?php endif;?>
+         
+          <p class="miTramites-fecha mb-0">Fecha de Presentación:<?= date('d/m/Y', strtotime($t['fechapresentacion'])) ?></p>
+            
         </div>
-      <?php endforeach; ?>
-
-    <?php else: ?>
-
-      <div class="container-default mt-4">
-        <div class="msg-nothing">
-            <img class="mb-3" src="<?= base_url('assets/icons/box-empty-gray.png') ?>" alt="">
-            <span class="d-block" >Sin trámites por el momento.</span>
-        </div>
+        
       </div>
+    <?php endforeach; ?>
 
-    <?php endif; ?>
+  <?php else: ?>
 
-  </div>
+    <div class="container-default mt-4">
+      <div class="msg-nothing">
+          <img class="mb-3" src="<?= base_url('assets/icons/box-empty-gray.png') ?>" alt="">
+          <span class="d-block" >Sin trámites por el momento.</span>
+      </div>
+    </div>
+
+  <?php endif; ?>
+
+</div>
 
   <!-- Paginación -->
   <div class="mt-4 d-flex justify-content-center">
