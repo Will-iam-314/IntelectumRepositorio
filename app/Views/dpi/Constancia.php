@@ -7,16 +7,12 @@
 
     
     <div class="">
-        
+
+        <a href="<?= base_url('dpi/enviarConstancia/'.$dniSolicitante)?>" class="btn btn-primary btn-lg" >Enviar Constancia 📧 </a>
             
-        <button id="btnEnviarConstancia" class="btn btn-primary btn-lg" >
-            Enviar Constancia 📧
-        </button>
-            
-        
     </div>
     
-
+ 
     <div class="">
       
             <iframe 
@@ -30,6 +26,12 @@
             </iframe>
        
     </div>
+
+    <?php if($success = session()->get('success')): ?>
+        <div class="alert alert-success">
+            <?= $success ?>
+        </div>
+    <?php endif; ?>
 
 
 

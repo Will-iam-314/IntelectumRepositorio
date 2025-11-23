@@ -17,6 +17,10 @@ use Endroid\QrCode\Writer\PngWriter;
 
 use setasign\Fpdi\Tcpdf\Fpdi; 
 
+use App\Libraries\MailService;
+
+use App\Models\SolicitantesModel;
+
 class DpiAdmin extends BaseController
 {
     public function index()
@@ -32,6 +36,13 @@ class DpiAdmin extends BaseController
 
 
         return view('dpi/Solicitudes', ['tramites' => $dataTramite]);
+
+    }
+
+    public function getViewConstancia($codigoTramite){
+        $tramitesModel = new TramiteModel(); 
+        $dataTramite = $tramitesModel->getTramite($codigoTramite);
+        return view('dpi/Constancia',['codigoTramite' => $codigoTramite,'dniSolicitante' => $dataTramite['solicitanteDNI']]);
 
     }
 
@@ -240,9 +251,25 @@ class DpiAdmin extends BaseController
 
 
        
-        return view('dpi/Constancia',['codigoTramite' => $codigoTramite]);
+       ///
+        return view('dpi/Constancia',['codigoTramite' => $codigoTramite,'dniSolicitante' => $dataTramite['solicitanteDNI']]);
         
     } 
+ 
+    public function enviarConstancia($dni){
+       
+        $solicitanteModel = new SolicitantesModel();
+        $solicitanteData = $solicitanteModel->getSolicitantePorDNI($dni);
+        $solicitanteCorreo = $solicitanteData['correo'];
+
+        $mail = new MailService();            
+        $boolmail = $mail->sendMain_EnvioConstancia($solicitanteCorreo);
+        if($boolmail){
+            return redirect()->back()->withInput()->with('success','Correo Enviado Existosamente!');
+        }else{
+
+        }
+    }
 
     public function verConstancia($nombreArchivo)
     {

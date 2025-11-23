@@ -175,6 +175,8 @@ class Solicitante extends BaseController
             return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo enviar las correciones');
         }
     }
+
+ 
 }
 
 ?>

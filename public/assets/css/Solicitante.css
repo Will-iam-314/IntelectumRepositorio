@@ -1,11 +1,13 @@
 .card-clickable {
-    cursor: pointer;
-    transition: 0.3s;
+  cursor: pointer;
+  transition: 0.3s;
   }
 .card-clickable:hover {
-    background-color: #d4d4d4;
+  background-color: #d4d4d4;
     
 }
+
+/* -------- HOME ----------*/
 
 .btn-solicitar-inhome{
   background-color: var(--color-celeste);
@@ -26,19 +28,286 @@
 
 }
 
-.container-default{
-  background-color: white;
+#title-tramite-reciente{
+  color:var(--color-azul-BienOscuro);
+  font-weight: bold;
+  font-size:20px;
+}
+
+#tramite-reciente{
+  color: var(--color-celeste);
+  font-weight: bold;
+  font-size:20px;
+}
+
+#datos-Tramite-reciente{
+  background-color: var(--color-celeste-clarito);
   border-radius: 10px;
-  border:1px solid rgb(209, 209, 209);
-  padding: 50px;
+  padding: 20px;
+}
+
+/*----> TRAMITE MAS RECIENTE*/
+
+.stepper-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  flex: 1;
+}
+
+.stepper-item:not(:last-child) {
+  position: relative;
+}
+
+.stepper-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  z-index: 2;
+  position: relative;
+}
+
+.stepper-circle.active {
+  background-color: var(--color-celeste);
+}
+
+.stepper-circle.inactive {
+  background-color: #6c757d;
+}
+
+.stepper-label {
+  margin-top: 12px;
+  font-size: 15px;
+  text-align: center;
+  max-width: 120px;
+}
+
+.stepper-label.active {
+  color: var(--color-celeste);
+  
+}
+
+.stepper-label.inactive {
+  color: #6c757d;
+}
+
+.stepper-line {
+  position: absolute;
+  top: 35px;
+  left: calc(50% + 35px);
+  right: calc(-50% + 35px);
+  height: 4px;
+  background-color: #6c757d;
+  z-index: 1;
+}
+
+.stepper-line.active {
+  background-color: var(--color-celeste);
+}
+
+.card-tramite {
+  background-color: #e7f3ff;
+  border-radius: 12px;
+  padding: 25px;
+  margin-top: 30px;
+  border: none;
+}
+
+.card-tramite .titulo-proyecto {
+  font-size: 22px;
+  color: var(--color-azul-BienOscuro);
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.card-tramite .fecha-proyecto {
+  font-size: 17px;
+  color: var(--color-azul-BienOscuro);
+}
+
+.dias-badge {
+  display:  inline-block;
+  font-size: 17px;
+  color: var(--color-azul-BienOscuro);
+}
+
+.dias-badge span{
+  font-size:20px;
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 200px;
+  text-align: center;
+  display: inline-block;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.titulo-seccion {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-azul-BienOscuro);
+  margin-bottom: 0;
+}
+
+.codigo-tramite {
+    color: var(--color-celeste);
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.container-title-reciente{
+  background-color: rgb(240, 240, 240);
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 10px;
 }
 
 @media (max-width: 992px) {
-  .container-default{
-    padding: 25px;
-  }
+    .stepper-container {
+        padding: 30px 10px;
+    }
+
+    .stepper-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .stepper-label {
+        font-size: 12px;
+        max-width: 100px;
+    }
 }
 
+@media (max-width: 768px) {
+    .stepper-container {
+        flex-direction: column;
+        padding: 20px 10px;
+    }
+
+    .stepper-item {
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin-bottom: 0;
+        padding: 15px 0;
+    }
+
+    .stepper-circle {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    .stepper-label {
+        text-align: left;
+        margin-top: 0;
+        margin-left: 15px;
+        max-width: none;
+        font-size: 14px;
+    }
+
+    .stepper-line {
+        display: none;
+    }
+
+    .stepper-item::after {
+        content: '';
+        position: absolute;
+        left: 25px;
+        top: 65px;
+        width: 3px;
+        height: calc(100% - 15px);
+        background-color: #6c757d;
+        z-index: 1;
+    }
+
+    .stepper-item.active::after {
+        background-color: #0d6efd;
+    }
+
+    .stepper-item:last-child::after {
+        display: none;
+    }
+
+    .card-tramite {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .card-tramite .titulo-proyecto {
+        font-size: 16px;
+    }
+
+    .dias-badge {
+        margin-top: 15px;
+        width: 100%;
+        font-size: 14px;
+        padding: 10px 0px;
+    }
+
+    .titulo-seccion {
+        font-size: 20px;
+    }
+
+    .codigo-tramite{
+      font-size: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stepper-circle {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .stepper-label {
+        font-size: 13px;
+    }
+
+    .stepper-item::after {
+        left: 22px;
+    }
+
+    .card-tramite .titulo-proyecto {
+        font-size: 15px;
+        text-align: justify;
+    }
+
+    .titulo-seccion {
+        font-size: 20px;
+    }
+
+    .codigo-tramite{
+      font-size: 20px;
+    }
+
+    .btn-solicitar-inhome a {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+}
+
+
+
+/*-------END HOME-----------*/
 .msg-nothing{
   text-align: center;
   margin:100px;

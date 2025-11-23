@@ -38,11 +38,11 @@
             <button type="submit" class="btn-style1 mt-3">
                 Iniciar Sesión
             </button>
-
+            <!---
             <button  class="btn-style2-google mt-3">
                 <img id="icono-google-Auth" width=25 src="<?= base_url('assets/icons/google.png')?>" alt="">
                 Inicia Sesión con Google
-            </button>
+            </button>-->
         </form>
 
         <div  class=" mt-3">

@@ -211,7 +211,19 @@ class UsersModel extends Model
     }
 
     public function getUser($id){
-
+        try{
+            $user = $this->where(['id_usuario'=>$id])->first();
+            if($user){
+               
+                return $user;
+            }else{
+                return false;
+            }
+           
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
     }
 
     public function getUsers(){

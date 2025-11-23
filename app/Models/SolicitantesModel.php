@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\UsersModel;
 
 class SolicitantesModel extends Model
 {
@@ -62,5 +63,20 @@ class SolicitantesModel extends Model
         }   
     }
     
-
+    public function getSolicitantePorDNI($dni){
+        try{
+            $dataSolicitante = $this->where('dni_solicitante',$dni)->first();
+            if($dataSolicitante){
+                $userModel = new UsersModel();
+                $userData = $userModel->getUser($dataSolicitante['id_usuario_solicitante']);
+                $dataSolicitante['correo'] = $userData['email_usuario'];
+                return $dataSolicitante;
+            }else{
+                return false;
+            } 
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        } 
+    }
 }

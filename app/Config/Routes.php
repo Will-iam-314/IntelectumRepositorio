@@ -79,6 +79,9 @@ $routes->group('dpi',['filter'=>'dpi'], function($routes){
     $routes->get('home','DpiAdmin::index');
     $routes->get('solicitudes','DpiAdmin::getViewSolicitudes');
     $routes->get('generarConstancia/(:segment)','DpiAdmin::generarConstancia/$1');
+
+    $routes->get('enviarConstancia/(:segment)','DpiAdmin::enviarConstancia/$1');
+    $routes->get('verConstancia/(:segment)','DpiAdmin::getViewConstancia/$1');
    
 
 });

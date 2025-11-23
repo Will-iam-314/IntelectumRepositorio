@@ -64,11 +64,16 @@
 
                                 <a href="<?= base_url('dpi/generarConstancia/'.$t['codigoTramite']) ?>" class="btn btn-sm btn-primary">Emitir Constancia</a>
 
+                            <?php elseif ($t['estadoTramite'] === "Constancia Emitida"): ?> 
+
+                                <a href="<?= base_url('dpi/verConstancia/'.$t['codigoTramite']) ?>" class="btn btn-sm btn-primary">Ver Constancia</a>
+                               
                             <?php else: ?> 
 
-                                <span class="text-muted">Ver Constancia</span>
+                                <span class="text-muted">Sin Opciones</span>
                                 <!---  HACER UNA VISTA DONDE SEVEA LA CONSTANCIA Y DE PASO PUEDA VOLVER ENVIAR LA CONSTANCIA --->
 
+               
                             <?php endif; ?>
                         </td>
                     </tr>
