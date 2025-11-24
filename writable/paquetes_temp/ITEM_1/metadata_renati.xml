@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dublin_core schema="renati">
-  <dcvalue element="advisor" qualifier="dni">00009324</dcvalue>
-  <dcvalue element="advisor" qualifier="orcid">https://orcid.org/0000-0003-1283-5630</dcvalue>
+  <dcvalue element="advisor" qualifier="dni">sdf</dcvalue>
+  <dcvalue element="advisor" qualifier="orcid">sdf</dcvalue>
   <dcvalue element="author" qualifier="dni">72788241</dcvalue>
-  <dcvalue element="discipline">131059</dcvalue>
+  <dcvalue element="author" qualifier="dni">12345678</dcvalue>
+  <dcvalue element="discipline">sdfsdfsdf</dcvalue>
   <dcvalue element="level">https://purl.org/pe-repo/renati/level#tituloProfesional</dcvalue>
   <dcvalue element="type">https://purl.org/pe-repo/renati/type#tesis</dcvalue>
-  <dcvalue element="juror">Arturo Yupanqui Villanueva</dcvalue>
-  <dcvalue element="juror">Clori Rios de la Cern</dcvalue>
-  <dcvalue element="juror">Hulloa</dcvalue>
+  <dcvalue element="juror">sdf</dcvalue>
+  <dcvalue element="juror">sdf</dcvalue>
+  <dcvalue element="juror">sdf</dcvalue>
 </dublin_core>

@@ -5,7 +5,7 @@
  <div class="d-flex align-items-center">
         
         <button style="all: unset;cursor: pointer;" onclick='confirmarRegreso()'> <img class="me-1" style="margin-top:-3px;" width=30 height=30 src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="home"> </button>
-        <span class="title-modules ms-2">Nueva Solicitud</span>
+        <span class="title-modules ms-2">Nueva Solicitud</span> 
     </div>
 
 <form class='mb-4' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">

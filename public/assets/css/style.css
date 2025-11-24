@@ -19,7 +19,7 @@ body{
 
 .label-form{
     display: block;
-    color: #969595;
+    color: #636363;
     font-weight: bold;
     font-family: Arial;
     margin-top:15px;
@@ -118,6 +118,7 @@ input::placeholder {
     font-size: 1rem;
     
 }
+
 
 .btn-style3-danger{
     padding: 7px 15px;
@@ -254,6 +255,18 @@ input::placeholder {
 
 /***FOOTER***/
 
+.enlaces-rapidos{
+    color: #bdc3c7;
+    text-decoration: none; 
+    font-size: 14px; 
+    transition: color 0.3s;
+}
+
+.enlaces-rapidos:hover{
+
+  color: white;
+
+}
 
 
 /***********/

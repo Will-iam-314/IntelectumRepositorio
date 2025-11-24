@@ -14,8 +14,8 @@
 
     <?php if(!empty($observaciones)): ?>
         <div class="alert alert-warning" role="alert">
-            <strong>⚠️ Observaciones Previas:</strong>
-            <p class="mb-0"><?= esc($observaciones) ?></p>
+            <strong>⚠️ Observaciones Anteriores:</strong>
+            <p class="mb-0"><?= nl2br(esc($observaciones)) ?></p>
         </div>
     <?php endif; ?>
     
@@ -60,7 +60,7 @@
 
                         <div class="mb-3">
                             <label for="observaciones" class="form-label">Observaciones</label>
-                            <textarea id="observaciones" name="observaciones" class="form-control" rows="4" disabled></textarea>
+                            <textarea  id="observaciones" name="observaciones" class="form-control" rows="10" disabled></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn-success w-100">Terminar Inspección</button>
@@ -156,6 +156,40 @@
             observaciones.value = ""; // limpiar si se desactiva
         }
     });
+
+    const textarea = document.getElementById('observaciones');
+
+    // Inicializar con primera viñeta
+    if (textarea.value === '') {
+        textarea.value = '●_';
+    }
+
+    textarea.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            
+            const start = this.selectionStart;
+            const end = this.selectionEnd;
+            const value = this.value;
+            
+            // Si la línea actual está vacía (solo tiene "• "), eliminar la viñeta
+            const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+            const currentLine = value.substring(lineStart, start);
+            
+            if (currentLine.trim() === '●_') {
+                // Eliminar la viñeta vacía
+                this.value = value.substring(0, lineStart) + value.substring(start);
+                this.selectionStart = this.selectionEnd = lineStart;
+            } else {
+                // Agregar nueva línea con viñeta
+                const newText = value.substring(0, start) + '\n●_' + value.substring(end);
+                this.value = newText;
+                this.selectionStart = this.selectionEnd = start + 3;
+            }
+        }
+    });
+
+
 
 </script>
 

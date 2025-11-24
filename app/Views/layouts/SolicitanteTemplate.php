@@ -6,8 +6,8 @@
     <title><?=  name_system(); ?></title>
     <link rel="icon" type="image/png" href="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
-    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=2.2') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=2.2') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=2.3') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=2.4') ?>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 </head>
@@ -80,7 +80,7 @@
                 <!-- Sección INTELECTUM -->
                 <div>
                     <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                        <img src="https://via.placeholder.com/50" alt="Logo" style="width: 50px; height: auto; margin-right: 12px;">
+                        <img src="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>" alt="Logo" style="width: 50px; height: auto; margin-right: 12px;">
                         <div>
                             <h3 style="margin: 0; font-size: 20px; font-weight: bold;">INTELECTUM</h3>
                             <p style="margin: 0; font-size: 13px; color: #bdc3c7;">Repositorio</p>
@@ -93,26 +93,27 @@
                 
                 <!-- Enlaces Rápidos -->
                 <div>
-                    <h4 style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: #fff;">Enlaces Rápidos</h4>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
+                    <h4 style="margin: 0 0 15px 0; font-size: 18px; font-weight: bold; color: #fff;">Enlaces Rápidos</h4>
+                    <ul  style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 10px;">
-                            <a href="#" style="color: #bdc3c7; text-decoration: none; font-size: 14px; transition: color 0.3s;">Inicio</a>
+                            <a href="<?= base_url('solicitante/home') ?>" class="enlaces-rapidos" >Inicio</a>
                         </li>
                         <li style="margin-bottom: 10px;">
-                            <a href="#" style="color: #bdc3c7; text-decoration: none; font-size: 14px; transition: color 0.3s;">Repositorio</a>
+                            <a href="<?= base_url('solicitante/solicitud'); ?>"  class="enlaces-rapidos" >Nueva Solicitud</a>
                         </li>
                         <li style="margin-bottom: 10px;">
-                            <a href="#" style="color: #bdc3c7; text-decoration: none; font-size: 14px; transition: color 0.3s;">Nueva Solicitud</a>
+                            <a href="https://repositorio.unu.edu.pe/" target="_blank" class="enlaces-rapidos"   >Repositorio</a>
                         </li>
+                        
                         <li style="margin-bottom: 10px;">
-                            <a href="#" style="color: #bdc3c7; text-decoration: none; font-size: 14px; transition: color 0.3s;">Ayuda</a>
+                            <a href="#" class="enlaces-rapidos"  >Ayuda</a>
                         </li>
                     </ul>
                 </div>
                 
                 <!-- Contacto -->
                 <div>
-                    <h4 style="margin: 0 0 15px 0; font-size: 16px; font-weight: bold; color: #fff;">Contacto</h4>
+                    <h4 style="margin: 0 0 15px 0; font-size: 18px; font-weight: bold; color: #fff;">Contacto</h4>
                     <div style="font-size: 14px; line-height: 1.8; color: #bdc3c7;">
                         <p style="margin: 0 0 10px 0;">
                             <strong style="color: #fff;">Universidad Nacional de Ucayali</strong>

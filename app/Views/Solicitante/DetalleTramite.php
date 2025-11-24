@@ -83,6 +83,7 @@
     <div class="card-tramite mb-3">
         <div>
             <div class="titulo-proyecto"><?= esc($tramite['tituloMaterial']); ?></div>
+            
             <div class="fecha-proyecto">
                 Fecha de Presentación: <?= esc(date('d/m/Y', strtotime($tramite['fechapresentacionTramite']))); ?>
             </div>
@@ -100,11 +101,48 @@
             Días Transcurridos
         </div>
     </div>
+    
+    <div class="contenedor-autores-detalleTramite">
+        <h2 class="autores-titulo-detalleTramite">Autor(es)</h2>
+        <div class="row g-4">
+             <?php foreach ($tramite['autores'] as $autor): ?>
+                <div class="col-12 col-sm-6 col-lg-6">
+                    <div class="container-card-autores-detalleTramite d-flex">
+                        <i class="fa fa-user autor-icon-detalleTramite"></i>
+                        <div class="autor-nombre-detalleTramite"><?= $autor['nombre'] ?? 'N/D' ?> </div>
+                    </div>                   
+                </div>
+            <?php endforeach; ?>    
+        </div>
+
+        
+
+    </div>
 
     <div class="contendor-archivos-detalleTramite">
         <h2 class="archivos-titulo-detalleTramite">Archivos</h2>
         
         <div class="row g-4">
+
+
+            <!-- Archivo 0: Tesis -->
+            <div class="col-12 col-sm-6 col-lg-4">
+                <?php if(!empty($tramite['fileTesis'])): ?>
+                    <a href="<?= base_url('solicitante/documentos/verTesis/'.$tramite['fileTesis']) ?>" 
+                    target="_blank" 
+                    class="archivo-card-detalleTramite">
+                        <i class="fas fa-file-pdf archivo-icon-detalleTramite"></i>
+                        <div class="archivo-nombre-detalleTramite">Tesis</div>
+                    </a>
+                <?php else: ?>
+                    <div class="archivo-card-detalleTramite disabled-detalleTramite">
+                        <i class="fas fa-file-pdf archivo-icon-detalleTramite"></i>
+                        <div class="archivo-nombre-detalleTramite">Tesis</div>
+                        <div class="archivo-estado-detalleTramite">No disponible</div>
+                    </div>
+                <?php endif; ?>
+            </div>
+
         
             <!-- Archivo 1: Declaración Jurada -->
             <div class="col-12 col-sm-6 col-lg-4">
@@ -145,7 +183,7 @@
         </div>
     </div>
    
-
+ 
    
     
 

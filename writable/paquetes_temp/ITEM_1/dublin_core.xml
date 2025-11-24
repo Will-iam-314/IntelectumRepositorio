@@ -2,18 +2,17 @@
 <dublin_core>
   <dcvalue element="identifier" qualifier="other" language="es_PE">Solicitud URL</dcvalue>
   <dcvalue element="description" language="">Mas info repositorio@unu.edu.pe</dcvalue>
-  <dcvalue element="contributor" qualifier="author" language="es_PE">Jose Williams Rojas Garcia</dcvalue>
-  <dcvalue element="title" language="es_PE">SISTEMA WEB PARA LA GESTION DE AEAS</dcvalue>
+  <dcvalue element="contributor" qualifier="author" language="es_PE">JOSE WILLIAMS ROJAS GARCIA</dcvalue>
+  <dcvalue element="contributor" qualifier="author" language="es_PE">BENITO CAMELO RODRIGUEZ MENDOZA</dcvalue>
+  <dcvalue element="title" language="es_PE">SISTEMA WEB PARA LA GESTION DOCUMENTARIO EN LA FACULTAD DE CIENCIAS DE LA SALUD DE LA UNIVERSIDAD NACIONAL DE UCAYALI, 2025.</dcvalue>
   <dcvalue element="date" qualifier="issued" language="es_PE">2025</dcvalue>
-  <dcvalue element="contributor" qualifier="advisor" language="es_PE">Jorge Luis Hilario Rivas</dcvalue>
-  <dcvalue element="description" qualifier="abstract" language="es_PE">A pesar de contar con una plataforma de repositorio institucional para el alojamiento de investigaciones, la gestión administrativa que rodea a la emisión de estas constancias presenta notables limitaciones. Actualmente, las tareas asociadas a la recepción, seguimiento, validación y entrega de constancias URL se realizan mediante herramientas genéricas como formularios de Google, hojas de cálculo y almacenamiento en Google Drive. Esta infraestructura, aunque funcional en ciertos aspectos, no permite una automatización integral ni ofrece a los usuarios una trazabilidad clara del estado de sus solicitudes. Como consecuencia, se generan retrasos, cuellos de botella y una alta carga operativa para el personal administrativo, además de afectar negativamente la experiencia del usuario, quien en muchos casos debe acudir físicamente a las oficinas para obtener información sobre su trámite</dcvalue>
-  <dcvalue element="subject" language="es_PE">sistema</dcvalue>
-  <dcvalue element="subject" language="es_PE">web</dcvalue>
-  <dcvalue element="subject" language="es_PE">repositorio</dcvalue>
-  <dcvalue element="subject" language="es_PE">constancias</dcvalue>
-  <dcvalue element="subject" language="es_PE">url</dcvalue>
-  <dcvalue element="subject" language="es_PE">aeas</dcvalue>
-  <dcvalue element="subject" language="es_PE">Ecología y Educación Ambiental</dcvalue>
+  <dcvalue element="contributor" qualifier="advisor" language="es_PE">sdf</dcvalue>
+  <dcvalue element="description" qualifier="abstract" language="es_PE">ewrewr</dcvalue>
+  <dcvalue element="subject" language="es_PE">aerew</dcvalue>
+  <dcvalue element="subject" language="es_PE">werwe</dcvalue>
+  <dcvalue element="subject" language="es_PE">rwerwe</dcvalue>
+  <dcvalue element="subject" language="es_PE">werwe</dcvalue>
+  <dcvalue element="subject" language="es_PE">dsfsdfds</dcvalue>
   <dcvalue element="language" qualifier="iso" language="es_PE">spa</dcvalue>
   <dcvalue element="publisher" qualifier="country">PE</dcvalue>
   <dcvalue element="publisher" language="es_PE">Universidad Nacional de Ucayali</dcvalue>
@@ -21,6 +20,6 @@
   <dcvalue element="rights" language="en_US">info:eu-repo/semantics/openAccess</dcvalue>
   <dcvalue element="source" language="es_PE">Universidad Nacional de Ucayali</dcvalue>
   <dcvalue element="source" language="es_PE">Repositorio institucional - UNU</dcvalue>
-  <dcvalue element="subject" qualifier="ocde">https://purl.org/pe-repo/ocde/ford#2.02.04</dcvalue>
+  <dcvalue element="subject" qualifier="ocde">sdfsdf</dcvalue>
   <dcvalue element="type" language="es_PE">info:eu-repo/semantics/bachelorThesis</dcvalue>
 </dublin_core>

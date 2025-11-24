@@ -140,6 +140,14 @@
   color: var(--color-azul-BienOscuro);
 }
 
+.card-tramite .autores-proyecto{
+  font-size: 17px;
+  color: var(--color-azul-BienOscuro);
+  
+}
+
+
+
 .dias-badge {
   display:  inline-block;
   font-size: 17px;
@@ -462,10 +470,45 @@
   font-size: 20px;
 }
 
+.contenedor-autores-detalleTramite{
+  background-color: #e9ecef;
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 30px !important;  
+}
+
+.autores-titulo-detalleTramite{
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-azul-BienOscuro);
+  margin-bottom: 25px;
+}
+
+.container-card-autores-detalleTramite{
+  background-color: white;
+  padding: 10px 12px;
+  border-radius:10px;
+}
+
+.autor-icon-detalleTramite{
+  color: var(--color-celeste);
+  margin-top: 1px;
+  font-size: 20px;
+  margin-right: 7px;
+  margin-left: 5px;
+}
+.autor-nombre-detalleTramite{
+  font-size:17px;
+  color:var(--color-azul-BienOscuro);
+  margin-left: 10px;
+}
+
 .contendor-archivos-detalleTramite {
-    background-color: #e9ecef;
-    border-radius: 15px;
-    padding: 30px;
+  background-color: #e9ecef;
+  border-radius: 15px;
+  padding: 30px;
+  margin-top: 30px !important;
+    
 }
 
 .archivo-card-detalleTramite {
@@ -488,15 +531,13 @@
 }
 
 .archivo-card-detalleTramite:hover {
-    transform: translateY(-8px);
+   
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    border-color: #0d6efd;
-    color: #0d6efd;
+    border-color: var(--color-celeste);
+    color: var(--color-celeste);
 }
 
-.archivo-card-detalleTramite:active {
-    transform: translateY(-4px);
-}
+
 
 .archivo-card-detalleTramite.disabled-detalleTramite {
     background-color: #f8f9fa;
@@ -518,7 +559,7 @@
 }
 
 .archivo-card-detalleTramite:hover .archivo-icon-detalleTramite {
-    color: #0d6efd;
+    color: var(--color-celeste);
 }
 
 .disabled-detalleTramite .archivo-icon-detalleTramite {
@@ -526,7 +567,7 @@
 }
 
 .archivo-nombre-detalleTramite {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 600;
     margin-top: 15px;
     word-wrap: break-word;
@@ -539,10 +580,10 @@
 }
 
 .archivos-titulo-detalleTramite {
-    font-size: 28px;
-    font-weight: 700;
-    color: #212529;
-    margin-bottom: 25px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-azul-BienOscuro);
+  margin-bottom: 25px;
 }
 
 @media (max-width: 768px) {
@@ -566,6 +607,10 @@
     .archivos-titulo-detalleTramite {
         font-size: 22px;
     }
+
+    .autores-titulo-detalleTramite{
+      font-size: 22px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -582,4 +627,73 @@
     .archivos-titulo-detalleTramite {
         font-size: 20px;
     }
+
+    .autores-titulo-detalleTramite{
+      font-size: 20px;
+    }
+}
+
+/***LEVANTAR OBSERVACIONES**/
+.container-title-observaciones{
+  background-color: var(--color-gris);
+  display: inline-block;
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.title-levObservaciones{
+  font-size:22px;
+  color:var(--color-azul-BienOscuro);
+  font-weight: bold;
+}
+
+.codigo-title-LevObservaciones{
+  font-size:20px;
+  color:var(--color-celeste);
+  font-weight: bold;
+}
+
+.container-observaciones{
+ 
+  overflow-wrap: break-word;
+  background-color: rgb(252, 224, 224);
+  padding: 20px;
+  border-radius:10px;
+
+}
+
+.title-observaciones{
+  font-size:18px;
+  display: block;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 10px;
+}
+
+.observaciones-lista{
+  color: rgb(92, 35, 35);
+}
+
+.container-form-actualizacion-observaciones{
+  padding:20px 30px;
+  background-color: rgb(250, 249, 249);
+  border-radius: 10px;
+  margin-top:30px;
+  margin-bottom:40px;
+  border:1px solid rgb(235, 235, 235);
+}
+
+.btn-ver-archiv-actual{
+  text-decoration: none;
+  background-color: var(--color-celeste);
+  color:white;
+  padding:5px ;
+  width: 130px;
+  text-align: center;
+  border-radius: 7px;
+  margin-top: 8px;
+  line-height: 30px;
+  font-weight: bold;
+  font-size:14px;
 }
