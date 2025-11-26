@@ -88,7 +88,7 @@ class Solicitante extends BaseController
             
             'solicitanteActualNombres' => $nombreSolicitanteActual,
             'solicitanteActualDNI' => $dniSolicitanteActual,
-            'lineas' => $lineaModel->findAll()
+         // 'lineas' => $lineaModel->findAll()
         ];
  
         return view('Solicitante/NuevaSolicitud', $data);
@@ -100,7 +100,7 @@ class Solicitante extends BaseController
 
         $datosTramite = $tramiteModel->getTramite($codigoTramite);
         $estados = $estadosTramite->getAllEstadosTramites();
-        $etapas = array_column($estados,'nombres_estadotramite');
+        $etapas = array_column($estados,'nombres_estadotramite'); 
 
         if($datosTramite){
             return view('Solicitante/DetalleTramite',['tramite'=> $datosTramite,'etapas'=>$etapas] );
@@ -137,7 +137,6 @@ class Solicitante extends BaseController
             'SegundoMiembroJurado' => 'required',
             'DeclaracionJuradaFile' => 'uploaded[DeclaracionJuradaFile]|max_size[DeclaracionJuradaFile,2048]|ext_in[DeclaracionJuradaFile,pdf]',
             'AutorizaciónPublicacioFile' => 'uploaded[AutorizaciónPublicacioFile]|max_size[AutorizaciónPublicacioFile,2048]|ext_in[AutorizaciónPublicacioFile,pdf]'
-
         ];
 
         if(!$this->validate($rules)){
@@ -146,10 +145,22 @@ class Solicitante extends BaseController
 
         $post = $this->request->getPost(); 
         $solicitante = $this->solicitanteModel->getSolicitante(session('id'));
+
         $post['idsolicitante'] = $solicitante['id_solicitante'];
+
         $fileTesis = $this->request->getFile('TesisFile');
         $fileDJ = $this->request->getFile('DeclaracionJuradaFile');
         $fileAutorizacionPublicacion = $this->request->getFile('AutorizaciónPublicacioFile');
+
+        //PASAR DATOS A MAYUCULAS
+        $post['tituloTesis'] = mb_strtoupper($post['tituloTesis']);
+        foreach($post['autores'] as $key=>$autor){
+           $post['autores'][$key]['nombre'] = mb_strtoupper($autor['nombre'], 'UTF-8');
+        }
+        $post['Asesor'] = mb_strtoupper($post['Asesor']);
+        $post['PresidenteJurado']= mb_strtoupper($post['PresidenteJurado']);
+        $post['PrimerMiembroJurado']= mb_strtoupper($post['PrimerMiembroJurado']);
+        $post['SegundoMiembroJurado']= mb_strtoupper($post['SegundoMiembroJurado']);
         
         $tramiteController = new Tramites();
 
