@@ -11,9 +11,12 @@
 
 .btn-solicitar-inhome{
   background-color: var(--color-celeste);
-  padding: 0px 20px;
+  padding: 10px 15px;
   border-radius: 7px;
   cursor: pointer;
+  text-decoration: none;
+  color:white ;
+  font-weight: bold;
 
 }
 
@@ -21,12 +24,7 @@
   background-color: #3878b1;
 }
 
-.btn-solicitar-inhome a{
-  text-decoration: none;
-  color:white ;
-  font-weight: bold;
 
-}
 
 #title-tramite-reciente{
   color:var(--color-azul-BienOscuro);

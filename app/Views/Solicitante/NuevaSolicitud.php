@@ -26,7 +26,7 @@
             <label class="label-form" for="">Autor(es)</label>
             <span class="description-input">Por defecto usted es un autor, preciona el boton "Agregar mas autores" si el la tesis cuenta con mas autores</span>
             <input style="color:rgb(113 112 112);" class="input-form" value="<?= $solicitanteActualNombres ?>" disabled>
-            <button type="button" class="btn-style2 mt-2 " id="btn-show-autores">Agregar mas autores</button>
+            <button type="button" class="btn-style2 mt-2 " id="btn-show-autores">Agregar más autores</button>
 
             <input type="hidden" name="autores[0][nombre]" value="<?= $solicitanteActualNombres ?>" >
             <input type="hidden" name="autores[0][dni]" value="<?= $solicitanteActualDNI ?>">
@@ -146,7 +146,7 @@
 
         <div class="mt-4">
             <label class="label-form mb-1" for="input_AsesorDNI">DNI</label>
-            <input type="text" name="AsesorDNI" class="input-form" id="input_AsesorDNI" value="<?= set_value('AsesorDNI') ?>" required>
+            <input type="number" name="AsesorDNI" class="input-form" id="input_AsesorDNI" value="<?= set_value('AsesorDNI') ?>" required>
         </div>
 
         <div class="mt-4">
@@ -237,10 +237,14 @@
             </div>
         <?php endif; ?>
 
-        <button type="submit" class="btn-style1 mt-5">
-            Solicitar
-        </button>
+        <div class="d-flex justify-content-center border mt-5 mb-4">
+            <div style="width:300px;" class="border">
+                <button type="submit" class="btn-style1 ">
+                    Solicitar
+                </button>
+            </div>
 
+        </div>
     </div>
 
    
@@ -304,7 +308,7 @@
             nameInput.addEventListener('blur',()=>{nameInput.style.border='1px solid #dad9d9';});
 
             const dniInput = document.createElement('input');
-            dniInput.type = 'text';
+            dniInput.type = 'number';
             dniInput.name = `autores[${newIndex}][dni]`;
             dniInput.style= 'outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px; width:43%;'
             dniInput.className = 'autor-input-dni';

@@ -42,7 +42,7 @@
 
                 <div class="col-12 col-lg-6  ">
                     <label class="label-form" for="input_dni">DNI</label>
-                    <input type="text" name="dni" class="input-form" id="input_dni" value="<?= set_value('dni') ?>" spellcheck="false" required>                            
+                    <input type="number" name="dni" class="input-form" id="input_dni" value="<?= set_value('dni') ?>" spellcheck="false" required>                            
                 </div>
 
                 <div class="col-12 col-lg-6  ">
@@ -67,6 +67,7 @@
                 <div class="col-12 col-lg-6  ">                
                     <label class="label-form" for="input_password">Contraseña</label>
                     <input type="password" name="password" class="input-form" id="input_password" value="<?= set_value('password') ?>" spellcheck="false" required>
+                    <span id="descripcion-select-carrera">La Contraseña debe tener almenos 8 caracteres.</span>
                 </div>
 
                 <div class="col-12 col-lg-6  ">
@@ -80,7 +81,7 @@
 
           <?php if(session()->getFlashdata('errors')!==null): ?>
 
-            <div class= 'alert alert-danger my-3' role='alert'>
+            <div class= 'alert alert-danger mb-2 mt-5' role='alert'>
             <?= session()->getFlashdata('errors');?>
             </div>
 
@@ -92,6 +93,10 @@
           </button>
 
           
+        
+           <a class="btn-style5 mt-2"  href="<?= base_url('verificar'); ?>">Verificar Correo</a>
+          
+
           <div class="text-center mt-3">
               <a class="a-link-default" href="<?= base_url(); ?>">Iniciar sesión</a>
           </div>

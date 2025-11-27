@@ -54,6 +54,11 @@ class Auth extends BaseController{
 
         $user = $userModel->validateUser($post['email'], $post['password']);
 
+        if($user=="verificacion"){
+            return redirect()->to(base_url('verificar'));
+
+        }
+
         if($user !==null){
            
             switch($user['rol_usuario']){
@@ -66,6 +71,7 @@ class Auth extends BaseController{
                         'apellidos' =>$solicitanteData['apellidos_solicitante']
                     ];
                     $this->setSession($user,$dataRol);
+                    
                     return redirect()->to(base_url('solicitante/home')); 
 
                 case 'administrador':

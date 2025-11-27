@@ -3,7 +3,7 @@
 <?= $this->section('content');?>
 
 
- 
+  
 <div id="container-Auth-2">
     <div  id="heder-Auth-1">
         <div class="d-flex justify-content-center align-items-center" id="title-Auth">

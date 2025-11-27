@@ -144,6 +144,22 @@ input::placeholder {
     text-decoration: none
 }
 
+.btn-style5{
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border:none;
+    border-radius: 10px;
+    background-color: gray;
+    color:white;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    cursor:pointer;
+   
+}
+
 .btn-style4:hover{
     background-color: #3878b1;
 

@@ -10,11 +10,10 @@
         <span class="title-modules">Inicio</span>
     </div>
 
-    <div class="d-flex align-items-center btn-solicitar-inhome">
-        <a href="<?= base_url('solicitante/solicitud'); ?>">
-            <img style="margin-top:-3px;" width=21 src="<?= base_url('assets/icons/mas-white.png') ?>" alt=""> Nueva Solicitud
-        </a>
-    </div>
+    <a class="btn-solicitar-inhome" href="<?= base_url('solicitante/solicitud'); ?>">
+        <img style="margin-top:-3px;" width=21 src="<?= base_url('assets/icons/mas-white.png') ?>" alt=""> Nueva Solicitud
+    </a>
+
 </div>
 
 <?php if(!empty($tramite)): ?>

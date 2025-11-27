@@ -43,7 +43,7 @@ class UsersModel extends Model
                 'email_usuario' => $data['email'],
                 'password_usuario' => password_hash($data['password'], PASSWORD_DEFAULT),
                 'rol_usuario'=>$rol,
-                'estado_usuario' => 2,
+                'estado_usuario' => 4,
                 'activation_token_usuario' => $token
                 
             ]);
@@ -82,7 +82,7 @@ class UsersModel extends Model
 
     public function activationUser($token){
         try{
-            $user = $this->where(['activation_token_usuario'=>$token, 'estado_usuario'=> 2])->first();
+            $user = $this->where(['activation_token_usuario'=>$token, 'estado_usuario'=> 4])->first();
             if($user){
                 $this->update($user['id_usuario'],
                 
@@ -197,6 +197,14 @@ class UsersModel extends Model
     }
 
     public function validateUser($email,$password){
+        
+        $userVerificacion = $this->where(['email_usuario' => $email, 'estado_usuario' => 4])->first();
+
+        if($userVerificacion){
+            return "verificacion";
+            
+        }
+
         $user = $this->where(['email_usuario' => $email, 'estado_usuario' => 1])->first();
         if($user && password_verify($password, $user['password_usuario'])){
             return $user;
