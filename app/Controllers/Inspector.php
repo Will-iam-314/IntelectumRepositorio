@@ -14,7 +14,7 @@ class Inspector extends BaseController
     {
        
 
-        return view('Inspector/home');
+        return view('inspector/home');
     }
 
     public function getViewSolicitudes(){
@@ -29,7 +29,7 @@ class Inspector extends BaseController
         }
         unset($tramite);
 
-        return view('Inspector/Solicitudes', ['tramites' => $dataTramite]);
+        return view('inspector/Solicitudes', ['tramites' => $dataTramite]);
 
     }
 
@@ -38,7 +38,7 @@ class Inspector extends BaseController
         $datosTramite = $tramiteModel->getTramite($codigoTramite);
         if($continuaInspeccion == 1){
             if($datosTramite){   
-                return view('Inspector/inspeccion',$datosTramite);
+                return view('inspector/inspeccion',$datosTramite);
             }
         }else{
             if($datosTramite){
@@ -46,7 +46,7 @@ class Inspector extends BaseController
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),2);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],2);
                 
-                return view('Inspector/inspeccion',$datosTramite);
+                return view('inspector/inspeccion',$datosTramite);
             }
         }
         
@@ -123,13 +123,13 @@ class Inspector extends BaseController
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),3);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],3);
 
-                return redirect()->to('Inspector/solicitudes')->with('success', 'Inspección registrada con observaciones correctamente');
+                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección registrada con observaciones correctamente');
 
             }else{
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),5);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],5);
 
-                return redirect()->to('Inspector/solicitudes')->with('success', 'Inspección material aprobado correctamente');
+                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección material aprobado correctamente');
             }
 
             
@@ -409,7 +409,7 @@ class Inspector extends BaseController
             $historialModel->newHistorialTramite(session('id'),$idTramite,session('rol'),6);
             $tramiteModel->updateEstado($idTramite,6);
 
-            return redirect()->to('Inspector/solicitudes')->with('success', 'URL de publicacion registrado Correctamente');
+            return redirect()->to('inspector/solicitudes')->with('success', 'URL de publicacion registrado Correctamente');
 
         }else{
             return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo registrar el URL de publicacion');
