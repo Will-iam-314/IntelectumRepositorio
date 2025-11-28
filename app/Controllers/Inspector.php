@@ -14,7 +14,7 @@ class Inspector extends BaseController
     {
        
 
-        return view('inspector/home');
+        return view('Inspector/home');
     }
 
     public function getViewSolicitudes(){
@@ -29,7 +29,7 @@ class Inspector extends BaseController
         }
         unset($tramite);
 
-        return view('inspector/Solicitudes', ['tramites' => $dataTramite]);
+        return view('Inspector/Solicitudes', ['tramites' => $dataTramite]);
 
     }
 
@@ -123,13 +123,13 @@ class Inspector extends BaseController
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),3);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],3);
 
-                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección registrada con observaciones correctamente');
+                return redirect()->to('Inspector/solicitudes')->with('success', 'Inspección registrada con observaciones correctamente');
 
             }else{
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),5);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],5);
 
-                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección material aprobado correctamente');
+                return redirect()->to('Inspector/solicitudes')->with('success', 'Inspección material aprobado correctamente');
             }
 
             
@@ -144,7 +144,7 @@ class Inspector extends BaseController
 
     public function generatePaquetePublicacion($codigoTramite){
         $tramiteModel = new TramiteModel();
-        $datosTramite = $tramiteModel->getTramite($codigoTramite);
+        $datosTramite = $tramiteModel->getTramite($codigoTramite); 
        
 
 
@@ -318,7 +318,7 @@ class Inspector extends BaseController
         // Agregar nodos
         addDcValue($domThesis, $dublinThesis, "Universidad Nacional de Ucayali. Facultad de ". $datosTramite['solicitanteFacultad'], ["element" => "degree", "qualifier" => "grantor","language"=>"es_PE"]);
         addDcValue($domThesis, $dublinThesis, $datosTramite['lineaInvestigacion'], ["element" => "degree", "qualifier" => "discipline","language"=>"es_PE"]);
-        addDcValue($domThesis, $dublinThesis, $datosTramite['GradoAcademicoOptar'], ["element" => "degree", "qualifier" => "name","language"=>"es_PE"]);
+        addDcValue($domThesis, $dublinThesis, $datosTramite['GradoAcademicoOptar'].' '.$datosTramite['DescripcionGradoOptar'], ["element" => "degree", "qualifier" => "name","language"=>"es_PE"]);
 
         $domThesis->save($directorio . '/metadata_thesis.xml');
 
@@ -409,7 +409,7 @@ class Inspector extends BaseController
             $historialModel->newHistorialTramite(session('id'),$idTramite,session('rol'),6);
             $tramiteModel->updateEstado($idTramite,6);
 
-            return redirect()->to('inspector/solicitudes')->with('success', 'URL de publicacion registrado Correctamente');
+            return redirect()->to('Inspector/solicitudes')->with('success', 'URL de publicacion registrado Correctamente');
 
         }else{
             return redirect()->back()->withInput()->with('errors','Algo salio mal, no se pudo registrar el URL de publicacion');

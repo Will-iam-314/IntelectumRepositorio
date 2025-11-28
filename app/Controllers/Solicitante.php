@@ -126,7 +126,7 @@ class Solicitante extends BaseController
             'CampoInvestigacion' => 'required',
             'CampoAplicacion'=>'required',
             'FechaSustentacion' => 'required',
-            'TesisFile' => 'uploaded[TesisFile]|max_size[TesisFile,10240]|ext_in[TesisFile,pdf]',
+            'TesisFile' => 'uploaded[TesisFile]|max_size[TesisFile,51200]|ext_in[TesisFile,pdf]',
             'gradoTipo' => 'required',
             'gradoDescripcion' => 'required',
             'Asesor' => 'required',
