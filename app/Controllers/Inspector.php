@@ -59,7 +59,7 @@ class Inspector extends BaseController
 
         if($datosTramite){   
             
-            return view('Inspector/inspeccion',$datosTramite);
+            return view('inspector/inspeccion',$datosTramite);
         }
         
         
@@ -73,7 +73,7 @@ class Inspector extends BaseController
             'codigoTramite' => $codigoTramite
         ];
 
-        return view('Inspector/publicacion',$data);
+        return view('inspector/publicacion',$data);
     }
     
 

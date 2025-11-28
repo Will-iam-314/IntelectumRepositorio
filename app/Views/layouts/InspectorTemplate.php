@@ -8,13 +8,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.3') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/Inspector.css?v=1.0') ?>">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-</head>
-<body>
+</head> 
+<body class="body-templates">
 
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container">
-            <a class="navbar-brand" href="#">Intelectum</a>
+    <nav class="navbar navbar-expand-xl bg-body-tertiary py-2 px-1">
+        <div class="container-xl">
+            <a class="redirect-cont-logo-menu" href="<?=base_url()?>">
+                <div class="d-flex">
+                    <div id="cont-logo-menu">
+                        <img id="" height="45" width="45" src="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>" alt="">
+                    </div>
+                    
+                    <div class="d-flex flex-column justify-content-center " >
+                        <span id="title-menu">Intelectum</span>
+                        <span id="subtitle-menu">Repositorio</span>
+                    </div>
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,11 +45,11 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Perfil
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><?php echo(session('nombres').' '.session('apellidos')) ?></li>
-                            <li><?= session('correo') ?></li>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li style="padding:0px 15px;" class="fw-bold"><?php echo(session('nombres').' '.session('apellidos')) ?></li>
+                            <li style="padding:0px 15px;"><?= session('correo') ?></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="<?= base_url('logout') ; ?>">Cerrar sesion</a></li>
+                            <li  ><a style="color:red;" class="dropdown-item fw-bold" href="<?= base_url('logout') ; ?>">Cerrar sesion</a></li>
                         </ul>
                     </li>
                     
