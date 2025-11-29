@@ -7,6 +7,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\TramiteModel;
 use App\Models\HistorialTramitesModel;
 use App\Models\MaterialRevisionesModel;
+use App\Libraries\MailService;
 
 class Inspector extends BaseController
 {
@@ -35,6 +36,7 @@ class Inspector extends BaseController
 
     public function getViewInspeccion($codigoTramite,$continuaInspeccion){
         $tramiteModel = new TramiteModel();
+        $mail = new MailService();
         $datosTramite = $tramiteModel->getTramite($codigoTramite);
         if($continuaInspeccion == 1){
             if($datosTramite){   
@@ -45,6 +47,7 @@ class Inspector extends BaseController
                 $historialModel = new HistorialTramitesModel();
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),2);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],2);
+                $mail->sendMail_EnvioARevision($datosTramite['emailUsuario'],$codigoTramite);
                 
                 return view('inspector/inspeccion',$datosTramite);
             }
@@ -118,17 +121,18 @@ class Inspector extends BaseController
         $registroRevision = $materiaRevisionModel->newRevision($datos);
         if($registroRevision){
             $historialModel = new HistorialTramitesModel();
-
+            $mail = new MailService();
             if($observaciones){
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),3);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],3);
+                $mail->sendMail_TramiteObservado($datosTramite['emailUsuario'],$codigoTramite);
 
                 return redirect()->to('inspector/solicitudes')->with('success', 'Inspección registrada con observaciones correctamente');
 
             }else{
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),5);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],5);
-
+                $mail->sendMail_TramiteObservado($datosTramite['emailUsuario'],$codigoTramite);
                 return redirect()->to('inspector/solicitudes')->with('success', 'Inspección material aprobado correctamente');
             }
 
@@ -151,10 +155,28 @@ class Inspector extends BaseController
         // Ruta donde se va a crear el directorio
         $directorio =WRITEPATH . "paquetes_temp/ITEM_1";
  
-        //Crear el directorio si no existe
-        if (!is_dir($directorio)) {
-            mkdir($directorio, 0777, true);
+        // Si el directorio ya existe, eliminarlo
+        if (is_dir($directorio)) {
+            // Eliminar todos los archivos dentro del directorio
+            $archivos = array_diff(scandir($directorio), ['.', '..']);
+
+            foreach ($archivos as $archivo) {
+                $rutaArchivo = $directorio . '/' . $archivo;
+
+                if (is_dir($rutaArchivo)) {
+                    // Eliminar subdirectorios de forma recursiva
+                    deleteDirectory($rutaArchivo);
+                } else {
+                    unlink($rutaArchivo); // Eliminar archivo
+                }
+            }
+
+            // Finalmente eliminar el directorio
+            rmdir($directorio);
         }
+
+        // Crear el directorio nuevamente
+        mkdir($directorio, 0777, true);
 
         // Función para añadir un <dcvalue>
         function addDcValue($dom, $parent, $text, $attrs = []) {
@@ -405,9 +427,14 @@ class Inspector extends BaseController
         if($response){   
 
             $historialModel = new HistorialTramitesModel();
+            $codigoTramite = $tramiteModel->getCodeTramite($idTramite);
+            $datosTramite = $tramiteModel->getTramite($codigoTramite);
+
+            $mail = new MailService();
 
             $historialModel->newHistorialTramite(session('id'),$idTramite,session('rol'),6);
             $tramiteModel->updateEstado($idTramite,6);
+            $mail->sendMail_materialPublicado($datosTramite['emailUsuario'],$codigoTramite,$post['urlPublicacion']);
 
             return redirect()->to('inspector/solicitudes')->with('success', 'URL de publicacion registrado Correctamente');
 

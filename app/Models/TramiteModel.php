@@ -142,6 +142,8 @@ class TramiteModel extends Model
         }
     }
 
+   
+
     public function getTramite($codigo){
         try{
 
@@ -185,7 +187,9 @@ class TramiteModel extends Model
                 
                 escuelas.nombre_escuela as solicitanteEscuela, 
 
-                facultades.nombre_facultad as solicitanteFacultad
+                facultades.nombre_facultad as solicitanteFacultad,
+                
+                usuarios.email_usuario as emailUsuario
 
             ')
             ->join('material', 'material.id_materia = tramites.id_materia_tramite')
@@ -193,7 +197,8 @@ class TramiteModel extends Model
             ->join('tesis','tesis.id_tesi = material.id_tesi_materia')
             ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
             ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
-            ->join('facultades','facultades.id_facultad = escuelas.id_facultad_escuela ')
+            ->join('facultades','facultades.id_facultad = escuelas.id_facultad_escuela')
+            ->join('usuarios','usuarios.id_usuario = solicitantes.id_usuario_solicitante')
             
 
             ->where('tramites.codigo_tramite', $codigo)
@@ -499,6 +504,13 @@ class TramiteModel extends Model
             return false;
         }
 
+    }
+    
+    //GETTERS DE DATOS INDIVIDUALES con y sin filtro condicional
+
+    public function getCodeTramite($idTramite){
+        $codigoTramite = $this->select('codigo_tramite')->where('tramites.id_tramite', $idTramite)->first();
+        return $codigoTramite['codigo_tramite'];
     }
 
 }

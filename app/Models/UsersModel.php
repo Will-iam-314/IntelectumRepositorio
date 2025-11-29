@@ -183,7 +183,7 @@ class UsersModel extends Model
                 
                 );
                 $mail = new MailService();
-                $mail->sendMail_RecoverPass($user['email_usuario']);
+                $mail->sendMail_RecoverPass($user['email_usuario'], $data['nevo_password']);
                 return true;
             }else{
                 return false;

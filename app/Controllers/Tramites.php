@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\TramiteModel;
 use App\Models\HistorialTramitesModel;
+use App\Libraries\MailService;
 
 class Tramites extends BaseController
 
@@ -74,9 +75,13 @@ class Tramites extends BaseController
         $IdnewTramite = $this->tramiteModel->newTramite($data,$newNameFileT,$newNameFileDJ, $newNameFilAP);
 
         if($IdnewTramite){ 
-    
+            $mail = new MailService();
             $historialModel = new HistorialTramitesModel();
             $historialModel->newHistorialTramite(session('id'),$IdnewTramite,session('rol'),1); 
+
+            $codigoTramite = $this->tramiteModel->getCodeTramite($IdnewTramite);
+            $mail->sendMail_RegistroDeSolicitud(session('correo'),$codigoTramite); 
+
             return true;
         }else{ 
             return false;

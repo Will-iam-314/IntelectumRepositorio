@@ -8,7 +8,7 @@
     
     <div class="">
 
-        <a href="<?= base_url('dpi/enviarConstancia/'.$dniSolicitante)?>" class="btn btn-primary btn-lg" >Enviar Constancia 📧 </a>
+        <a href="<?= base_url('dpi/enviarConstancia/'.$dniSolicitante.'/'.$codigoTramite)?>" class="btn btn-primary btn-lg" >Enviar Constancia 📧 </a>
             
     </div>
     

@@ -161,6 +161,8 @@ class Solicitante extends BaseController
         $post['PresidenteJurado']= mb_strtoupper($post['PresidenteJurado']);
         $post['PrimerMiembroJurado']= mb_strtoupper($post['PrimerMiembroJurado']);
         $post['SegundoMiembroJurado']= mb_strtoupper($post['SegundoMiembroJurado']);
+
+        
         
         $tramiteController = new Tramites();
 

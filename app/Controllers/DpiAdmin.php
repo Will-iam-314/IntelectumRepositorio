@@ -256,14 +256,14 @@ class DpiAdmin extends BaseController
         
     } 
  
-    public function enviarConstancia($dni){
+    public function enviarConstancia($dni,$codigoTramite){
        
         $solicitanteModel = new SolicitantesModel();
         $solicitanteData = $solicitanteModel->getSolicitantePorDNI($dni);
         $solicitanteCorreo = $solicitanteData['correo'];
 
         $mail = new MailService();            
-        $boolmail = $mail->sendMain_EnvioConstancia($solicitanteCorreo);
+        $boolmail = $mail->sendMain_EnvioConstancia($solicitanteCorreo,$codigoTramite);
         if($boolmail){
             return redirect()->back()->withInput()->with('success','Correo Enviado Existosamente!');
         }else{
