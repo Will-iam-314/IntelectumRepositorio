@@ -468,6 +468,28 @@
   font-size: 20px;
 }
 
+.estado-tramite-detalleTramite-aprobado{
+  color: var(--color-verde);
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.container-detalle-tesi-detalle-tramite{
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.label-container-detalle-tesi{
+  font-weight: bold;
+  color: var(--color-celeste);
+}
+
+.contenido-container-detalle-tesi {
+  font-size: 17px;
+  color:var(--color-azul-BienOscuro);
+}
+
 .contenedor-autores-detalleTramite{
   background-color: #e9ecef;
   border-radius: 15px;
@@ -694,4 +716,75 @@
   line-height: 30px;
   font-weight: bold;
   font-size:14px;
+}
+
+/** CONSTANCIAS **/
+
+.constancia-card-constancias {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: 2px solid #e0e0e0;
+
+}
+
+.constancia-card-constancias:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+  border-color: var(--color-celeste);
+  border-width: 2px;
+}
+
+.pdf-icon-container-constancias {
+  background: rgb(248, 248, 248);
+}
+
+.pdf-icon-constancias {
+  font-size: 80px;
+  color: #dc3545;
+  transition: all 0.3s ease;
+}
+
+.constancia-card-constancias:hover .pdf-icon-constancias {
+  color: var(--color-celeste);
+}
+
+.codigo-badge-constancias {
+    background-color: var(--color-celeste-clarito);
+    color: var(--color-celeste);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    display: inline-block;
+}
+
+.constancia-titulo-constancias {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #212529;
+    line-height: 1.4;
+}
+
+.constancia-fecha-constancias {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 767px) {
+    .pdf-icon-constancias {
+        font-size: 60px;
+    }
+    
+    .constancia-titulo-constancias {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .codigo-badge-constancias {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
 }

@@ -25,6 +25,19 @@
             <span class="titulo-seccion">Trámite Más Reciente: </span>
             <span class="codigo-tramite"><?= esc($tramite['codigo']); ?></span>
         </div>
+        <br>
+        <div class="ms-2 my-2">
+            <span class="titulo-estado-tramite-detalleTramite">Estado Actual: </span>
+
+            <?php if( $tramite['estado'] == 'Observado' ): ?>
+                <span class="estado-tramite-detalleTramite-observado"><?= $tramite['estado']; ?></span>
+            <?php elseif($tramite['estado'] == 'Material Aprobado'):?>
+                <span class="estado-tramite-detalleTramite-aprobado"><?= $tramite['estado']; ?></span>
+            <?php else:?>
+                <span class="estado-tramite-detalleTramite"><?= $tramite['estado']; ?></span>
+            <?php endif;?>
+        
+        </div>
 
         <!-- Stepper de progreso -->
         <div class="stepper-container">
@@ -69,6 +82,22 @@
                 </div>
             <?php endforeach; ?>
         </div>
+
+         <?php if ($tramite['estado'] === 'Observado'): ?>
+            <div class="text-center mt-4 mb-5">
+                
+                <a href="<?= base_url('solicitante/observaciones/'.esc($tramite['codigo']) ) ?>" class="btn-style6-danger">Ver y Levantar Observaciones</a>
+                
+            </div>
+        <?php endif; ?>
+
+        <?php if ($tramite['estado'] === 'Constancia Emitida'): ?>
+            <div class="text-center mt-4 mb-5">
+                
+                <a href="<?= base_url('Constancia/'.esc($tramite['codigo']) ) ?>" target="_blank" class="btn-style4">Ver Constancia</a>
+                
+            </div>
+        <?php endif; ?>
 
         <!-- Card con información del trámite -->
         <div class="card-tramite mb-3">

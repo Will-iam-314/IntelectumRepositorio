@@ -489,7 +489,6 @@ class MailService{
 
         ';
 
-       
         $this->email->setMessage($body);
 
         if ($this->email->send()) {

@@ -160,6 +160,19 @@ input::placeholder {
    
 }
 
+.btn-style6-danger{
+    width: 100%;
+    padding: 15px 30px;
+    border:none;
+    border-radius: 10px;
+    background-color: var(--color-rojo);
+    color:white;
+    font-size: 17px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none
+}
+
 .btn-style4:hover{
     background-color: #3878b1;
 

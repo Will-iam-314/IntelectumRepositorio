@@ -20,7 +20,7 @@
         <?php if( $tramite['estadoTramite'] == 'Observado' ): ?>
             <span class="estado-tramite-detalleTramite-observado"><?= $tramite['estadoTramite']; ?></span>
         <?php elseif($tramite['estadoTramite'] == 'Material Aprobado'):?>
-            <span class="estado-tramite-detalleTramite"><?= $tramite['estadoTramite']; ?></span>
+            <span class="estado-tramite-detalleTramite-aprobado"><?= $tramite['estadoTramite']; ?></span>
         <?php else:?>
             <span class="estado-tramite-detalleTramite"><?= $tramite['estadoTramite']; ?></span>
         <?php endif;?>
@@ -75,7 +75,15 @@
     <?php if ($tramite['estadoTramite'] === 'Observado'): ?>
         <div class="text-center mt-4 mb-5">
             
-            <a href="<?= base_url('solicitante/observaciones/'.esc($tramite['codigoTramite']) ) ?>" class="btn-style4">Ver y Levantar Observaciones</a>
+            <a href="<?= base_url('solicitante/observaciones/'.esc($tramite['codigoTramite']) ) ?>" class="btn-style6-danger">Ver y Levantar Observaciones</a>
+            
+        </div>
+    <?php endif; ?>
+
+    <?php if ($tramite['estadoTramite'] === 'Constancia Emitida'): ?>
+        <div class="text-center mt-4 mb-5">
+            
+            <a href="<?= base_url('Constancia/'.esc($tramite['codigoTramite']) ) ?>" target="_blank" class="btn-style4">Ver Constancia</a>
             
         </div>
     <?php endif; ?>
@@ -100,7 +108,38 @@
             
             Días Transcurridos
         </div>
+        <div class="container-detalle-tesi-detalle-tramite mt-4">
+           
+        <div class="mb-4">
+                <?php $keywords = implode(", ",$tramite['palabrasclaveTesis']) ;?>
+                <label class="label-container-detalle-tesi" for="">Palabras Clave</label>
+                <div class="contenido-container-detalle-tesi  mt-1">
+                   <?= $keywords ?> 
+                </div>  
+            </div>
+
+            <div class="mb-4">
+   
+                <label class="label-container-detalle-tesi" for="">Linea de Investigación</label>
+                <div class="contenido-container-detalle-tesi  mt-1">
+                    <?= $tramite['lineaInvestigacion'] ?? 'N/D' ?> 
+                </div>      
+               
+            </div>
+
+            <div class="">
+   
+                <label class="label-container-detalle-tesi" for="">Grado Academico a Obtener</label>
+                <div class="contenido-container-detalle-tesi  mt-1">
+                    <?= $tramite['DescripcionGradoOptar'] ?? 'N/D' ?> 
+                </div>        
+               
+            </div>
+            
+        </div>
     </div>
+
+    
     
     <div class="contenedor-autores-detalleTramite">
         <h2 class="autores-titulo-detalleTramite">Autor(es)</h2>
@@ -114,10 +153,21 @@
                 </div>
             <?php endforeach; ?>    
         </div>
-
-        
-
+        <h2 class="autores-titulo-detalleTramite mt-4">Asesor</h2>
+        <div class="row g-4">
+             
+            <div class="col-12 col-sm-6 col-lg-6">  
+                <div class="container-card-autores-detalleTramite d-flex">
+                    <i class="fa fa-user autor-icon-detalleTramite"></i>
+                    <div class="autor-nombre-detalleTramite"><?= $tramite['Asesor'] ?? 'N/D' ?> </div>
+                </div>                   
+            </div>
+            
+        </div>
     </div>
+
+
+    
 
     <div class="contendor-archivos-detalleTramite">
         <h2 class="archivos-titulo-detalleTramite">Archivos</h2>
