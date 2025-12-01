@@ -38,7 +38,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/mistramites') ?>">Mis Tramites</a>
+                        <a class="nav-link active" aria-current="page" href="<?= base_url('solicitante/mistramites') ?>">Tramites</a>
                     </li>
 
                     <li class="nav-item">
@@ -170,7 +170,7 @@
 
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     
     

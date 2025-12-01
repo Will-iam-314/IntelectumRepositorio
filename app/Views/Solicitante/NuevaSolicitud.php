@@ -4,7 +4,7 @@
 
  <div class="d-flex align-items-center">
         
-        <button style="all: unset;cursor: pointer;" onclick='confirmarRegreso()'> <img class="me-1" style="margin-top:-3px;" width=30 height=30 src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="home"> </button>
+        <button style="all: unset;cursor: pointer;" onclick='RegresarMisTramites()'> <img class="me-1" style="margin-top:-3px;" width=30 height=30 src="<?=base_url('assets/icons/flecha-atras.png')?>" alt="home"> </button>
         <span class="title-modules ms-2">Nueva Solicitud</span> 
     </div>
 
@@ -19,7 +19,7 @@
         <div>
             <label class="label-form" for="input_tituloTesis">Titulo de la Tesis</label>
             <span class="description-input">Digitar sin comillas y tenga encuenta que tal como ingrese el titulo, se mostrará en su Constancia.</span>
-            <textarea  name="tituloTesis" class="input-form" id="input_tituloTesis" value="<?= set_value('tituloTesis') ?>" required autofocus></textarea>
+            <textarea  name="tituloTesis" class="input-form" id="input_tituloTesis" required autofocus><?= set_value('tituloTesis') ?></textarea>
         </div>
 
         <div class="mt-4 ">
@@ -99,54 +99,46 @@
         </div>
         
         
-        <span class="tarjet-cyan mb-2 mt-5">Datos del Grado Academico a Optar</span>
+        <span class="tarjet-cyan mb-2 mt-5">Datos del Grado Académico a Optar</span>
 
+        <!-- SELECT TIPO DE GRADO -->
         <div class="mt-4">
-            <label class="label-form  mb-1" for="select_gradoTipo">Tipo de Grado</label>
+            <label class="label-form mb-1" for="select_gradoTipo">Tipo de Grado</label>
             <select id="select_gradoTipo" name="gradoTipo" class="select-form" required>
                 <option value="" disabled selected>Seleccione el grado</option>
-                <option value="titulo profesional" <?= set_select('gradoTipo', 'titulo profesional')?>>Título Profesional</option> 
-                <option value="segunda especialidad" <?= set_select('gradoTipo', 'segunda especialidad')?>>Segunda Especialidad</option> 
-                <option value="maestria" <?= set_select('gradoTipo', 'maestria')?>>Maestría</option> 
-                <option value="doctorado" <?= set_select('gradoTipo', 'doctorado')?>>Doctorado</option> 
+                <option value="TITULO PROFESIONAL" <?= set_select('gradoTipo', 'TITULO PROFESIONAL')?>>Título Profesional</option>
+                <option value="SEGUNDA ESPECIALIDAD" <?= set_select('gradoTipo', 'SEGUNDA ESPECIALIDAD')?>>Segunda Especialidad</option>
+                <option value="MAESTRIA" <?= set_select('gradoTipo', 'MAESTRIA')?>>Maestría</option>
+                <option value="DOCTORADO" <?= set_select('gradoTipo', 'DOCTORADO')?>>Doctorado</option>
             </select>
         </div>
-        
+
+        <!-- SELECT DESCRIPCIÓN DEL GRADO -->
         <div class="mt-4">
-            <label class="label-form" for="input_gradoDescripcion">Descripción del Grado</label>
-            <div class="">
-                <div class="d-flex">
-                    <span class="description-input">Escriba la Descripción del Grado a Optar segun corresponda</span>
-                    <i class="fa fa-question-circle icon-help-question ms-3" aria-hidden="true"></i>
-                </div>
-                
-                <ul class="description-input">
-                    Ejemplo:
-                    <li><strong>Si es Titulo Profesional:</strong>  Licenciatura en ... , Ingenieria ... ,... </li>
-                    <li><strong>Si es Maestria:</strong>  Gestion Publica, Educación con Mencion en Psicología Educativa, Salud Pública, ... </li>
-                    <li><strong>Si es Doctorado:</strong>  Educación, Salud Publica, Administracion, ... </li>
-                </ul>
-                <span class="description-input mt-2 d-block">
-                    <strong>Importante:</strong> No repita el grado académico.  
-                    Si el grado es <em>“Maestría en Gestión Pública”</em>, solo escriba <strong>Gestión Pública</strong>.
-                </span>
+            <label class="label-form" for="select_gradoDescripcion">Descripción del Grado</label>
+
+            <div class="d-flex">
+                <span class="description-input">Seleccione la descripción del grado según corresponda</span>
                 
             </div>
-            <input type="text" name="gradoDescripcion" class="input-form" id="input_gradoDescripcion" value="<?= set_value('gradoDescripcion') ?>" required>
+
+            <select id="select_gradoDescripcion" name="gradoDescripcion" class="select-form" required>
+                <option value="">Seleccione primero un tipo de grado...</option>
+            </select>
         </div>
         
         
         <span class="tarjet-cyan mb-2 mt-5">Datos del Asesor</span>
 
         <div class="mt-4">
-            <label class="label-form mb-1" for="input_AsesorNombres">Nombres y Apellidos</label>
+            <label class="label-form mb-1" for="input_AsesorNombres">Apellidos y Nombres</label>
             <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
-            <input type="text" name="Asesor" class="input-form" id="input_AsesorNombres" value="<?= set_value('AsesorNombres') ?>" required>
+            <input type="text" name="Asesor" class="input-form" id="input_AsesorNombres" value="<?= set_value('Asesor') ?>" required>
         </div>
 
         <div class="mt-4">
             <label class="label-form mb-1" for="input_AsesorDNI">DNI</label>
-            <input type="number" name="AsesorDNI" class="input-form" id="input_AsesorDNI" value="<?= set_value('AsesorDNI') ?>" required>
+            <input type="text" name="AsesorDNI" class="input-form" id="input_AsesorDNI" value="<?= set_value('AsesorDNI') ?>" maxlength="8" required>
         </div>
 
         <div class="mt-4">
@@ -165,19 +157,19 @@
         <span class="tarjet-cyan mb-2 mt-5">Datos del los Jurados</span>  
         
         <div class="mt-4">
-            <label class="label-form " for="input_PresidenteJuradoNombres">Nombres y Apellidos del Presidente</label>
+            <label class="label-form " for="input_PresidenteJuradoNombres">Apellidos y Nombres del Presidente</label>
             <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
             <input type="text" name="PresidenteJurado" class="input-form" id="input_PresidenteJuradoNombres" value="<?= set_value('PresidenteJurado') ?>" required>
         </div>
 
         <div class="mt-4">
-            <label class="label-form " for="input_PrimerMiembroJuradoNombres">Nombres y Apellidos del Primer Miembro</label>
+            <label class="label-form " for="input_PrimerMiembroJuradoNombres">Apellidos y Nombres del Primer Miembro</label>
             <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
             <input type="text" name="PrimerMiembroJurado" class="input-form" id="input_PrimerMiembroJuradoNombres" value="<?= set_value('PrimerMiembroJurado') ?>" required>
         </div>
 
         <div class="mt-4">
-            <label class="label-form" for="input_SegundoMiembroJuradoNombres">Nombres y Apellidos del Segundo Miembro</label>
+            <label class="label-form" for="input_SegundoMiembroJuradoNombres">Apellidos y Nombres del Segundo Miembro</label>
             <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
             <input type="text" name="SegundoMiembroJurado" class="input-form" id="input_SegundoMiembroJuradoNombres" value="<?= set_value('SegundoMiembroJurado') ?>" required>
         </div>
@@ -237,8 +229,8 @@
             </div>
         <?php endif; ?>
 
-        <div class="d-flex justify-content-center border mt-5 mb-4">
-            <div style="width:300px;" class="border">
+        <div class="d-flex justify-content-center  mt-5 mb-4">
+            <div style="width:300px;" class="">
                 <button type="submit" class="btn-style1 ">
                     Solicitar
                 </button>
@@ -256,6 +248,25 @@
 <?= $this->section('scripts');?>
 
 <script>
+
+    function RegresarMisTramites() {
+        if (confirm("⚠️ Si regresas, los datos que estabas llenando no se guardarán. ¿Deseas continuar?")) {
+            window.location.href = "<?= base_url('solicitante/mistramites') ?>"; 
+        }
+        return false; // evita que el link navegue por defecto
+    }
+
+    <?php if(session()->getFlashdata('errors')!==null): ?>
+       let mensajeError = <?= json_encode(strip_tags(session()->getFlashdata('errors'))); ?>;
+        Swal.fire({
+            icon: "error",
+            title: "ERROR: Al enviar la Solicitud",
+            text: mensajeError,
+        });
+    <?php endif; ?>
+
+    
+
     document.addEventListener('DOMContentLoaded', function () {
         // Lógica para el manejo de autores
         const btnShowAutores = document.getElementById('btn-show-autores');
@@ -301,19 +312,27 @@
             nameInput.style = 'outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px;margin-right:10px;width:44%;';
             
             nameInput.className = ' autor-input-nombre';
-            nameInput.placeholder = 'Nombre completo del autor';
+            nameInput.placeholder = 'Apellidos y Nombres del Autor';
             nameInput.required = true;
 
             nameInput.addEventListener('focus',()=>{nameInput.style.border='1px solid #3F81BB';});
             nameInput.addEventListener('blur',()=>{nameInput.style.border='1px solid #dad9d9';});
 
             const dniInput = document.createElement('input');
-            dniInput.type = 'number';
+            dniInput.type = 'text';
             dniInput.name = `autores[${newIndex}][dni]`;
             dniInput.style= 'outline:none;border: 1px solid #dad9d9;border-radius: 5px;padding: 8px 10px; width:43%;'
             dniInput.className = 'autor-input-dni';
             dniInput.placeholder = 'DNI';
+            dniInput.maxLength = 8; // Limitar a 8 caracteres
+            dniInput.pattern = '[0-9]*'; // Solo números en móviles
+            dniInput.inputMode = 'numeric'; // Teclado numérico
             dniInput.required = true;
+
+            // Asegurar solo números
+            dniInput.addEventListener("input", function () {
+                this.value = this.value.replace(/[^0-9]/g, ""); // Elimina letras
+            });
 
             dniInput.addEventListener('focus',()=>{dniInput.style.border='1px solid #3F81BB';});
             dniInput.addEventListener('blur',()=>{dniInput.style.border='1px solid #dad9d9';});
@@ -423,6 +442,104 @@
             btnShowIframeCampoApli.style.display = 'block';
         });
     });
+
+    const dniAsesor = document.getElementById("input_AsesorDNI");
+
+    dniAsesor.addEventListener("input", function () {
+        this.value = this.value.replace(/[^0-9]/g, ""); // Solo números
+    });
+ 
+    const grados = {
+        "TITULO PROFESIONAL": [
+            "Ingeniero Agrónomo",
+            "Ingeniero Agroindustrial",
+            "Ingeniero Forestal",
+            "Ingeniero Ambiental",
+            "Ingeniero de Sistemas",
+            "Ingeniero Civil",
+            "Licenciado en Enfermería",
+            "Licenciado en Psicología",
+            "Médico Cirujano",
+            "Abogado",
+            "Licenciado en Educación Inicial",
+            "Licenciado en Educación Primaria",
+            "Licenciado en Educación Secundaria",
+            "Licenciado en Ciencias de la Comunicación",
+            "Economista",
+            "Licenciado en Administración",
+            "Contador Público"
+        ],
+
+        "MAESTRIA": [
+            "Maestro en Salud Pública",
+            "Maestro en Derecho Constitucional y Administrativo",
+            "Maestro en Evaluación y Acreditación de la Calidad en la Educación",
+            "Maestro en Educación con mención en Psicología Educativa",
+            "Maestro en Educación con mención en Gestión Educativa",
+            "Maestro en Educación con mención en Psicopedagogía",
+            "Maestro en Educación con mención en Didáctica de la Literatura",
+            "Maestro en Educación con mención en Educación Infantil",
+            "Maestro en Educación con mención en Docencia y Pedagogía Universitaria",
+            "Maestro en Ciencias en Medio Ambiente, Desarrollo Sostenible y Responsabilidad Social",
+            "Maestro en Ciencias Agrícolas con mención en Agricultura Sostenible",
+            "Maestro en Ingeniería de Sistemas con mención en Gestión de Tecnologías de la Información",
+            "Maestro en Gestión Pública",
+            "Maestro en Gestión Empresarial con mención en Gestión de Negocios Internacionales y Comercio Exterior",
+            "Maestro en Gestión Empresarial con mención en Gestión de Recursos y Costos de Agronegocios",
+            "Maestro en Gestión Empresarial con mención en Finanzas para Empresas Financieras",
+            "Maestro en Gestión Empresarial con mención en Gestión de Proyectos de Inversión",
+            "Maestro en Gestión Empresarial con mención en Gestión Tributaria y Fiscal",
+            "Maestro en Gestión Empresarial con mención en Auditoría de la Gestión Empresarial"
+        ],
+
+        "DOCTORADO": [
+            "Doctor en Educación",
+            "Doctor en Salud Publica",
+            "Doctor en Administración"
+        ],
+
+        "SEGUNDA ESPECIALIDAD": [
+            "Segunda Especialidad en Enfermería con mención en: Cuidado de Enfermería en el Crecimiento y Desarrollo Infantil",
+            "Segunda Especialidad en Enfermería con mención en: Cuidados Intensivos - Neonatología",
+            "Segunda Especialidad en Enfermería con mención en: Cuidados Nefrológicos",
+            "Segunda Especialidad en Enfermería con mención en: Cuidados Intensivos - Adultos",
+            "Segunda Especialidad en Enfermería con mención en: Cuidados Quirúrgicos",
+            "Segunda Especialidad en Enfermería con mención en: Cuidado Materno Infantil",
+            "Segunda Especialidad en Enfermería con mención en: Cuidado de Enfermería en Salud del Adulto y Adulto Mayor",
+            "Segunda Especialidad en Enfermería con mención en: Instrumentación Quirúrgica en Enfermería",
+            "Segunda Especialidad en Interdisciplinaria con mención en: Administración y Gerencia de los Servicios de Salud",
+            "Segunda Especialidad en Interdisciplinaria con mención en: Salud Mental y Psiquiatría",
+            "Segunda Especialidad en Interdisciplinaria con mención en: Emergencias y Desastres",
+            "Segunda Especialidad en Interdisciplinaria con mención en: Salud Familiar y Comunitaria",
+            "Segunda Especialidad en Tecnología Educativa con mención en: Currículo y Enseñanza - Aprendizaje",
+            "Segunda Especialidad en Tecnología Educativa con mención en: Administración y Gerencia Educativa",
+            "Segunda Especialidad en Tecnología Educativa con mención en: Informática Educativa",
+            "Segunda Especialidad en Tecnología Educativa con mención en: Evaluación Educativa"
+        ]
+    };
+
+    // =======================
+    // EVENTO PARA FILTRADO
+    // =======================
+    document.getElementById("select_gradoTipo").addEventListener("change", function () {
+        const tipo = this.value;
+        const descripcionSelect = document.getElementById("select_gradoDescripcion");
+
+        descripcionSelect.innerHTML = ""; // Limpiar opciones
+
+        if (grados[tipo]) {
+            grados[tipo].forEach(item => {
+                const opt = document.createElement("option");
+                opt.value = item;
+                opt.textContent = item;
+                descripcionSelect.appendChild(opt);
+            });
+        } else {
+            descripcionSelect.innerHTML = '<option value="">Seleccione primero un tipo de grado...</option>';
+        }
+    });
+
+
 </script>
 
 <?= $this->endSection();?>

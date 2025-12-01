@@ -88,16 +88,21 @@
           <?php  endif; ?>
 
 
-          <button type="submit" class="btn-style1 mt-4">
+          <button type="submit" class="btn-style1 mt-5">
               Registrarse
           </button>
 
           
         
-           <a class="btn-style5 mt-2"  href="<?= base_url('verificar'); ?>">Verificar Correo</a>
           
 
-          <div class="text-center mt-3">
+        
+          <div class="text-center mt-4">
+              <a class="a-link-default" href="<?= base_url('verificar'); ?>">Verificar Correo</a>
+          </div>
+          
+
+          <div class="text-center mt-1 ">
               <a class="a-link-default" href="<?= base_url(); ?>">Iniciar sesión</a>
           </div>
         </form>
