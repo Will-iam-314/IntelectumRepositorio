@@ -124,25 +124,122 @@ class Solicitante extends BaseController
     public function nuevaSolicitud(){
 
         $rules = [
-            'tituloTesis' => 'required',
-            'resumenTesis' => 'required',
-            'keywordsTesis' => 'required',
-            'lineaInvestigacion' => 'required',
-            'CampoInvestigacion' => 'required',
-            'CampoAplicacion'=>'required',
-            'FechaSustentacion' => 'required',
-            'TesisFile' => 'uploaded[TesisFile]|max_size[TesisFile,51200]|ext_in[TesisFile,pdf]',
-            'gradoTipo' => 'required',
-            'gradoDescripcion' => 'required',
-            'Asesor' => 'required',
-            'AsesorDNI' => 'required',
-            'AsesorORCID' => 'required',
-            'PresidenteJurado' => 'required',
-            'PrimerMiembroJurado' => 'required',
-            'SegundoMiembroJurado' => 'required',
-            'DeclaracionJuradaFile' => 'uploaded[DeclaracionJuradaFile]|max_size[DeclaracionJuradaFile,2048]|ext_in[DeclaracionJuradaFile,pdf]',
-            'AutorizaciónPublicacioFile' => 'uploaded[AutorizaciónPublicacioFile]|max_size[AutorizaciónPublicacioFile,2048]|ext_in[AutorizaciónPublicacioFile,pdf]'
+            'tituloTesis' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'El título de la tesis es obligatorio.'
+                ]
+            ],
+            'resumenTesis' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'El resumen de la tesis es obligatorio.'
+                ]
+            ],
+            'keywordsTesis' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debes ingresar al menos una palabra clave.'
+                ]
+            ],
+            'lineaInvestigacion' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe seleccionar una línea de investigación.'
+                ]
+            ],
+            'CampoInvestigacion' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe seleccionar un campo de investigación.'
+                ]
+            ],
+            'CampoAplicacion' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe seleccionar un campo de aplicación.'
+                ]
+            ],
+            'FechaSustentacion' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar la fecha de sustentación.'
+                ]
+            ],
+            'TesisFile' => [
+                'rules' => 'uploaded[TesisFile]|max_size[TesisFile,51200]|ext_in[TesisFile,pdf]',
+                'errors' => [
+                    'uploaded' => 'Debe subir el archivo de la tesis.',
+                    'max_size' => 'El archivo de la tesis no debe superar los 50 MB.',
+                    'ext_in' => 'El archivo de la tesis debe ser PDF.'
+                ]
+            ],
+            'gradoTipo' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe seleccionar el tipo de grado.'
+                ]
+            ],
+            'gradoDescripcion' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar la descripción del grado.'
+                ]
+            ],
+            'Asesor' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar el nombre del asesor.'
+                ]
+            ],
+            'AsesorDNI' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar el DNI del asesor.'
+                ]
+            ],
+            'AsesorORCID' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar el ORCID del asesor.'
+                ]
+            ],
+            'PresidenteJurado' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar al Presidente del Jurado.'
+                ]
+            ],
+            'PrimerMiembroJurado' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar al Primer Miembro del Jurado.'
+                ]
+            ],
+            'SegundoMiembroJurado' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe ingresar al Segundo Miembro del Jurado.'
+                ]
+            ],
+            'DeclaracionJuradaFile' => [
+                'rules' => 'uploaded[DeclaracionJuradaFile]|max_size[DeclaracionJuradaFile,2048]|ext_in[DeclaracionJuradaFile,pdf]',
+                'errors' => [
+                    'uploaded' => 'Debe subir la Declaración Jurada.',
+                    'max_size' => 'La Declaración Jurada no debe pesar más de 2 MB.',
+                    'ext_in' => 'La Declaración Jurada debe estar en PDF.'
+                ]
+            ],
+            'AutorizaciónPublicacioFile' => [
+                'rules' => 'uploaded[AutorizaciónPublicacioFile]|max_size[AutorizaciónPublicacioFile,2048]|ext_in[AutorizaciónPublicacioFile,pdf]',
+                'errors' => [
+                    'uploaded' => 'Debe subir la Autorización de Publicación.',
+                    'max_size' => 'La Autorización de Publicación no debe pesar más de 2 MB.',
+                    'ext_in' => 'La Autorización de Publicación debe estar en PDF.'
+                ]
+            ],
         ];
+
 
         if(!$this->validate($rules)){
             return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());

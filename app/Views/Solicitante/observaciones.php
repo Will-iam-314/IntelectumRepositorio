@@ -55,7 +55,7 @@
                 <label for="fileTesis" class="label-form">Archivo de Tesis</label>
                 <div class="form-text">Actualiza el archivo de Tesis (PDF).</div>
                 <div class="d-flex">
-                    <input class="form-control mt-2 me-3" type="file" name="fileTesis" id="fileTesis">
+                    <input class="form-control mt-2 me-3" type="file" name="fileTesis" id="fileTesis" accept=".pdf">
                     <?php if(!empty($fileTesis)): ?>
                         <a href="<?= base_url('solicitante/documentos/verTesis/'.$fileTesis) ?>" target="_blank" class="btn-ver-archiv-actual">Ver Actual</a>
                     <?php endif; ?>
@@ -69,7 +69,7 @@
                 <label for="declaracionJurada" class="label-form">Declaración Jurada</label>
                 <div class="form-text">Actualiza el archivo de la Declaracion Jurada (PDF).</div>
                 <div class="d-flex">
-                    <input class="form-control mt-2  me-3" type="file" name="declaracionJurada" id="declaracionJurada">
+                    <input class="form-control mt-2  me-3" type="file" name="declaracionJurada" id="declaracionJurada" accept=".pdf">
                     <?php if(!empty($fileDeclaracionJuradaTramite)): ?>
                         <a href="<?= base_url('solicitante/documentos/verDeclaracionJurada/'.$fileDeclaracionJuradaTramite) ?>" target="_blank" class="btn-ver-archiv-actual">Ver Actual</a>
                     <?php endif; ?>
@@ -82,7 +82,7 @@
                 <label for="autorizacionPublicacion" class="label-form">Autorización de Publicación</label>
                 <div class="form-text">Actualiza el archivo de la Autorización de Publicación (PDF).</div>
                 <div class="d-flex">
-                    <input class="form-control mt-2  me-3" type="file" name="autorizacionPublicacion" id="autorizacionPublicacion">
+                    <input class="form-control mt-2  me-3" type="file" name="autorizacionPublicacion" id="autorizacionPublicacion" accept=".pdf">
                     <?php if(!empty($fileAutorizacionPublicacionTramite)): ?>
                         <a href="<?= base_url('solicitante/documentos/verAutorizacionPublicacion/'.$fileAutorizacionPublicacionTramite) ?>" target="_blank" class="btn-ver-archiv-actual">Ver Actual</a>
                     <?php endif; ?>
