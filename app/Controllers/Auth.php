@@ -20,6 +20,7 @@ class Auth extends BaseController{
         
     }
 
+   
     public function getViewregistro(){
         
         $escuelas = new EscuelasModel();

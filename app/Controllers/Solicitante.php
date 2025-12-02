@@ -28,6 +28,11 @@ class Solicitante extends BaseController
         return view('Auth/recuperacionExitosaPassword');
     }
 
+    public function getTutorial(){
+        return view('others/tutorial');
+    }
+
+
     public function index()
 
     {
