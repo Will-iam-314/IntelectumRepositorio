@@ -17,14 +17,14 @@
         <span class="tarjet-cyan mb-3">Datos de la Tesis</span>  
           
         <div>
-            <label class="label-form" for="input_tituloTesis">Titulo de la Tesis</label>
+            <label class="label-form" for="input_tituloTesis">Título de la Tesis</label>
             <span class="description-input">Digitar sin comillas y tenga encuenta que tal como ingrese el titulo, se mostrará en su Constancia.</span>
             <textarea  name="tituloTesis" class="input-form" id="input_tituloTesis" required autofocus><?= set_value('tituloTesis') ?></textarea>
         </div>
 
         <div class="mt-4 ">
             <label class="label-form" for="">Autor(es)</label>
-            <span class="description-input">Por defecto usted es un autor, preciona el boton "Agregar mas autores" si el la tesis cuenta con mas autores</span>
+            <span class="description-input">Por defecto usted es un autor, presiona el botón "Agregar más autores" si la tesis cuenta con mas autores</span>
             <input style="color:rgb(113 112 112);" class="input-form" value="<?= $solicitanteActualNombres ?>" disabled>
             <button type="button" class="btn-style2 mt-2 " id="btn-show-autores">Agregar más autores</button>
 
@@ -49,7 +49,10 @@
             <label class="label-form " for="input_lineaInvestigacion">Linea de Investigación</label>
             <div class="d-flex">
                 <span class="description-input">Haz clic en “Ver lineas”, busca la que se relacione con tu investigación y cópiala en el campo. </span>
-                <i class="fa fa-question-circle icon-help-question ms-2" aria-hidden="true"></i>
+                <div  data-bs-toggle="modal" data-bs-target="#helpModal-LineasInvs">
+                    <i class="fa fa-question-circle icon-help-question ms-2" aria-hidden="true"></i>
+                </div>
+                
             </div>
             <div id="iframe-container-lineas" class="mt-1 mb-2 d-none">
                 <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-lineas">Ocultar</button>
@@ -65,7 +68,10 @@
             <label class="label-form " for="input_CampoInvestigacion">Campo de Investigación</label>
             <div class="d-flex">
                 <span class="description-input">Haz clic en "Ver Campos de Investigacion", busca el campo que mas se relacione con tu investigación y cópiala en el campo. </span>
-                <i class="fa fa-question-circle icon-help-question ms-2" aria-hidden="true"></i>
+                <div data-bs-toggle="modal" data-bs-target="#helpModal-CampoInvs">
+                    <i class="fa fa-question-circle icon-help-question ms-2" aria-hidden="true"></i>
+                </div>
+                
             </div>
             <div id="iframe-container-CampoInvestigacion" class="mt-1 mb-2  d-none">
                 <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-CampoInvestigacion">Ocultar</button>
@@ -81,7 +87,9 @@
             <label class="label-form" for="input_CampoAplicacion">Campo de Aplicación</label>
             <div class="d-flex">
                 <span class="description-input">Haz clic en "Ver Campos de Aplicación", busca el campo que mas se relacione con tu investigación y cópia el codigo numerico de 6 digitos y pegalo en el campo. </span>
-                <i class="fa fa-question-circle icon-help-question" aria-hidden="true"></i>
+                <div data-bs-toggle="modal" data-bs-target="#helpModal-CampoApli">
+                    <i class="fa fa-question-circle icon-help-question ms-2" aria-hidden="true"></i>
+                </div>
             </div>
             <div id="iframe-container-CampoAplicacion" class="mt-1 mb-2 d-none">
                 <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-CampoAplicacion">Ocultar</button>
@@ -94,7 +102,7 @@
         </div>
 
         <div class="mt-4">
-            <label class="label-form mb-1" for="input_FechaSustentacion">Fecha de Sustentacion</label>
+            <label class="label-form mb-1" for="input_FechaSustentacion">Fecha de Sustentación</label>
             <input type="date" name="FechaSustentacion" class="input-form" id="input_FechaSustentacion" value="<?= set_value('FechaSustentacion') ?>"  required >
         </div>
         
@@ -241,6 +249,94 @@
 
    
 </form>
+
+ 
+<!-- MODALS -->
+
+<div class="modal fade" id="helpModal-LineasInvs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Video de Ayuda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="video-container-inNuevaSolicitud">
+            <!-- Reemplaza este src con la URL de tu video -->
+            <iframe 
+                id="helpVideo"
+                src="" 
+                title="Video de ayuda" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>    
+
+<div class="modal fade" id="helpModal-CampoInvs" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Video de Ayuda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="video-container-inNuevaSolicitud">
+            <!-- Reemplaza este src con la URL de tu video -->
+            <iframe 
+                id="helpVideo"
+                src="" 
+                title="Video de ayuda" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>    
+
+<div class="modal fade" id="helpModal-CampoApli" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Video de Ayuda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="video-container-inNuevaSolicitud">
+            <!-- Reemplaza este src con la URL de tu video -->
+            <iframe 
+                id="helpVideo"
+                src="" 
+                title="Video de ayuda" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>    
+
 
 <?= $this->endSection();?>
 

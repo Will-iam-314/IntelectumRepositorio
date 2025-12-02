@@ -48,6 +48,10 @@
         <div  class=" mt-3">
             <span id="text-end-body-Auth" >¿No tienes una cuenta? </span><a class="a-link-default" href="<?= base_url('registrarse') ; ?>">Crea una aquí</a>
         </div>
+
+        <div class="mt-3 text-center">
+            <a class="a-link-default" href="<?= base_url('videoTutorial')?>">¿Necesitas Ayuda?</a>
+        </div>
     </div>
     <div id="footer-Auth">
         <p>

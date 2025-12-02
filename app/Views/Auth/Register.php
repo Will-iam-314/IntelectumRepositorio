@@ -64,7 +64,7 @@
 
            <div class="row">
 
-                <div class="col-12 col-lg-6  ">                
+                <div class="col-12 col-lg-6 mb-lg-0 mb-4 ">                
                     <label class="label-form" for="input_password">Contraseña</label>
                     <input type="password" name="password" class="input-form" id="input_password" value="<?= set_value('password') ?>" spellcheck="false" required>
                     <span id="descripcion-select-carrera">La Contraseña debe tener almenos 8 caracteres.</span>
