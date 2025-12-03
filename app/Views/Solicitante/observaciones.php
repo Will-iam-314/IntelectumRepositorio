@@ -14,7 +14,7 @@
 
 
 
-<form action="<?= base_url('solicitante/levantarObservaciones') ?>" method="post" enctype="multipart/form-data">
+<form action="<?= base_url('solicitante/levantarObservaciones') ?>" method="post" enctype="multipart/form-data" onsubmit= "mostrarLoadingConArchivos()">
     <?= csrf_field() ?>
 
     <input type="hidden" name="idTramite" value="<?= esc($idTramite) ?>">

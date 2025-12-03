@@ -167,6 +167,18 @@
         </div>
     </div>
 
+    <div class="modal fade" id="loadingModalLoadArchives" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div  class="modal-content contenedor-modal-load">
+            <div  class=" cont-modal-load-spinner">
+                <div class="spinner-border spinner-custom" role="status" style=""></div>
+            </div>
+            <p class=" text-cont-modal-load">Cargando</p>
+            <p class=" text-cont-modal-load mt-2">Esto puede tardar un poco...</p>
+            </div>
+        </div>
+    </div>
+
     
 
         
@@ -185,6 +197,14 @@
 
         function mostrarLoading() {
             let modal = new bootstrap.Modal(document.getElementById('loadingModal'), {
+            backdrop: 'static',   // evita que lo cierren
+            keyboard: false       // evita que cierren con ESC
+            });
+            modal.show();
+        }
+
+        function mostrarLoadingConArchivos(){
+            let modal = new bootstrap.Modal(document.getElementById('loadingModalLoadArchives'), {
             backdrop: 'static',   // evita que lo cierren
             keyboard: false       // evita que cierren con ESC
             });

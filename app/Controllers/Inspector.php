@@ -187,8 +187,18 @@ class Inspector extends BaseController
             }
             $parent->appendChild($dcvalue);
         }
-         
 
+        ///QUITANDO COMAS, Ñ, Y TILDES
+
+        foreach ($datosTramite['autores'] as $key => $autor) {
+            $autor['nombre'] = rtrim($autor['nombre'], ",");          // quita coma final
+            $autor['nombre'] = $this->normalizarTexto($autor['nombre']);     // reemplaza tildes y ñ
+            $datosTramite['autores'][$key] = $autor;
+        }
+        
+        $datosTramite['GradoAcademicoOptar'] = $this->normalizarTexto($datosTramite['GradoAcademicoOptar']);
+        $datosTramite['DescripcionGradoOptar'] = $this->normalizarTexto($datosTramite['DescripcionGradoOptar']);
+    
 
         /**
          * =====================================================
@@ -207,6 +217,8 @@ class Inspector extends BaseController
         // Agregar nodos
         addDcValue($dom, $dublin, "Solicitud URL", ["element" => "identifier", "qualifier" => "other", "language" => "es_PE"]);
         addDcValue($dom, $dublin, "Mas info repositorio@unu.edu.pe", ["element" => "description", "language" => ""]);
+        
+       
         
         if (!empty($datosTramite['autores']) && is_array($datosTramite['autores'])) {
             foreach ($datosTramite['autores'] as $autor) {
@@ -444,6 +456,16 @@ class Inspector extends BaseController
         }
         
         
+    }
+
+    function normalizarTexto($texto) {
+        $reemplazos = [
+            'á'=>'a', 'é'=>'e', 'í'=>'i', 'ó'=>'o', 'ú'=>'u',
+            'Á'=>'A', 'É'=>'E', 'Í'=>'I', 'Ó'=>'O', 'Ú'=>'U',
+            'ñ'=>'n', 'Ñ'=>'N',
+        ];
+        
+        return strtr($texto, $reemplazos);
     }
 
    

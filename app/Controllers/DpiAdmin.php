@@ -171,6 +171,8 @@ class DpiAdmin extends BaseController
         $pdf->SetTextColor(0, 0, 0);
         $pdf->Cell(0, 10, 'CONSTANCIA DE', 0, 1, 'C', 0, '', 0, false, 'T', 'M');
         $pdf->Cell(0, 5, 'PUBLICACIÓN', 0, 1, 'C', 0, '', 0, false, 'T', 'M');
+        $pdf->SetFont('helvetica', 'B', 25);
+        $pdf->Cell(0, 5, 'URL', 0, 1, 'C', 0, '', 0, false, 'T', 'M');
         
         // --- 2.3 NÚMERO DE CONSTANCIA ---
         $pdf->Ln(5);

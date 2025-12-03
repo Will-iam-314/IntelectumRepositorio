@@ -8,11 +8,11 @@
         <span class="title-modules ms-2">Nueva Solicitud</span> 
     </div>
 
-<form class='mb-4' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoading()">
+<form class='mb-4' method="POST" action="<?= base_url('solicitante/nuevaSoli')?>" autocomplete="off" enctype="multipart/form-data" onsubmit= "mostrarLoadingConArchivos()">
     
     <?= csrf_field(); ?>
 
-    <div class="border my-4 container-default">           
+    <div class="border my-4 container-default">            
     
         <span class="tarjet-cyan mb-3">Datos de la Tesis</span>  
           
@@ -228,7 +228,7 @@
             <input type="file" name="TesisFile" class="form-control" id="input_TesisFile" accept=".pdf"  required>
         </div>
 
-        
+         
         
 
         <?php if(session()->getFlashdata('errors')!==null): ?>
