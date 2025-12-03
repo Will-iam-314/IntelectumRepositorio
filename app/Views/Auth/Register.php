@@ -28,7 +28,7 @@
                 <div class="col-12 col-lg-6  ">
                 
                     <label class="label-form" for="input_names">Nombres</label>
-                    <input type="text" name="nombres" class="input-form" id="input_names" value="<?= set_value('nombres') ?>"   required autofocus>
+                    <input type="text" name="nombres" class="input-form" id="input_names" pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo se permiten letras y espacios" value="<?= set_value('nombres') ?>"   required autofocus>
                 </div>
 
                 <div class="col-12 col-lg-6  ">

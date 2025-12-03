@@ -68,7 +68,7 @@
         }
         
         .header-section p {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             color: #555;
             margin: 0;
         }

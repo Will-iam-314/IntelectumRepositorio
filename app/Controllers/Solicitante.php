@@ -32,6 +32,10 @@ class Solicitante extends BaseController
         return view('others/tutorial');
     }
 
+    public function getViewSelectMedios(){
+        return view('others/selectMedios');
+    }
+
 
     public function index()
 

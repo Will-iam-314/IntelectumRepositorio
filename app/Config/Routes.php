@@ -9,6 +9,8 @@ $routes->get('temporalView','Solicitante::getViewTemporal');
 
 $routes->get('videoTutorial','Solicitante::getTutorial');
 
+$routes->get('seleccionMedios','Solicitante::getViewSelectMedios');
+
 $routes->get('/', 'Auth::getViewlogin',['filter'=>'AuthRedirect']);
 $routes->get('login','Auth::getViewlogin',['filter'=>'AuthRedirect']);
 $routes->get('registrarse','Auth::getViewregistro',['filter'=>'AuthRedirect']);
