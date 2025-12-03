@@ -217,6 +217,7 @@ class MailService{
         
         $this->email->setTo($to);
         $this->email->setSubject('SOLICITUD PRESENTADA');
+        $urlLogo = base_url('assets/icons/IntelectumLogoFondoBlanco.png');
         $seccionCodigoTramite= '<span style="font-weight: bold; color:#3F81BB;">'.$codigoTramite.'</span>';
         $body = '
          
@@ -226,7 +227,7 @@ class MailService{
                 <!-- Header con Logo y Marca -->
                 <div style="padding: 30px 20px 20px 20px; text-align: left;">
                     <div style="display: inline-block; vertical-align: top;">
-                        <img src="public/assets/icons/IntelectumLogoFondoBlanco.png" alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
+                        <img src='.$urlLogo.' alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
                     </div>
                     <div style="display: inline-block; vertical-align: top; margin-left: 15px;">
                         <p style="font-size: 24px; font-weight: bold; color:#0A1D2F; margin: 0; line-height: 1.2;">Intelectum</p>
@@ -274,6 +275,7 @@ class MailService{
 
         $this->email->setTo($to);
         $this->email->setSubject('SOLICITUD ENVIADA A REVISION');
+        $urlLogo = base_url('assets/icons/IntelectumLogoFondoBlanco.png');
         $seccionCodigoTramite= '<span style="font-weight: bold; color:#3F81BB;">'.$codigoTramite.'</span>';
         $body = '
          
@@ -283,7 +285,7 @@ class MailService{
                 <!-- Header con Logo y Marca -->
                 <div style="padding: 30px 20px 20px 20px; text-align: left;">
                     <div style="display: inline-block; vertical-align: top;">
-                        <img src="public/assets/icons/IntelectumLogoFondoBlanco.png" alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
+                        <img src='.$urlLogo.' alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
                     </div>
                     <div style="display: inline-block; vertical-align: top; margin-left: 15px;">
                         <p style="font-size: 24px; font-weight: bold; color:#0A1D2F; margin: 0; line-height: 1.2;">Intelectum</p>
@@ -328,6 +330,7 @@ class MailService{
     public function sendMail_TramiteObservado($to,$codigoTramite){
         $this->email->setTo($to);
         $this->email->setSubject('MATERIAL OBSERVADO');
+        $urlLogo = base_url('assets/icons/IntelectumLogoFondoBlanco.png');
         $seccionCodigoTramite= '<span style="font-weight: bold; color:#3F81BB;">'.$codigoTramite.'</span>';
         $body = '
          
@@ -337,7 +340,7 @@ class MailService{
                 <!-- Header con Logo y Marca -->
                 <div style="padding: 30px 20px 20px 20px; text-align: left;">
                     <div style="display: inline-block; vertical-align: top;">
-                        <img src="public/assets/icons/IntelectumLogoFondoBlanco.png" alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
+                        <img src='.$urlLogo.' alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
                     </div>
                     <div style="display: inline-block; vertical-align: top; margin-left: 15px;">
                         <p style="font-size: 24px; font-weight: bold; color:#0A1D2F; margin: 0; line-height: 1.2;">Intelectum</p>
@@ -387,6 +390,7 @@ class MailService{
     public function sendMail_MaterialAprobado($to,$codigoTramite){
         $this->email->setTo($to);
         $this->email->setSubject('MATERIAL APROBADO');
+        $urlLogo = base_url('assets/icons/IntelectumLogoFondoBlanco.png');
         $seccionCodigoTramite= '<span style="font-weight: bold; color:#3F81BB;">'.$codigoTramite.'</span>';
         $body = '
          
@@ -396,7 +400,7 @@ class MailService{
                 <!-- Header con Logo y Marca -->
                 <div style="padding: 30px 20px 20px 20px; text-align: left;">
                     <div style="display: inline-block; vertical-align: top;">
-                        <img src="public/assets/icons/IntelectumLogoFondoBlanco.png" alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
+                        <img src='.$urlLogo.' alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
                     </div>
                     <div style="display: inline-block; vertical-align: top; margin-left: 15px;">
                         <p style="font-size: 24px; font-weight: bold; color:#0A1D2F; margin: 0; line-height: 1.2;">Intelectum</p>
@@ -443,6 +447,7 @@ class MailService{
     public function sendMail_materialPublicado($to,$codigoTramite,$urlPublicacion){
         $this->email->setTo($to);
         $this->email->setSubject('MATERIAL PUBLICADO');
+        $urlLogo = base_url('assets/icons/IntelectumLogoFondoBlanco.png');
         $seccionCodigoTramite= '<span style="font-weight: bold; color:#3F81BB;">'.$codigoTramite.'</span>';
         $body = '
          
@@ -452,7 +457,7 @@ class MailService{
                 <!-- Header con Logo y Marca -->
                 <div style="padding: 30px 20px 20px 20px; text-align: left;">
                     <div style="display: inline-block; vertical-align: top;">
-                        <img src="public/assets/icons/IntelectumLogoFondoBlanco.png" alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
+                        <img src='.$urlLogo.' alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
                     </div>
                     <div style="display: inline-block; vertical-align: top; margin-left: 15px;">
                         <p style="font-size: 24px; font-weight: bold; color:#0A1D2F; margin: 0; line-height: 1.2;">Intelectum</p>
@@ -503,6 +508,7 @@ class MailService{
     public function sendMain_EnvioConstancia($to,$codigoTramite){
         $this->email->setTo($to);
         $this->email->setSubject('CONSTANCIA DE PUBLICACIÓN EMITIDA');
+        $urlLogo = base_url('assets/icons/IntelectumLogoFondoBlanco.png');
         $seccionCodigoTramite= '<span style="font-weight: bold; color:#3F81BB;">'.$codigoTramite.'</span>';
         $body = '
          
@@ -512,7 +518,7 @@ class MailService{
                 <!-- Header con Logo y Marca -->
                 <div style="padding: 30px 20px 20px 20px; text-align: left;">
                     <div style="display: inline-block; vertical-align: top;">
-                        <img src="public/assets/icons/IntelectumLogoFondoBlanco.png" alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
+                        <img src='.$urlLogo.' alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
                     </div>
                     <div style="display: inline-block; vertical-align: top; margin-left: 15px;">
                         <p style="font-size: 24px; font-weight: bold; color:#0A1D2F; margin: 0; line-height: 1.2;">Intelectum</p>

@@ -86,7 +86,7 @@ class Solicitante extends BaseController
         //agregar datos del solicitante
         $solicitante = $this->solicitanteModel->getSolicitante(session('id'));
     
-        $nombreSolicitanteActual = $solicitante['apellidos_solicitante'] . ' ' . $solicitante['nombres_solicitante'] ;
+        $nombreSolicitanteActual = $solicitante['apellidos_solicitante'] . ', ' . $solicitante['nombres_solicitante'] ;
         $dniSolicitanteActual = $solicitante['dni_solicitante'];
 
         $data = [

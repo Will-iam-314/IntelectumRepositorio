@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="<?= base_url('assets/icons/IntelectumLogoFondoBlanco.png')?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">    
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=2.8') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=2.6') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/Solicitante.css?v=2.7') ?>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
 </head>

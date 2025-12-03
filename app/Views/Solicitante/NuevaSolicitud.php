@@ -24,7 +24,7 @@
 
         <div class="mt-4 ">
             <label class="label-form" for="">Autor(es)</label>
-            <span class="description-input">Por defecto usted es un autor, presiona el botón "Agregar más autores" si la tesis cuenta con mas autores</span>
+            <span class="description-input">Por defecto usted es un autor, presiona el botón "Agregar más autores" si la tesis cuenta con mas autores. <strong>Importante:</strong> Colocar primero los apellidos luego los nombres y seperar estos con una coma.</span>
             <input style="color:rgb(113 112 112);" class="input-form" value="<?= $solicitanteActualNombres ?>" disabled>
             <button type="button" class="btn-style2 mt-2 " id="btn-show-autores">Agregar más autores</button>
 
@@ -57,7 +57,7 @@
             <div id="iframe-container-lineas" class="mt-1 mb-2 d-none">
                 <button type="button" class="mb-2 btn-style3-danger" id="btn-close-iframe-lineas">Ocultar</button>
                 <div class="iframe-wrapper">
-                    <iframe class='iframe-styles' src="<?= base_url('docs/Lineas_investigacion.pdf') ?>" frameborder="0" style="width: 100%; height: 500px;"></iframe>
+                    <iframe class='iframe-styles' src="<?= base_url('docs/Lineas_investigacion_.pdf') ?>" frameborder="0" style="width: 100%; height: 500px;"></iframe>
                 </div>
             </div>
             <button type="button" class="btn-style2 mb-3" id="btn-show-iframe-lineas">Ver lineas</button>
@@ -140,7 +140,7 @@
 
         <div class="mt-4">
             <label class="label-form mb-1" for="input_AsesorNombres">Apellidos y Nombres</label>
-            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
+            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico, colocar primero los apellidos luego los nombres y seperar estos con una coma.</span>
             <input type="text" name="Asesor" class="input-form" id="input_AsesorNombres" value="<?= set_value('Asesor') ?>" required>
         </div>
 
@@ -166,19 +166,19 @@
         
         <div class="mt-4">
             <label class="label-form " for="input_PresidenteJuradoNombres">Apellidos y Nombres del Presidente</label>
-            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
+            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico, colocar primero los apellidos luego los nombres y seperar estos con una coma.</span>
             <input type="text" name="PresidenteJurado" class="input-form" id="input_PresidenteJuradoNombres" value="<?= set_value('PresidenteJurado') ?>" required>
         </div>
 
         <div class="mt-4">
             <label class="label-form " for="input_PrimerMiembroJuradoNombres">Apellidos y Nombres del Primer Miembro</label>
-            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
+            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico, colocar primero los apellidos luego los nombres y seperar estos con una coma.</span>
             <input type="text" name="PrimerMiembroJurado" class="input-form" id="input_PrimerMiembroJuradoNombres" value="<?= set_value('PrimerMiembroJurado') ?>" required>
         </div>
 
         <div class="mt-4">
             <label class="label-form" for="input_SegundoMiembroJuradoNombres">Apellidos y Nombres del Segundo Miembro</label>
-            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico.</span>
+            <span class="description-input"><strong>Importante:</strong> No anteponer el grado académico, colocar primero los apellidos luego los nombres y seperar estos con una coma.</span>
             <input type="text" name="SegundoMiembroJurado" class="input-form" id="input_SegundoMiembroJuradoNombres" value="<?= set_value('SegundoMiembroJurado') ?>" required>
         </div>
 
@@ -215,13 +215,14 @@
         <div class="mt-4">
             <label class="label-form " for="input_TesisFile">Archivo de la Tesis</label>
             <div class="">
-                <span class="description-input"> Cargar el Archivo de las tesis con el siguiente formato: </span>
+                <span class="description-input"> Cargar el Archivo de las tesis <strong> en PDF</strong> con el siguiente formato: </span>
                 <ul class="description-input">
-                    <li>Pg.1.  Caratula (sin numeración)</li>
-                    <li>Pg.2.  Acta de Sustentación y/o Defensa de la Tesis</li>
-                    <li>Pg.3.  Constancia Originalidad del Trabajo de Investigación (COTI)</li>
-                    <li>Pg.4.  Autorización de Publicación | descargue y rellene el formato que mas se acomode a su situacion.</li>
+                    <li>Pg.1.  Caratula (sin numeración).</li>
+                    <li>Pg.2.  Acta de Sustentación y/o Defensa de la Tesis.</li>
+                    <li>Pg.3.  Constancia Originalidad del Trabajo de Investigación (COTI).</li>
+                    <li>Pg.4.  Autorización de Publicación.</li>
                     <li>Pg.5.  En adelante el contenido de la tesis desde la Dedicatoria hasta los Anexos, tal como lo señala su reglamento.</li>
+                    <li>Ver ejemplos en el   <a href="www.repositorio.unu.edu.pe" target=_blank>Repositorio</a></li>
                 </ul>
                 
             </div>

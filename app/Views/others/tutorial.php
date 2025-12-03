@@ -245,7 +245,7 @@
             <!-- Header -->
             <div class="header-section">
                 <h1><i class="fas fa-play-circle"></i> Video de Ayuda</h1>
-                <p>Aprende a cómo solicitar tu constancia de publicación en minutos</p>
+                <p>Aprende a cómo solicitar tu constancia de publicación URL en minutos</p>
             </div>
             
             <!-- Video Section -->
