@@ -19,27 +19,68 @@ class Users extends BaseController
 
     public function nuevoUsuario(){
 
-        $rules= [
-            'nombres'=>'required|alpha_space',
-            'apellidos'=> 'required|alpha_space',
-            'dni'=>'required|integer|max_length[8]|min_length[8]|is_unique[solicitantes.dni_solicitante]',
-            'carrera'=>'required',
-            'email' =>'required|valid_email|max_length[100]|is_unique[usuarios.email_usuario]',
+       $rules = [
+            'nombres' => [
+                'rules' => 'required|regex_match[/^[\p{L}\s]+$/u]',
+                'errors' => [
+                    'required'     => 'Debes ingresar tus nombres.',
+                    'regex_match'  => 'Los nombres no pueden contener caracteres especiales.'
+                ]
+            ],
+
+            'apellidos' => [
+                'rules' => 'required|regex_match[/^[\p{L}\s]+$/u]',
+                'errors' => [
+                    'required'     => 'Debes ingresar tus apellidos.',
+                    'regex_match'  => 'Los apellidos no pueden contener caracteres especiales.'
+                ]
+            ],
+
+            'dni' => [
+                'rules' => 'required|integer|max_length[8]|min_length[8]|is_unique[solicitantes.dni_solicitante]',
+                'errors' => [
+                    'required'   => 'El DNI es obligatorio.',
+                    'integer'    => 'El DNI solo debe contener números.',
+                    'max_length' => 'El DNI debe tener exactamente 8 dígitos.',
+                    'min_length' => 'El DNI debe tener exactamente 8 dígitos.',
+                    'is_unique'  => 'El DNI ingresado ya se encuentra registrado.'
+                ]
+            ],
+
+            'carrera' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Debe seleccionar su carrera.'
+                ]
+            ],
+
+            'email' => [
+                'rules' => 'required|valid_email|max_length[100]|is_unique[usuarios.email_usuario]',
+                'errors' => [
+                    'required'   => 'El correo electrónico es obligatorio.',
+                    'valid_email'=> 'Debe ingresar un correo electrónico válido.',
+                    'max_length' => 'El correo electrónico no debe superar los 100 caracteres.',
+                    'is_unique'  => 'El correo ingresado ya está registrado.'
+                ]
+            ],
+
             'password' => [
                 'rules' => 'required|max_length[50]|min_length[8]',
                 'errors' => [
-                    'required' => 'La Contraseña es Obligatoria',
-                    'max_length' => 'La Contraseña es demasiado larga',
-                    'min_length' => 'La Contraseña debe de tener al menos 8 caracteres'
+                    'required'     => 'La contraseña es obligatoria.',
+                    'max_length'   => 'La contraseña es demasiado larga.',
+                    'min_length'   => 'La contraseña debe tener al menos 8 caracteres.'
                 ]
             ],
+
             'repassword' => [
                 'rules' => 'matches[password]',
                 'errors' => [
-                    'matches' => 'La Contraseñas no Coinciden'
+                    'matches' => 'Las contraseñas no coinciden.'
                 ]
-            ] 
+            ],
         ];
+
         if(!$this->validate($rules)){
             return redirect()->back()->withInput()->with('errors',$this->validator->listErrors());
         }
