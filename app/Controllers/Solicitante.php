@@ -129,9 +129,10 @@ class Solicitante extends BaseController
 
         $rules = [
             'tituloTesis' => [
-                'rules' => 'required',
+                'rules' => 'required|tituloMateriaUnico[material.titulo_materia]',
                 'errors' => [
-                    'required' => 'El título de la tesis es obligatorio.'
+                    'required' => 'El título de la tesis es obligatorio.',
+                    'tituloMateriaUnico' => 'La Tesis ya ha sido registrada anteriormente en otro trámite.'
                 ]
             ],
             'resumenTesis' => [
