@@ -153,7 +153,9 @@
             <label class="label-form" for="input_AsesorORCID">ORCID</label>
             <div class="d-flex">
                 <span class="description-input">Ingresar la URL del ORCID ID. Lo puedes consultar buscando a tu asesor en la pagina de <a target='_blank' href="https://orcid.org  ">ORCID</a> . </span>
-                <i class="fa fa-question-circle icon-help-question" aria-hidden="true"></i>
+                <div data-bs-toggle="modal" data-bs-target="#helpModal-ORCID">
+                    <i class="fa fa-question-circle icon-help-question ms-2" aria-hidden="true"></i>
+                </div>
             </div>
             <input type="text" name="AsesorORCID" class="input-form" id="input_AsesorORCID" value="<?= set_value('AsesorORCID') ?>" required>
         </div>
@@ -264,15 +266,22 @@
       <div class="modal-body">
         <div class="video-container-inNuevaSolicitud">
             <!-- Reemplaza este src con la URL de tu video -->
-            <iframe 
-                id="helpVideo"
-                src="" 
-                title="Video de ayuda" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+           
+            <video 
+                id="helpVideo-LineasInvs" 
+                src="<?= base_url('assets/videos/clipLineaInvs.mp4') ?>" 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                controls
+                style="width:100%; border:0; border-radius:10px;"
+            >
+            </video>
         </div>
+      </div>
+      <div class="text-center">
+        <p>Los datos ingresados en el video son de ejemplo.</p>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -292,15 +301,21 @@
       <div class="modal-body">
         <div class="video-container-inNuevaSolicitud">
             <!-- Reemplaza este src con la URL de tu video -->
-            <iframe 
-                id="helpVideo"
-                src="" 
-                title="Video de ayuda" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+            <video 
+                id="helpVideo-CampoInvs" 
+                src="<?= base_url('assets/videos/clipCampoInvs.mp4') ?>" 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                controls
+                style="width:100%; border:0; border-radius:10px;"
+            >
+            </video>
         </div>
+      </div>
+      <div class="text-center">
+        <p>Los datos ingresados en el video son de ejemplo.</p>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -320,15 +335,21 @@
       <div class="modal-body">
         <div class="video-container-inNuevaSolicitud">
             <!-- Reemplaza este src con la URL de tu video -->
-            <iframe 
-                id="helpVideo"
-                src="" 
-                title="Video de ayuda" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+            <video 
+                id="helpVideo-CampoApli" 
+                src="<?= base_url('assets/videos/clipCampoApli.mp4') ?>" 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                controls
+                style="width:100%; border:0; border-radius:10px;"
+            >
+            </video>
         </div>
+      </div>
+      <div class="text-center">
+        <p>Los datos ingresados en el video son de ejemplo.</p>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -336,7 +357,41 @@
       </div>
     </div>
   </div>
-</div>    
+</div>   
+
+<div class="modal fade" id="helpModal-ORCID" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Video de Ayuda</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="video-container-inNuevaSolicitud">
+            <!-- Reemplaza este src con la URL de tu video -->
+            <video 
+                id="helpVideo-ORCID" 
+                src="<?= base_url('assets/videos/clipOrcid.mp4') ?>" 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                controls
+                style="width:100%; border:0; border-radius:10px;"
+            >
+            </video>
+        </div>
+      </div>
+      <div class="text-center">
+        <p>Los datos ingresados en el video son de ejemplo.</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <?= $this->endSection();?>
@@ -362,9 +417,60 @@
         });
     <?php endif; ?>
 
-    
-
     document.addEventListener('DOMContentLoaded', function () {
+
+        //MODALS DE LOS VIDEOS DE AYUDA
+
+        const modalLineasInvs = document.getElementById("helpModal-LineasInvs");
+        const videoLineasInvs = document.getElementById("helpVideo-LineasInvs");
+
+        const modalCampoIns = document.getElementById("helpModal-CampoInvs");
+        const videoCampoIns = document.getElementById("helpVideo-CampoInvs");
+
+        const modalCampoApli = document.getElementById("helpModal-CampoApli");
+        const videoCampoApli  = document.getElementById("helpVideo-CampoApli");
+
+        const modalORCID = document.getElementById("helpModal-ORCID");
+        const videoORCID = document.getElementById("helpVideo-ORCID");
+
+        modalLineasInvs.addEventListener("hidden.bs.modal", () => {
+            videoLineasInvs.pause();
+            videoLineasInvs.currentTime = 0;
+        });
+        modalLineasInvs.addEventListener("show.bs.modal", () => {
+            videoLineasInvs.play();     
+        });
+
+
+
+        modalCampoIns.addEventListener("hidden.bs.modal", () => {
+            videoCampoIns.pause();
+            videoCampoIns.currentTime = 0;
+        });
+        modalCampoIns.addEventListener("show.bs.modal", () => {
+            videoCampoIns.play();     
+        });
+
+
+
+        modalCampoApli.addEventListener("hidden.bs.modal", () => {
+            videoCampoApli.pause();
+            videoCampoApli.currentTime = 0;
+        });
+        modalCampoApli.addEventListener("show.bs.modal", () => {
+            videoCampoApli.play();     
+        });
+
+
+        modalORCID.addEventListener("hidden.bs.modal", () => {
+            videoORCID.pause();
+            videoORCID.currentTime = 0;
+        });
+        modalORCID.addEventListener("show.bs.modal", () => {
+            videoORCID.play();     
+        });
+
+  
         // Lógica para el manejo de autores
         const btnShowAutores = document.getElementById('btn-show-autores');
         const autoresContainer = document.getElementById('autores-container');
