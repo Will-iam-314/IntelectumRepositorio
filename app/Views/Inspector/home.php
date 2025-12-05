@@ -3,7 +3,10 @@
 
 <?= $this->section('content');?>
 
-<h1>HOME INSPECTOR</h1>
+
+<div class="mt-4">
+    <h2>¡Bienvenido Inspector <?php echo(session('nombres').' '.session('apellidos')) ?>!</h2>
+</div>
 
 
 
