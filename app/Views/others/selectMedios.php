@@ -237,6 +237,18 @@
                 height: 30px;
             }
         }
+
+        .title-consultas{
+            display:block;
+            font-size: 1.8rem;
+            color: #20313fff;
+            font-weight:bold;
+        }
+        .subtitle-consultas{
+            display:block;
+            font-size: 1.1rem;
+
+        }
     </style>
 </head>
 <body>
@@ -260,7 +272,7 @@
                             </svg>
                         </div>
                         <h2 class="card-title-custom">Nueva Solicitud</h2>
-                        <p class="card-description">Si el trámite a realizar es uno nuevo y no ha sido presentado anteriormente</p>
+                        <p class="card-description">Si el trámite a realizar es nuevo y no ha sido presentado anteriormente</p>
                     </div>
                    
                 </div>
@@ -281,6 +293,11 @@
                     </div>
                    
                 </div>
+            </div>
+            <div class="col-12 mt-5  text-center">
+                <span class="title-consultas">Consultas</span>
+                <span class="subtitle-consultas"><strong>Email: </strong>repositorio@unu.edu.pe</span>
+                <span class="subtitle-consultas"><strong>WhatsApp: </strong>961533114 - 916211301</span>
             </div>
         </div>
     </div>

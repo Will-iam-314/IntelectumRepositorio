@@ -155,7 +155,7 @@
                                               disabled></textarea>
                                     <small class="text-muted mt-1 d-block">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        Use Enter para crear nuevas viñetas. Las observaciones se agregarán automáticamente.
+                                        Use Enter para crear nuevas viñetas. 
                                     </small>
                                 </div>
                                 
