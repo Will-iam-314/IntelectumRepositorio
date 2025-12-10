@@ -31,7 +31,7 @@
     
         <div class="container-observaciones mt-3">
                 <span class="title-observaciones">Observaciones</span>
-                <p class="observaciones-lista"><?= nl2br(esc($observaciones)) ?></p>
+                <p class="observaciones-lista"><?=$observaciones?></p>
                 
         </div>
 

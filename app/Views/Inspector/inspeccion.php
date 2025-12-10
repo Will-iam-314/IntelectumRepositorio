@@ -54,7 +54,8 @@
                     <h5 class="alert-heading">
                         <i class="fas fa-clipboard-list me-2"></i>Observaciones Anteriores
                     </h5>
-                    <p class="mb-0"><?= nl2br(esc($observaciones)) ?></p>
+                    <!-- Mostrar HTML de observaciones anteriores -->
+                    <div class="observaciones-anteriores"><?= $observaciones ?></div>
                 </div>
             </div>
         </div>
@@ -109,7 +110,7 @@
                         <!-- Tab de Inspección -->
                         <div class="tab-pane fade show active" id="inspeccion" role="tabpanel">
                             <form action="<?= base_url('inspector/nuevaInspeccion/'.$idMaterial.'/'.$codigoTramite) ?>" 
-                                  method="POST" onsubmit="mostrarLoading()">
+                                  method="POST" onsubmit="return prepararEnvio(event)">
                                 <?= csrf_field() ?>
                                 
                                 <!-- Selector de documento -->
@@ -144,18 +145,16 @@
                                     </div>
                                 </div>
 
-                                <!-- Área de observaciones -->
+                                <!-- Editor Quill -->
                                 <div class="mb-4">
-                                    <label for="observaciones" class="form-label fw-bold">
+                                    <label class="form-label fw-bold">
                                         <i class="fas fa-edit me-2"></i>Observaciones
                                     </label>
-                                    <textarea id="observaciones" name="observaciones" 
-                                              class="form-control" rows="14" 
-                                              placeholder="Presione Enter para agregar una nueva observación..."
-                                              disabled></textarea>
-                                    <small class="text-muted mt-1 d-block">
+                                    <div id="editor-container" class="disabled"></div>
+                                    <input type="hidden" name="observaciones" id="observaciones-hidden">
+                                    <small class="text-muted mt-2 d-block">
                                         <i class="fas fa-info-circle me-1"></i>
-                                        Use Enter para crear nuevas viñetas. 
+                                        Use la barra de herramientas para dar formato a sus observaciones. 
                                     </small>
                                 </div>
                                 
@@ -298,6 +297,9 @@
     <?php endif; ?>
 </div>
 
+<!-- CSS de Quill -->
+<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+
 <style>
     /* Estilos del visor PDF */
     .pdf-container {
@@ -353,17 +355,42 @@
         border-bottom: 3px solid #0d6efd;
     }
 
-    /* Área de observaciones */
-    #observaciones {
-        font-family: 'Courier New', monospace;
-        font-size: 0.9rem;
-        line-height: 1.6;
-        resize: vertical;
+    /* Estilos para Quill Editor */
+    #editor-container {
+        height: 400px;
+        background: white;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
     }
 
-    #observaciones:disabled {
+    #editor-container.disabled {
         background-color: #e9ecef;
-        cursor: not-allowed;
+        opacity: 0.6;
+        pointer-events: none;
+    }
+
+    .ql-toolbar {
+        background: #f8f9fa;
+        border-top-left-radius: 0.375rem;
+        border-top-right-radius: 0.375rem;
+    }
+
+    .ql-container {
+        border-bottom-left-radius: 0.375rem;
+        border-bottom-right-radius: 0.375rem;
+        font-size: 0.95rem;
+    }
+
+    /* Estilos para mostrar observaciones anteriores con formato */
+    .observaciones-anteriores ul,
+    .observaciones-anteriores ol {
+        margin-left: 20px;
+        margin-bottom: 10px;
+    }
+
+    .observaciones-anteriores a {
+        color: #0d6efd;
+        text-decoration: underline;
     }
 
     /* Switch personalizado */
@@ -457,7 +484,31 @@
 
 <?= $this->section('scripts');?>
 
+<!-- Quill JS -->
+<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+
 <script>
+    // Inicializar Quill Editor con toolbar completo
+    const quill = new Quill('#editor-container', {
+        theme: 'snow',
+        placeholder: 'Escriba sus observaciones aquí...',
+        modules: {
+            toolbar: [
+       
+                [{ 'font': [] }],
+                [{ 'size': ['small', false, 'large', 'huge'] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                [{ 'color': [] }, { 'background': [] }],
+                [{ 'list': 'ordered'}, { 'list': 'bullet' },{ 'indent': '-1'}, { 'indent': '+1' },{ 'align': [] }],
+                ['link', 'image', 'video'],
+                ['clean']
+            ]
+        }
+    });
+
+    // Deshabilitar el editor inicialmente
+    quill.enable(false);
+
     // Cambiar documento en visor
     document.getElementById('documentSelect').addEventListener('change', function() {
         const viewer = document.getElementById('pdfViewer');
@@ -472,47 +523,17 @@
 
     // Toggle observaciones
     const toggle = document.getElementById('toggleObservaciones');
-    const observaciones = document.getElementById('observaciones');
+    const editorContainer = document.getElementById('editor-container');
 
     toggle.addEventListener('change', function() {
         if (this.checked) {
-            observaciones.disabled = false;
-            observaciones.focus();
-            // Inicializar con primera viñeta si está vacío
-            if (observaciones.value === '') {
-                observaciones.value = '●_';
-            }
+            quill.enable(true);
+            editorContainer.classList.remove('disabled');
+            quill.focus();
         } else {
-            observaciones.disabled = true;
-            observaciones.value = ""; // limpiar si se desactiva
-        }
-    });
-
-    // Manejo de viñetas en textarea
-    const textarea = document.getElementById('observaciones');
-
-    textarea.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            
-            const start = this.selectionStart;
-            const end = this.selectionEnd;
-            const value = this.value;
-            
-            // Si la línea actual está vacía (solo tiene "●_"), eliminar la viñeta
-            const lineStart = value.lastIndexOf('\n', start - 1) + 1;
-            const currentLine = value.substring(lineStart, start);
-            
-            if (currentLine.trim() === '●_') {
-                // Eliminar la viñeta vacía
-                this.value = value.substring(0, lineStart) + value.substring(start);
-                this.selectionStart = this.selectionEnd = lineStart;
-            } else {
-                // Agregar nueva línea con viñeta
-                const newText = value.substring(0, start) + '\n●_' + value.substring(end);
-                this.value = newText;
-                this.selectionStart = this.selectionEnd = start + 3;
-            }
+            quill.enable(false);
+            editorContainer.classList.add('disabled');
+            quill.setText(''); // Limpiar contenido
         }
     });
 
@@ -523,10 +544,31 @@
         }
     }
 
-    // Función para mostrar loading (debe ser definida según tu implementación)
-    function mostrarLoading() {
-        // Implementar según necesidades
-        console.log('Procesando inspección...');
+    // Preparar envío del formulario
+    function prepararEnvio(event) {
+        const tieneObservaciones = document.getElementById('toggleObservaciones').checked;
+        
+        if (tieneObservaciones) {
+            // Obtener el contenido HTML del editor
+            const observacionesHTML = quill.root.innerHTML;
+            
+            // Validar que haya contenido
+            if (quill.getText().trim().length === 0) {
+                alert('Por favor, ingrese las observaciones antes de enviar.');
+                event.preventDefault();
+                return false;
+            }
+            
+            // Guardar en el campo oculto
+            document.getElementById('observaciones-hidden').value = observacionesHTML;
+        }
+        
+        // Mostrar loading si existe la función
+        if (typeof mostrarLoading === 'function') {
+            mostrarLoading();
+        }
+        
+        return true;
     }
 </script>
 
