@@ -64,7 +64,8 @@ class DpiAdmin extends BaseController
 
             // 2. Extraer el número de trámite (los primeros 4 dígitos del string restante)
             $numeroTramite = substr($sinPrefijo, 0, 4); // Resultado: '0001'
-
+            $numeroTramite = $numeroTramite + 699;
+        
             // 3. Extraer el año (los últimos 2 dígitos del string restante)
             //    Empezamos en la posición 4 (índice 4), o usamos un índice negativo.
             $anioCorto = substr($sinPrefijo, 4, 2); // Resultado: '25'
