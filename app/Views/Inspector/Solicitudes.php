@@ -128,7 +128,7 @@
                                             'Material Publicado' => 'bg-info',
                                             'Observado' => 'bg-danger',
                                             'Observaciones Levantadas' => 'bg-secondary',
-                                            'Constancia Emitida' => 'bg-primary',
+                                            'Constancia Emitida' => 'bg-success',
                                             default => 'bg-secondary'
                                         };
                                         ?>

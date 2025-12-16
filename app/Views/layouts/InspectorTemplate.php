@@ -96,14 +96,12 @@
 
         function confirmarRegreso() {
             if (confirm("⚠️ Si regresas, los datos que estabas llenando no se guardarán. ¿Deseas continuar?")) {
-                history.back();
+                window.location.href = "<?=base_url('inspector/solicitudes')?>";;
             }
             return false; // evita que el link navegue por defecto
         }
 
-        function Regresar(){
-            history.back();
-        }
+       
     </script>
 </body>
 </html>
