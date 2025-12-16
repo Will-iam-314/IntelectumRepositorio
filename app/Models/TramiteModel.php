@@ -384,11 +384,14 @@ class TramiteModel extends Model
                 CONCAT(solicitantes.nombres_solicitante, " ", solicitantes.apellidos_solicitante) 
                 as nombreCompletoSolicitante,
 
-                estadotramites.nombres_estadotramite as estadoTramite
+                estadotramites.nombres_estadotramite as estadoTramite,
+
+                escuelas.nombre_escuela as solicitanteEscuela 
             ')
             ->join('material', 'material.id_materia = tramites.id_materia_tramite')
             ->join('estadotramites', 'estadotramites.id_estadotramite = tramites.id_estadotramite_tramite')
             ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
+            ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
             ->orderBy('id_tramite','DESC')
             ->findAll();
 

@@ -23,7 +23,7 @@ class Inspector extends BaseController
         $historialModel = new HistorialTramitesModel();
 
         $dataTramite = $tramitesModel->getTramites();
-
+ 
         foreach($dataTramite as &$tramite){
             $idTramite = $tramite['idTramite'];
             $tramite['inspectorAsignado'] = $historialModel->validateInspectorAsignation($idTramite, session('id'));

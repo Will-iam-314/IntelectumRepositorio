@@ -88,14 +88,15 @@
                 <table class="table table-hover align-middle mb-0" id="tramitesTable">
                     <thead class="table-light">
                         <tr>
-                            <th class="text-center" style="width: 50px;">N°</th>
-                            <th style="width: 120px;">Código</th>
-                            <th>Solicitante</th>
-                            <th>Título Material</th>
+                            <th class="text-center" style="width: 50px;vertical-align: middle;">N°</th>
+                            <th class="text-center" style="width: 100px;vertical-align: middle;">Código</th>
+                            <th style="width: 200px;vertical-align: middle;">Solicitante</th>
+                            <th style="width: 500px;vertical-align: middle;">Título Material</th>
                            <!-- <th style="width: 130px;">Tipo Material</th> --->
-                            <th style="width: 130px;">Fecha Presentación</th>
-                            <th style="width: 150px;">Estado</th>
-                            <th class="text-center" style="width: 200px;">Acciones</th>
+                            <th class="text-center"style="width: 100px;vertical-align: middle;">Fecha Presentación</th>
+                            <th class="text-center"style="width: 130px;vertical-align: middle;">Escuela</th>
+                            <th class="text-center" style="width: 100px;vertical-align: middle;">Estado</th>
+                            <th class="text-center" style="width: 200px;vertical-align: middle;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -106,19 +107,20 @@
                                     <td><code class="small"><?= esc($t['codigoTramite']) ?></code></td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="avatar-circle bg-primary text-white me-2">
-                                                <?= strtoupper(substr($t['nombreCompletoSolicitante'], 0, 2)) ?>
-                                            </div>
+                                       
                                             <span><?= esc($t['nombreCompletoSolicitante']) ?></span>
                                         </div>
                                     </td>
                                     <td class="text-wrap"><?= esc($t['tituloMaterial']) ?></td>
                                     <!--<td><span class="badge bg-info text-dark"></span></td>-->
-                                    <td class="text-nowrap">
-                                        <i class="far fa-calendar-alt me-1"></i>
+                                    <td class="text-nowrap text-center">
+                                       
                                         <?= esc(date('d/m/Y', strtotime($t['fechapresentacionTramite']))) ?>
                                     </td>
-                                    <td>
+                                    <td class="text-wrap text-center" ><?=esc($t['solicitanteEscuela'])?></td>
+
+                                    
+                                    <td class="text-wrap">
                                         <?php 
                                         $estadoBadge = match($t['estadoTramite']) {
                                             'Solicitud Presentada' => 'bg-warning text-dark',
@@ -130,7 +132,7 @@
                                             default => 'bg-secondary'
                                         };
                                         ?>
-                                        <span class="badge <?= $estadoBadge ?> w-100">
+                                        <span style="color:white; border-radius:10px; font-size:14px;" class="<?= $estadoBadge ?> d-block p-2 text-center fw-bold">
                                             <?= esc($t['estadoTramite']) ?>
                                         </span>
                                     </td>
