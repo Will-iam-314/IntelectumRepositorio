@@ -260,19 +260,19 @@ class Inspector extends BaseController
         addDcValue($dom, $dublin, "Repositorio institucional - UNU", ["element" => "source", "language" => "es_PE"]);
         addDcValue($dom, $dublin, $datosTramite['campoInvestigacion'], ["element" => "subject", "qualifier" => "ocde"]);
 
-        if($datosTramite['GradoAcademicoOptar'] == 'titulo profesional'){
+        if($datosTramite['GradoAcademicoOptar'] == 'TITULO PROFESIONAL'){
             addDcValue($dom, $dublin, "info:eu-repo/semantics/bachelorThesis", ["element" => "type", "language" => "es_PE"]);
         }
 
-        if($datosTramite['GradoAcademicoOptar'] == 'segunda especialidad'){
+        if($datosTramite['GradoAcademicoOptar'] == 'SEGUNDA ESPECIALIDAD'){
             addDcValue($dom, $dublin, "info:eu-repo/semantics/bachelorThesis", ["element" => "type", "language" => "es_PE"]);   
         }
 
-        if($datosTramite['GradoAcademicoOptar'] == 'maestria'){
+        if($datosTramite['GradoAcademicoOptar'] == 'MAESTRIA'){
             addDcValue($dom, $dublin, "info:eu-repo/semantics/masterThesis", ["element" => "type", "language" => "es_PE"]);      
         }
 
-        if($datosTramite['GradoAcademicoOptar'] == 'doctorado'){
+        if($datosTramite['GradoAcademicoOptar'] == 'DOCTORADO'){
             addDcValue($dom, $dublin, "info:eu-repo/semantics/doctoralThesis", ["element" => "type", "language" => "es_PE"]);
         }
 
@@ -351,7 +351,13 @@ class Inspector extends BaseController
         $domThesis->appendChild($dublinThesis);
 
         // Agregar nodos
-        addDcValue($domThesis, $dublinThesis, "Universidad Nacional de Ucayali. Facultad de ". $datosTramite['solicitanteFacultad'], ["element" => "degree", "qualifier" => "grantor","language"=>"es_PE"]);
+        $facuOrSchool = " Facultad de ";
+        if($datosTramite == 'posgrado'){
+            $facuOrSchool = " Escuela de ";
+        }
+       
+
+        addDcValue($domThesis, $dublinThesis, "Universidad Nacional de Ucayali.".$facuOrSchool. $datosTramite['solicitanteFacultad'], ["element" => "degree", "qualifier" => "grantor","language"=>"es_PE"]);
         addDcValue($domThesis, $dublinThesis, $datosTramite['lineaInvestigacion'], ["element" => "degree", "qualifier" => "discipline","language"=>"es_PE"]);
         addDcValue($domThesis, $dublinThesis, $datosTramite['GradoAcademicoOptar'].' '.$datosTramite['DescripcionGradoOptar'], ["element" => "degree", "qualifier" => "name","language"=>"es_PE"]);
 
@@ -368,8 +374,8 @@ class Inspector extends BaseController
         
 
         
-        $fecha = $datosTramite['fechaSustentacion']; // Ejemplo: "2025-10-05"
-        $dt = new \DateTime($fecha);
+
+        $dt = new \DateTime();
         $mes = (int)$dt->format('m'); // Devuelve 1-12
         $anio = (int)$dt->format('Y'); // Devuelve el año (ej. 2025)
 
@@ -383,7 +389,8 @@ class Inspector extends BaseController
         foreach ($autores as $autor) {
             // Reemplazar espacios por guiones en el nombre
             $nombreFormateado = str_replace(' ', '-', $autor['nombre']);
-            $nombresProcesados[] = $nombreFormateado;
+            $nombreFormateado2 = str_replace(',','',$nombreFormateado);
+            $nombresProcesados[] = $nombreFormateado2;
         }
 
         // Unir todos los nombres con "_"

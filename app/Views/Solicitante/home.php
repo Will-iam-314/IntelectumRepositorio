@@ -39,6 +39,17 @@
         
         </div>
 
+         <?php if ($tramite['estado'] === 'Constancia Emitida'): ?>
+            <div class="text-center mt-4 mb-2">
+                <div class="">
+                    <h4 class="fw-bold">¡Felicidades! Tu constancia ha sido emitida con éxito 🎉</h4>
+                    <span>Cuéntanos cómo fue tu experiencia usando el sistema.</span>
+                    <a target="_blank" href="https://forms.gle/vR4FtVesMRTAMvPn9"> Haciendo clic aqui.</a>
+                </div>
+                
+            </div>
+        <?php endif; ?>
+
         <!-- Stepper de progreso -->
         <div class="stepper-container">
             <?php 
@@ -93,7 +104,7 @@
 
         <?php if ($tramite['estado'] === 'Constancia Emitida'): ?>
             <div class="text-center mt-4 mb-5">
-                
+
                 <a href="<?= base_url('Constancia/'.esc($tramite['codigo']) ) ?>" target="_blank" class="btn-style4">Ver Constancia</a>
                 
             </div>
