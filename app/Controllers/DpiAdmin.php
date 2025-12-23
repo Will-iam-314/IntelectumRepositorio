@@ -267,10 +267,12 @@ class DpiAdmin extends BaseController
 
         $mail = new MailService();            
         $boolmail = $mail->sendMain_EnvioConstancia($solicitanteCorreo,$codigoTramite);
+        $mail->sendMail_EnvioEncuesta($solicitanteCorreo,$codigoTramite);
+        
         if($boolmail){
             return redirect()->back()->withInput()->with('success','Correo Enviado Existosamente!');
         }else{
-
+            return;
         }
     }
 

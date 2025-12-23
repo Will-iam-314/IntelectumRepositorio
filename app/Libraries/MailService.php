@@ -563,6 +563,83 @@ class MailService{
         }
     }
 
+    public function sendMail_EnvioEncuesta($to, $codigoTramite)
+    {
+        $this->email->setTo($to);
+        $this->email->setSubject('CUENTANOS TU EXPERIENCIA USANDO EL SISTEMA');
+
+        $urlLogo = base_url('assets/icons/IntelectumLogoFondoBlanco.png');
+        $urlEncuesta = "https://forms.gle/vR4FtVesMRTAMvPn9";
+
+        $seccionCodigoTramite = '<span style="font-weight: bold; color:#3F81BB;">' . $codigoTramite . '</span>';
+
+        $body = '
+        <div style="font-family: Arial, sans-serif; background-color: #D9D9D9; width: 100%; padding: 50px 0; margin: 0;">
+            <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 10px; overflow: hidden;">
+
+                <!-- Header -->
+                <div style="padding: 30px 20px 20px 20px; text-align: left;">
+                    <div style="display: inline-block; vertical-align: top;">
+                        <img src="' . $urlLogo . '" alt="Logo" style="width: 60px; height: auto; display: block; border: 0;">
+                    </div>
+                    <div style="display: inline-block; vertical-align: top; margin-left: 15px;">
+                        <p style="font-size: 24px; font-weight: bold; color:#0A1D2F; margin: 0;">Intelectum</p>
+                        <p style="font-size: 14px; font-weight: bold; color:#3F81BB; margin: 1px 0 0 0;">Repositorio Institucional</p>
+                    </div>
+                </div>
+
+                <!-- Cuerpo -->
+                <div style="padding: 25px 20px; font-size: 16px; line-height: 1.6; color: #555555;">
+                    <p style="margin: 0 0 15px 0;">Estimado(a) usuario(a),</p>
+
+                    <p style="margin: 0 0 15px 0;">
+                        Su trámite <strong>' . $seccionCodigoTramite . '</strong> concluyo EXITOSAMENTE!.
+                        Con el fin de mejorar continuamente nuestro sistema, lo invitamos a
+                        calificar su experiencia de uso.
+                    </p>
+
+                    <p style="margin: 0 0 15px 0;">
+                        La encuesta es breve y sus respuestas serán tratadas de forma confidencial.
+                    </p>
+
+                    <!-- Botón Encuesta -->
+                    <div style="text-align: center; margin: 25px 0;">
+                        <a href="' . $urlEncuesta . '"
+                        style="display: inline-block; padding: 14px 30px;
+                                background-color: #3F81BB; color: #ffffff;
+                                text-decoration: none; border-radius: 10px;
+                                font-size: 14px; font-weight: bold;">
+                            Responder encuesta
+                        </a>
+                    </div>
+
+                    <p style="font-size: 14px; color:#777;">
+                        Agradecemos su tiempo y colaboración.
+                    </p>
+                </div>
+
+                <!-- Footer -->
+                <div style="background-color: #f8f8f8; padding: 10px 20px; text-align: center; color: #666666;">
+                    <p style="margin: 0; font-size: 14px;"><strong>Universidad Nacional de Ucayali</strong></p>
+                    <p style="margin: 0; font-size: 12px;">Vicerrectorado de Investigación</p>
+                    <p style="margin: 0; font-size: 12px;">Dirección de Producción Intelectual</p>
+                </div>
+
+            </div>
+        </div>
+        ';
+
+        $this->email->setMessage($body);
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            log_message('error', $this->email->printDebugger(['headers']));
+            return false;
+        }
+    }
+
+
 }
 
 ?>
