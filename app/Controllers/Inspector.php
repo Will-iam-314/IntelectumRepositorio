@@ -310,16 +310,16 @@ class Inspector extends BaseController
 
         // Nivel académico (según el grado)
         switch (strtolower($datosTramite['GradoAcademicoOptar'])) {
-            case 'titulo profesional':
+            case 'TITULO PROFESIONAL':
                 $nivel = "https://purl.org/pe-repo/renati/level#tituloProfesional";
                 break;
-            case 'segunda especialidad':
+            case 'SEGUNDA ESPECIALIDAD':
                 $nivel = "	https://purl.org/pe-repo/renati/level#tituloSegundaEspecialidad";
                 break;
-            case 'maestria':
+            case 'MAESTRIA':
                 $nivel = "https://purl.org/pe-repo/renati/level#maestro";
                 break;
-            case 'doctorado':
+            case 'DOCTORADO':
                 $nivel = "https://purl.org/pe-repo/renati/level#doctor";
                 break;
             default:
@@ -352,7 +352,7 @@ class Inspector extends BaseController
 
         // Agregar nodos
         $facuOrSchool = " Facultad de ";
-        if($datosTramite == 'posgrado'){
+        if($datosTramite['solicitanteFacultad'] == 'posgrado'){
             $facuOrSchool = " Escuela de ";
         }
        
