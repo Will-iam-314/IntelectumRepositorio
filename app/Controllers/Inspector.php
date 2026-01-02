@@ -309,7 +309,7 @@ class Inspector extends BaseController
         addDcValue($domRenati, $dublinRenati, $datosTramite['campoAplicacion'], ["element" => "discipline"]);
 
         // Nivel académico (según el grado)
-        switch (strtolower($datosTramite['GradoAcademicoOptar'])) {
+        switch ($datosTramite['GradoAcademicoOptar']) {
             case 'TITULO PROFESIONAL':
                 $nivel = "https://purl.org/pe-repo/renati/level#tituloProfesional";
                 break;
