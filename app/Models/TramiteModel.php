@@ -69,7 +69,11 @@ class TramiteModel extends Model
     public function generaCodigo(){
         $anio = date('y');
 
-        $ultimo = $this->select('codigo_tramite')->orderBy('id_tramite','DESC')->first();
+        //ACTULIZACION 04/01/2025 
+        $ultimo = $this->select('codigo_tramite')
+        ->where('RIGHT(codigo_tramite, 2) =', $anio, false)
+        ->orderBy('CAST(SUBSTRING(codigo_tramite, 4, 4) AS UNSIGNED)', 'DESC', false)
+        ->first();
 
         if($ultimo){
             // Extraer los 4 dígitos (del medio)
