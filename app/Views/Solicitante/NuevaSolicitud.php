@@ -221,9 +221,10 @@
                 <ul class="description-input">
                     <li>Pg.1.  Caratula (sin numeración).</li>
                     <li>Pg.2.  Acta de Sustentación y/o Defensa de la Tesis.</li>
-                    <li>Pg.3.  Constancia Originalidad del Trabajo de Investigación (COTI).</li>
+                    <li>Pg.3.  Acta de Aprobación (en caso sea pregrado).</li>
+                    <li>Pg.4.  Constancia Originalidad del Trabajo de Investigación (COTI).</li>
                     <li>Pg.4.  Autorización de Publicación.</li>
-                    <li>Pg.5.  En adelante el contenido de la tesis desde la Dedicatoria hasta los Anexos, tal como lo señala su reglamento.</li>
+                    <li>Pg.6.  En adelante el contenido de la tesis desde la Dedicatoria hasta los Anexos, tal como lo señala su reglamento.</li>
                     <li>Ver ejemplos en el   <a href="www.repositorio.unu.edu.pe" target=_blank>Repositorio</a></li>
                 </ul>
                 
