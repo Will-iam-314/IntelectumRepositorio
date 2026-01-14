@@ -219,7 +219,7 @@
             <div class="">
                 <span class="description-input"> Cargar el Archivo de las tesis <strong> en PDF</strong> con el siguiente formato: </span>
                 <ul class="description-input">
-                    <li>Pg.1.  Caratula (sin numeración).</li>
+                    <li>Pg.1.  <a href="https://docs.google.com/document/d/1P-yN5Q-ZLlLTTGOQGuF6ZjOzlUsXf7jnLC1mz7wmML0/edit?tab=t.0" target=_blank>Caratula </a> (sin numeración).</li>
                     <li>Pg.2.  Acta de Sustentación y/o Defensa de la Tesis.</li>
                     <li>Pg.3.  Acta de Aprobación (en caso sea pregrado).</li>
                     <li>Pg.4.  Constancia Originalidad del Trabajo de Investigación (COTI).</li>
