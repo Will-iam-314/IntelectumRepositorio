@@ -186,7 +186,7 @@ class DpiAdmin extends BaseController
         $pdf->Ln(10);
         $pdf->SetFont('helvetica', '', 14); 
         $pdf->MultiCell(0, 15, 
-            "La Dirección de Producción Intelectual de la Universidad Nacional de Ucayali, hace constar por la presente, que el trabajo de investigación titulado: ", 
+            "La Dirección de Producción Intelectual de la Universidad Nacional de Ucayali, hace constar por la presente, que la tesis titulada: ", 
             0, 'J', 0, 1, '', '', false
         );
         

@@ -87,7 +87,6 @@ $routes->group('dpi',['filter'=>'dpi'], function($routes){
     $routes->get('enviarConstancia/(:segment)/(:segment)','DpiAdmin::enviarConstancia/$1/$2');
     $routes->get('verConstancia/(:segment)','DpiAdmin::getViewConstancia/$1');
    
-
 });
 
 $routes->get('Constancia/(:segment)','DpiAdmin::verConstancia/$1');
