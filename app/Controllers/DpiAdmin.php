@@ -267,6 +267,7 @@ class DpiAdmin extends BaseController
 
         $mail = new MailService();            
         $boolmail = $mail->sendMain_EnvioConstancia($solicitanteCorreo,$codigoTramite);
+        $mail->sendMain_EnvioConstancia('dgpi_vri@unu.edu.pe',$codigoTramite);
         $mail->sendMail_EnvioEncuesta($solicitanteCorreo,$codigoTramite);
         
         if($boolmail){
