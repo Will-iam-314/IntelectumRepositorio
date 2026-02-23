@@ -304,7 +304,7 @@
     /* Estilos del visor PDF */
     .pdf-container {
         width: 100%;
-        height: 720px;
+        height: 100%;
         background: #f5f5f5;
         border-radius: 0.375rem;
         overflow: hidden;
@@ -487,6 +487,7 @@
 <!-- Quill JS -->
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
 
+
 <script>
     // Inicializar Quill Editor con toolbar completo
     const quill = new Quill('#editor-container', {
@@ -546,29 +547,105 @@
 
     // Preparar envío del formulario
     function prepararEnvio(event) {
+
+        event.preventDefault(); // Siempre detener primero
+
         const tieneObservaciones = document.getElementById('toggleObservaciones').checked;
-        
+
         if (tieneObservaciones) {
-            // Obtener el contenido HTML del editor
+
             const observacionesHTML = quill.root.innerHTML;
-            
-            // Validar que haya contenido
+
+            // Validar que no esté vacío
             if (quill.getText().trim().length === 0) {
-                alert('Por favor, ingrese las observaciones antes de enviar.');
-                event.preventDefault();
-                return false;
+
+                Swal.fire({
+                    title: 'Observaciones Activadas',
+                    text: 'Por favor, ingrese las observaciones antes de enviar.',
+                    icon: 'warning',
+                    confirmButtonText: 'Aceptar',
+                    confirmButtonColor: '#e48546'
+                });
+
+                return;
             }
-            
-            // Guardar en el campo oculto
-            document.getElementById('observaciones-hidden').value = observacionesHTML;
+
+            // 🔥 NUEVA CONFIRMACIÓN CUANDO SÍ HAY TEXTO
+            Swal.fire({
+                title: '¿Enviar con observaciones?',
+                text: 'Se enviará el material con las observaciones registradas.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Sí, enviar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#198754',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    // Guardar en campo oculto
+                    document.getElementById('observaciones-hidden').value = observacionesHTML;
+
+                    // 🔥 Mostrar loader en vez de success inmediato
+                    Swal.fire({
+                        title: 'Observando00 material...',
+                        html: 'Por favor espere mientras se procesa la información.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Pequeño delay visual (opcional)
+                    setTimeout(() => {
+                        event.target.submit();
+                    }, 800);
+
+                }
+
+            });
+
+        } else {
+
+            // Caso aprobar sin observaciones
+            Swal.fire({
+                title: '¿Estás seguro de Aprobar el Material?',
+                text: "Esta acción no se puede deshacer",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sí',
+                cancelButtonText: 'No',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33'
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+                    // 🔥 Mostrar loader en vez de success inmediato
+                    Swal.fire({
+                        title: 'Aprobando material...',
+                        html: 'Por favor espere mientras se procesa la información.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Pequeño delay visual (opcional)
+                    setTimeout(() => {
+                        event.target.submit();
+                    }, 800);
+
+                }
+
+            });
+
         }
-        
-        // Mostrar loading si existe la función
-        if (typeof mostrarLoading === 'function') {
-            mostrarLoading();
-        }
-        
-        return true;
     }
 </script>
 

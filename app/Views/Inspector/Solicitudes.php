@@ -93,7 +93,8 @@
                             <th style="width: 200px;vertical-align: middle;">Solicitante</th>
                             <th style="width: 500px;vertical-align: middle;">Título Material</th>
                            <!-- <th style="width: 130px;">Tipo Material</th> --->
-                            <th class="text-center"style="width: 100px;vertical-align: middle;">Fecha Presentación</th>
+                            <th class="text-center"style="width: 100px;vertical-align: middle;">Fecha Present.</th>
+                            <th class="text-center"style="width: 100px;vertical-align: middle;">Dias Transc.</th>
                             <th class="text-center"style="width: 130px;vertical-align: middle;">Escuela</th>
                             <th class="text-center" style="width: 100px;vertical-align: middle;">Estado</th>
                             <th class="text-center" style="width: 200px;vertical-align: middle;">Acciones</th>
@@ -116,7 +117,24 @@
                                     <td class="text-nowrap text-center">
                                        
                                         <?= esc(date('d/m/Y', strtotime($t['fechapresentacionTramite']))) ?>
+                                    </td > 
+                                    
+                                       
+                                    <td class="text-nowrap text-center">
+                                        <?php
+
+                                            $fechaInicio = new DateTime($t['fechapresentacionTramite']);
+                                            $fechaActual = new DateTime(); // hoy
+
+                                            $diferencia = $fechaInicio->diff($fechaActual);
+
+                                            $diasTranscurridos = $diferencia->days;
+
+                                            echo $diasTranscurridos.' dias'; 
+                                        
+                                        ?>
                                     </td>
+
                                     <td class="text-wrap text-center" ><?=esc($t['solicitanteEscuela'])?></td>
 
                                     
@@ -299,8 +317,16 @@
 
 <script>
     // Alerta de éxito
-    <?php if(session()->getFlashdata('success')): ?>
-        alert('<?php echo session()->getFlashdata('success'); ?>');
+   <?php if(session()->getFlashdata('success')): ?>
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Inspeccion Terminada',
+            text: '<?= session()->getFlashdata('success'); ?>',
+            confirmButtonColor: '#198754',
+            confirmButtonText: 'Aceptar'
+        });
+ 
     <?php endif; ?>
 
     // Referencias a elementos

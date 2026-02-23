@@ -62,6 +62,9 @@ class DpiAdmin extends BaseController
             //    Empezamos en la posición 3 (índice 3), que es el primer '0'.
             $sinPrefijo = substr($codigoTramite, 3); // Resultado: '000125' 
 
+    
+            
+
             // 2. Extraer el número de trámite (los primeros 4 dígitos del string restante)
             $numeroTramite = substr($sinPrefijo, 0, 4); // Resultado: '0001'
             
@@ -73,8 +76,14 @@ class DpiAdmin extends BaseController
             // 4. Construir el año completo
             $anioCompleto = '20' . $anioCorto; // Resultado: '2025'
 
-            // 5. Combinar los resultados con el guion
-            $numConstancia = $numeroTramite . '-' . $anioCompleto;
+            if($anioCompleto == 2025){
+                $numConstancia = ($numeroTramite+699) . '-' . $anioCompleto;
+            }else{
+                // 5. Combinar los resultados con el guion
+                $numConstancia = $numeroTramite . '-' . $anioCompleto;
+            }
+
+            
 
         //**** TITULO DEL MATERIAÑ */
             $tituloTrabajo = $dataTramite['tituloMaterial'];

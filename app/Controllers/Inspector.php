@@ -127,14 +127,14 @@ class Inspector extends BaseController
                 $tramiteModel->updateEstado($datosTramite['idTramite'],3);
                 $mail->sendMail_TramiteObservado($datosTramite['emailUsuario'],$codigoTramite);
 
-                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección registrada con observaciones correctamente');
+                return redirect()->to('inspector/solicitudes')->with('success', 'Material observado');
 
             }else{
 
                 $historialModel->newHistorialTramite(session('id'),$datosTramite['idTramite'],session('rol'),5);
                 $tramiteModel->updateEstado($datosTramite['idTramite'],5);
                 $mail->sendMail_MaterialAprobado($datosTramite['emailUsuario'],$codigoTramite);
-                return redirect()->to('inspector/solicitudes')->with('success', 'Inspección material aprobado correctamente');
+                return redirect()->to('inspector/solicitudes')->with('success', 'Material aprobado correctamente');
             }
 
             

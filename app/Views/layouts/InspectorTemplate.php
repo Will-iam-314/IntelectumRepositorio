@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css?v=1.3') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/Inspector.css?v=1.0') ?>">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"> 
+    
 
 </head> 
 <body class="body-templates">
@@ -77,12 +78,12 @@
 
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     
     
     <?= $this->renderSection('scripts') ?>
-
+   
     
 
     <script>
