@@ -54,7 +54,7 @@ $routes->group('admin',['filter'=>'administrador'], function($routes){
 
     $routes->get('home','Administrador::index');
 
-});
+}); 
 
 $routes->group('inspector',['filter'=>'inspector'], function($routes){   
 
@@ -63,6 +63,8 @@ $routes->group('inspector',['filter'=>'inspector'], function($routes){
 
     $routes->get('inspeccion/(:segment)/(:num)','Inspector::getViewInspeccion/$1/$2'); 
     $routes->get('inspeccionObservaciones/(:segment)/(:num)','Inspector::getViewInspeccionObservaciones/$1/$2'); 
+
+    $routes->get('detalleTramite/(:segment)','Inspector::getViewDetalleTramite/$1');
 
     $routes->get('publicacion/(:num)/(:segment)','Inspector::getViewPublicacion/$1/$2');
     $routes->get('downloadPaquete/(:segment)','Inspector::generatePaquetePublicacion/$1');

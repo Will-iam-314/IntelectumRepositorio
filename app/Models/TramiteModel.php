@@ -362,9 +362,121 @@ class TramiteModel extends Model
             $observaciones = $revisionMaterialModel->select('observacion_materiarevision as observaciones')
             ->where('id_materia_materiarevision' ,$tramite['idMaterial'])
             ->orderBy('id_materiarevision','DESC')
-            ->first();
+            ->first(); 
 
             $tramite['observaciones'] = $observaciones['observaciones'];
+            
+            return $tramite;
+
+        }catch(Exception $e){
+            log_message('error', $e->getMessage());
+            return false;
+        }
+    }
+
+    public function getDetalleTramite($codigo){
+        try{
+
+    
+            
+            $tramite = $this->select('
+                
+                material.id_materia as idMaterial,
+                material.titulo_materia as tituloMaterial, 
+                material.tipo_materia as tipomateriaMaterial, 
+                material.autores_materia as autores,
+                
+                tesis.id_tesi as idTesis,
+                tesis.documento_tesi as fileTesis, 
+                tesis.resumen_tesi as resumenTesis,
+                tesis.palabrasclave_tesi as palabrasclaveTesis,
+                
+                tesis.docente_asesor_tesi as Asesor,
+                tesis.docente_jurado1_tesi as Jurado1,
+                tesis.docente_jurado2_tesi as Jurado2,
+                tesis.docente_jurado3_tesi as Jurado3,
+
+                tesis.gradoAcademicoOptar_tesi as GradoAcademicoOptar,
+                tesis.descripcionGradoAcademico_tesi as DescripcionGradoOptar,
+
+               
+                tramites.id_tramite as idTramite,
+                tramites.codigo_tramite as codigoTramite, 
+                tramites.date_created_tramite as fechapresentacionTramite,
+                tramites.declaracionJurada_tramite as fileDeclaracionJuradaTramite,
+                tramites.autorizacionPublicacion_tramite as fileAutorizacionPublicacionTramite,
+
+                estadotramites.nombres_estadotramite as estadoTramite,
+
+                solicitantes.nombres_solicitante as solicitanteNombre,
+                solicitantes.apellidos_solicitante as solicitanteApellido,
+                solicitantes.dni_solicitante as solicitanteDNI,
+                
+                escuelas.nombre_escuela as solicitanteEscuela 
+
+
+            ')
+            ->join('material', 'material.id_materia = tramites.id_materia_tramite')
+            ->join('estadotramites', 'estadotramites.id_estadotramite = tramites.id_estadotramite_tramite')
+            ->join('tesis','tesis.id_tesi = material.id_tesi_materia')
+            ->join('solicitantes','solicitantes.id_solicitante = tramites.id_solicitante_tramite')
+            ->join('escuelas','escuelas.id_escuela = solicitantes.id_escuela_solicitante')
+            
+
+            ->where('tramites.codigo_tramite', $codigo)
+            ->first();
+
+            $datosArrayAsesor = explode('|',$tramite['Asesor']);
+
+            $Asesor = $datosArrayAsesor[0];
+            $dniAsesor = $datosArrayAsesor[1];
+            $orcidAsesor = $datosArrayAsesor[2];
+
+            $tramite['Asesor'] = $Asesor;
+            $tramite['dniAsesor'] = $dniAsesor;
+            $tramite['orcidAsesor'] = $orcidAsesor;
+
+            $arrayPalabrasClave = array_map('trim', explode(",", $tramite['palabrasclaveTesis']));
+            $tramite['palabrasclaveTesis'] = $arrayPalabrasClave;
+
+
+            // 1. Dividir el string por el separador de autores ('/')
+            $autores_array_temp = explode('/', $tramite['autores']);
+
+            // Array para almacenar la información estructurada de cada autor
+            $autores_estructurados = [];
+
+            // 2. Iterar sobre cada autor para separar Nombre y DNI
+            foreach ($autores_array_temp as $autor_data) {
+                // Usar explode() para dividir los datos del autor por el pipe ('|')
+                // Usamos list() o la sintaxis corta ([]) para asignar directamente a variables
+                
+                // Aseguramos que el explode genere solo 2 elementos (Nombre y DNI)
+                $datos_separados = explode('|', $autor_data, 2);
+
+                // Verificamos que tengamos al menos 2 elementos antes de asignar
+                if (count($datos_separados) === 2) {
+                    // Asignación directa a variables
+                    $nombre = $datos_separados[0];
+                    $dni = $datos_separados[1];
+
+                    // 3. Almacenar la información en el array final estructurado
+                    $autores_estructurados[] = [
+                        'nombre' => trim($nombre), // Usamos trim para eliminar posibles espacios
+                        'dni' => trim($dni),
+                    ];
+                }
+            }
+
+            $tramite['autores'] = $autores_estructurados;
+
+            $revisionMaterialModel = new MaterialRevisionesModel;
+
+            $revisiones = $revisionMaterialModel->select('observacion_materiarevision,estado_materiarevision,date_create_materiarevision')
+                   ->where('id_materia_materiarevision', $tramite['idMaterial'])
+                   ->findAll();
+
+            $tramite['revisiones'] = $revisiones;
             
             return $tramite;
 

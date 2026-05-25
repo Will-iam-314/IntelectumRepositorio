@@ -32,7 +32,8 @@ class MaterialRevisionesModel extends Model
 
  
     public function newRevision($data){
-         try{
+        
+        try{
 
             $idnewRevision = $this->insert([
 
@@ -69,4 +70,6 @@ class MaterialRevisionesModel extends Model
             return false;
         }
     }
+
+    
 }

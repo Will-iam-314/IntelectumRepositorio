@@ -10,12 +10,12 @@
                 <i class="fas fa-arrow-left me-2"></i>Atrás
             </button>
             <h1 class="h3 mb-0 text-gray-800">
-                <i class="fas fa-search-plus me-2"></i>Inspección de Material
+                <i class="fas fa-search-plus me-2"></i>DETALLE DEL TRAMITE
             </h1>
         </div>
     </div>
 
-    <!-- Información del trámite -->
+<!-- Información del trámite -->
     <div class="card shadow-sm mb-4">
         <div class="card-body">
             <div class="row align-items-center">
@@ -43,24 +43,6 @@
         </div>
     </div>
 
-    <!-- Alerta de observaciones anteriores -->
-    <?php if(!empty($observaciones)): ?>
-        <div class="alert alert-warning shadow-sm" role="alert">
-            <div class="d-flex">
-                <div class="me-3">
-                    <i class="fas fa-exclamation-triangle fa-2x"></i>
-                </div>
-                <div>
-                    <h5 class="alert-heading">
-                        <i class="fas fa-clipboard-list me-2"></i>Observaciones Anteriores
-                    </h5>
-                    <!-- Mostrar HTML de observaciones anteriores -->
-                    <div class="observaciones-anteriores"><?= $observaciones ?></div>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
-    
     <!-- Contenedor principal: Visor y Panel -->
     <div class="row g-4">
         <!-- Visor de documentos -->
@@ -84,41 +66,48 @@
             </div>
         </div>
 
-        <!-- Panel de inspección y detalles -->
+        <!-- Panel de  detalles -->
         <div class="col-lg-5">
             <div class="card shadow-sm">
+
                 <div class="card-header bg-white">
+                    
                     <ul class="nav nav-tabs card-header-tabs" id="tabMenu" role="tablist">
+                        
+                 
+                 
+
                         <li class="nav-item" role="presentation">
-                            <button style="color:black !important;" class="nav-link active" id="inspeccion-tab" data-bs-toggle="tab" 
-                                    data-bs-target="#inspeccion" type="button" role="tab">
-                                <i class="fas fa-clipboard-check me-2"></i>Inspección
+                            <button style="color:black !important;" class="nav-link active" id="detalle-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#detalle" type="button" role="tab">
+                                <i class="fas fa-info-circle me-2"></i> Detalle
                             </button>
                         </li>
+
                         <li class="nav-item" role="presentation">
-                            <button style="color:black !important;" class="nav-link" id="detalle-tab" data-bs-toggle="tab" 
-                                    data-bs-target="#detalle" type="button" role="tab">
-                                <i class="fas fa-info-circle me-2"></i>Detalle
+                            <button style="color:black !important;" class="nav-link" id="revisiones-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#revisiones" type="button" role="tab">
+                                <i class="fas fa-info-circle me-2"></i>Revisiones
                             </button>
-                        </li> 
+                        </li>
+
+                  
+
                     </ul>
                 </div>
                 
                 <div class="card-body">
                     <div class="tab-content" id="tabContent">
                         
-                        <!-- Tab de Inspección -->
-                        <div class="tab-pane fade show active" id="inspeccion" role="tabpanel">
-                            <form action="<?= base_url('inspector/nuevaInspeccion/'.$idMaterial.'/'.$codigoTramite) ?>" 
-                                  method="POST" onsubmit="return prepararEnvio(event)">
-                                <?= csrf_field() ?>
-                                
-                                <!-- Selector de documento -->
+                        
+                        <!-- Tab de Detalle -->
+                        <div class="tab-pane fade show active" id="detalle" role="tabpanel">
+                            <!-- Selector de documento -->
                                 <div class="mb-4">
                                     <label for="documentSelect" class="form-label fw-bold">
                                         <i class="fas fa-folder-open me-2"></i>Seleccionar Documento
                                     </label>
-                                   
+                                    
                                     <select id="documentSelect" class="form-select form-select-lg">
                                         <option value="<?= base_url('inspector/documentos/verTesis/'.$fileTesis) ?>" selected>
                                             <i class="fas fa-book"></i> Tesis Principal
@@ -131,42 +120,6 @@
                                         </option>
                                     </select>
                                 </div>
-
-                                <!-- Switch de observaciones -->
-                                <div class="card bg-light mb-4">
-                                    <div class="card-body">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" name="tiene_observaciones" 
-                                                   type="checkbox" id="toggleObservaciones" role="switch">
-                                            <label class="form-check-label fw-bold" for="toggleObservaciones">
-                                                <i class="fas fa-comment-dots me-2"></i>Añadir Observaciones
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Editor Quill -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">
-                                        <i class="fas fa-edit me-2"></i>Observaciones
-                                    </label>
-                                    <div id="editor-container" class="disabled"></div>
-                                    <input type="hidden" name="observaciones" id="observaciones-hidden">
-                                    <small class="text-muted mt-2 d-block">
-                                        <i class="fas fa-info-circle me-1"></i>
-                                        Use la barra de herramientas para dar formato a sus observaciones. 
-                                    </small>
-                                </div>
-                                
-                                <!-- Botón de envío -->
-                                <button type="submit" class="btn btn-success btn-lg w-100 mb-1">
-                                    <i class="fas fa-check-circle me-2"></i>Terminar Inspección
-                                </button>
-                            </form>
-                        </div>
-
-                        <!-- Tab de Detalle -->
-                        <div class="tab-pane fade" id="detalle" role="tabpanel">
                             <div class="detail-section">
                                 <!-- Datos del Trámite -->
                                 <div class="mb-4">
@@ -282,25 +235,112 @@
                             </div>
                         </div>
 
+                        <div class="tab-pane fade " id="revisiones" role="tabpanel">
+                        
+                            <div class="detail-section">
+                                <?php if(!empty($revisiones)): ?>
+
+                                    <div class="row g-3">
+
+                                        <?php foreach($revisiones as $index => $revision): ?>
+
+                                            <div class="col-12">
+                                                <div class="card shadow-sm border-0">
+                                                    <div class="card-header bg-light">
+                                                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+
+                                                            <div>
+                                                                <h6 class="mb-1 fw-bold">
+                                                                    Revisión #<?= $index + 1 ?>
+                                                                </h6>
+
+                                                                <small class="text-muted">
+                                                                    <?= date('d/m/Y h:i A', strtotime($revision['date_create_materiarevision'])) ?>
+                                                                </small>
+
+                                                            </div>
+
+                                                            <div class="mt-2 mt-md-0">
+
+                                                                <?php
+                                                                    $badgeClass='secondary';
+
+                                                                    switch(strtolower($revision['estado_materiarevision'])){
+
+                                                                        case 'observado':
+                                                                            $badgeClass='warning';
+                                                                            break;
+
+                                                                        case 'aprobado':
+                                                                            $badgeClass='success';
+                                                                            break;
+
+                                                                       
+                                                                    }
+                                                                ?>
+
+                                                                <span class="badge bg-<?= $badgeClass ?> fs-6">
+
+                                                                    <?= ucfirst($revision['estado_materiarevision']) ?>
+
+                                                                </span>
+
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="card-body">
+
+                                                        <h6 class="text-primary mb-3">
+                                                            Observaciones del Inspector
+                                                        </h6>
+
+                                                        <div style="background-color:#f8f9fa;" class="border rounded p-3 ">
+
+                                                            <?php if(strtolower($revision['estado_materiarevision']) == 'observado'):  ?>
+                                                                <?= $revision['observacion_materiarevision'] ?>
+                                                            <?php else: ?>
+                                                                 Material Aprobado
+                                                            <?php endif; ?>
+
+                                                            
+ 
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+                                <?php else: ?>
+
+                                    <div class="alert alert-info text-center">
+
+                                        No existen revisiones registradas.
+
+                                    </div>
+
+                                <?php endif; ?>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Mensajes de error -->
-    <?php if(session()->getFlashdata('errors')!==null): ?>
-        <div class="alert alert-danger shadow-sm mt-4" role="alert">
-            <i class="fas fa-exclamation-circle me-2"></i>
-            <?= session()->getFlashdata('errors');?>
-        </div>
-    <?php endif; ?>
 </div>
 
-<!-- CSS de Quill -->
-<link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
-
 <style>
+
     /* Estilos del visor PDF */
     .pdf-container {
         width: 100%;
@@ -353,50 +393,6 @@
         color: #0d6efd;
         background-color: #fff;
         border-bottom: 3px solid #0d6efd;
-    }
-
-    /* Estilos para Quill Editor */
-    #editor-container {
-        height: 400px;
-        background: white;
-        border: 1px solid #ced4da;
-        border-radius: 0.375rem;
-    }
-
-    #editor-container.disabled {
-        background-color: #e9ecef;
-        opacity: 0.6;
-        pointer-events: none;
-    }
-
-    .ql-toolbar {
-        background: #f8f9fa;
-        border-top-left-radius: 0.375rem;
-        border-top-right-radius: 0.375rem;
-    }
-
-    .ql-container {
-        border-bottom-left-radius: 0.375rem;
-        border-bottom-right-radius: 0.375rem;
-        font-size: 0.95rem;
-    }
-
-    /* Estilos para mostrar observaciones anteriores con formato */
-    .observaciones-anteriores ul,
-    .observaciones-anteriores ol {
-        margin-left: 20px;
-        margin-bottom: 10px;
-    }
-
-    .observaciones-anteriores a {
-        color: #0d6efd;
-        text-decoration: underline;
-    }
-
-    /* Switch personalizado */
-    .form-check-input:checked {
-        background-color: #0d6efd;
-        border-color: #0d6efd;
     }
 
     /* Sección de detalles */
@@ -478,38 +474,11 @@
     .alert-danger {
         border-left-color: #dc3545;
     }
+
+
 </style>
 
-<?= $this->endSection();?>
-
-<?= $this->section('scripts');?>
-
-<!-- Quill JS -->
-<script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
-
-
 <script>
-    // Inicializar Quill Editor con toolbar completo
-    const quill = new Quill('#editor-container', {
-        theme: 'snow',
-        placeholder: 'Escriba sus observaciones aquí...',
-        modules: {
-            toolbar: [
-       
-                [{ 'font': [] }],
-                [{ 'size': ['small', false, 'large', 'huge'] }],
-                ['bold', 'italic', 'underline', 'strike'],
-                [{ 'color': [] }, { 'background': [] }],
-                [{ 'list': 'ordered'}, { 'list': 'bullet' },{ 'indent': '-1'}, { 'indent': '+1' },{ 'align': [] }],
-                ['link', 'image', 'video'],
-                ['clean']
-            ]
-        }
-    });
-
-    // Deshabilitar el editor inicialmente
-    quill.enable(false);
-
     // Cambiar documento en visor
     document.getElementById('documentSelect').addEventListener('change', function() {
         const viewer = document.getElementById('pdfViewer');
@@ -522,131 +491,5 @@
         }, 300);
     });
 
-    // Toggle observaciones
-    const toggle = document.getElementById('toggleObservaciones');
-    const editorContainer = document.getElementById('editor-container');
-
-    toggle.addEventListener('change', function() {
-        if (this.checked) {
-            quill.enable(true);
-            editorContainer.classList.remove('disabled');
-            quill.focus();
-        } else {
-            quill.enable(false);
-            editorContainer.classList.add('disabled');
-            quill.setText(''); // Limpiar contenido
-        }
-    });
-
-    // Confirmación de regreso
-    function confirmarRegreso() {
-        if (confirm('¿Está seguro de que desea salir? Los cambios no guardados se perderán.')) {
-            window.history.back();
-        }
-    }
-
-    // Preparar envío del formulario
-    function prepararEnvio(event) {
-
-        event.preventDefault(); // Siempre detener primero
-
-        const tieneObservaciones = document.getElementById('toggleObservaciones').checked;
-
-        if (tieneObservaciones) {
-
-            const observacionesHTML = quill.root.innerHTML;
-
-            // Validar que no esté vacío
-            if (quill.getText().trim().length === 0) {
-
-                Swal.fire({
-                    title: 'Observaciones Activadas',
-                    text: 'Por favor, ingrese las observaciones antes de enviar.',
-                    icon: 'warning',
-                    confirmButtonText: 'Aceptar',
-                    confirmButtonColor: '#e48546'
-                });
-
-                return;
-            }
-
-            // 🔥 NUEVA CONFIRMACIÓN CUANDO SÍ HAY TEXTO
-            Swal.fire({
-                title: '¿Enviar con observaciones?',
-                text: 'Se enviará el material con las observaciones registradas.',
-                icon: 'question',
-                showCancelButton: true,
-                confirmButtonText: 'Sí, enviar',
-                cancelButtonText: 'Cancelar',
-                confirmButtonColor: '#198754',
-                cancelButtonColor: '#d33'
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    // Guardar en campo oculto
-                    document.getElementById('observaciones-hidden').value = observacionesHTML;
-
-                    // 🔥 Mostrar loader en vez de success inmediato
-                    Swal.fire({
-                        title: 'Observando00 material...',
-                        html: 'Por favor espere mientras se procesa la información.',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        showConfirmButton: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-
-                    // Pequeño delay visual (opcional)
-                    setTimeout(() => {
-                        event.target.submit();
-                    }, 800);
-
-                }
-
-            });
-
-        } else {
-
-            // Caso aprobar sin observaciones
-            Swal.fire({
-                title: '¿Estás seguro de Aprobar el Material?',
-                text: "Esta acción no se puede deshacer",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Sí',
-                cancelButtonText: 'No',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33'
-            }).then((result) => {
-
-                if (result.isConfirmed) {
-
-                    // 🔥 Mostrar loader en vez de success inmediato
-                    Swal.fire({
-                        title: 'Aprobando material...',
-                        html: 'Por favor espere mientras se procesa la información.',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        showConfirmButton: false,
-                        didOpen: () => {
-                            Swal.showLoading();
-                        }
-                    });
-
-                    // Pequeño delay visual (opcional)
-                    setTimeout(() => {
-                        event.target.submit();
-                    }, 800);
-
-                }
-
-            });
-
-        }
-    }
 </script>
-
-<?= $this->endSection();?>
+<?= $this->endSection();?> 

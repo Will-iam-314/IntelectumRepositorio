@@ -103,7 +103,8 @@
                     <tbody>
                         <?php if (!empty($tramites)): ?>
                             <?php $i = count($tramites); foreach ($tramites as $t): ?>
-                                <tr data-estado="<?= esc($t['estadoTramite']) ?>">
+
+                                <tr onclick="verDetalleTramite('<?= $t['codigoTramite']?>')" data-estado="<?= esc($t['estadoTramite']) ?>">
                                     <td class="text-center text-muted"><?= $i-- ?></td>
                                     <td><code class="small"><?= esc($t['codigoTramite']) ?></code></td>
                                     <td>
@@ -157,13 +158,13 @@
                                     <td class="text-center">
                                         <?php if ($t['estadoTramite'] === "Solicitud Presentada" && $t['inspectorAsignado'] == false): ?>
                                             <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/0' ?>" 
-                                               class="btn btn-sm btn-primary">
+                                               class="btn btn-sm btn-primary" onclick="event.stopPropagation()">
                                                 <i class="fas fa-search me-1"></i>Inspeccionar
                                             </a>
 
                                         <?php elseif($t['estadoTramite'] === "Material Aprobado" && $t['inspectorAsignado'] == true): ?> 
                                             <a href="<?= base_url('inspector/publicacion/'.$t['idTramite'].'/'.$t['codigoTramite'])?>" 
-                                               class="btn btn-sm btn-success">
+                                               class="btn btn-sm btn-success" onclick="event.stopPropagation()">
                                                 <i class="fas fa-file-export me-1"></i>Generar Publicación
                                             </a>
 
@@ -174,7 +175,7 @@
                                         
                                         <?php elseif($t['inspectorAsignado'] == true && !in_array($t['estadoTramite'], ["Observado", "Observaciones Levantadas", "Constancia Emitida"])): ?> 
                                             <a href="<?= base_url('inspector/inspeccion/'.$t['codigoTramite']).'/1' ?>" 
-                                               class="btn btn-sm btn-primary">
+                                               class="btn btn-sm btn-primary" onclick="event.stopPropagation()">
                                                 <i class="fas fa-play me-1"></i>Continuar Inspección
                                             </a>
 
@@ -185,7 +186,7 @@
                                         
                                         <?php elseif($t['estadoTramite'] === "Observaciones Levantadas" && $t['inspectorAsignado'] == true): ?> 
                                             <a href="<?= base_url('inspector/inspeccionObservaciones/'.$t['codigoTramite'].'/'.$t['idMaterial']) ?>" 
-                                               class="btn btn-sm btn-warning">
+                                               class="btn btn-sm btn-warning" onclick="event.stopPropagation()">
                                                 <i class="fas fa-clipboard-check me-1"></i>Ver Correcciones
                                             </a>
 
@@ -246,12 +247,9 @@
         flex-shrink: 0;
     }
     
-    .table tbody tr {
-        transition: background-color 0.2s;
-    }
-    
     .table tbody tr:hover {
         background-color: rgba(0, 123, 255, 0.05);
+        cursor:pointer;
     }
     
     .input-group-text {
@@ -328,6 +326,15 @@
         });
  
     <?php endif; ?>
+
+    // Redireccion a detalle
+
+    function verDetalleTramite(codigo){
+        
+        window.location.href = "<?= base_url('inspector/detalleTramite/') ?>" + codigo;
+
+    }
+
 
     // Referencias a elementos
     const searchSolicitante = document.getElementById('searchSolicitante');

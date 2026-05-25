@@ -64,9 +64,16 @@ class Inspector extends BaseController
             
             return view('inspector/inspeccion',$datosTramite);
         }
-        
-        
-       
+   
+    }
+
+    public function getViewDetalleTramite($codigoTramite){
+        $tramiteModel = new TramiteModel();
+        $datosTramite = $tramiteModel->getDetalleTramite($codigoTramite);
+  
+        if($datosTramite){ 
+            return view('inspector/detalleTramite',$datosTramite);
+        }
     }
 
     public function getViewPublicacion($idTramite,$codigoTramite){
