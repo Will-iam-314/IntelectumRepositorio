@@ -2,7 +2,7 @@
 
 <?= $this->section('content');?>
 
-<h1>HOME ADMINISTRADOR DPI</h1>
+<h1 class="mt-4">¡Bienvenido Administrador DPI!</h1>
 
 
 

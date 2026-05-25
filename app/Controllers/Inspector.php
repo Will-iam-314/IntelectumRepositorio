@@ -30,7 +30,7 @@ class Inspector extends BaseController
         }
         unset($tramite);
 
-        return view('inspector/Solicitudes', ['tramites' => $dataTramite]);
+        return view('inspector/Solicitudes', ['tramites' => $dataTramite]); 
 
     }
 

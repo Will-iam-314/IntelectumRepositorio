@@ -84,10 +84,18 @@ $routes->group('dpi',['filter'=>'dpi'], function($routes){
 
     $routes->get('home','DpiAdmin::index');
     $routes->get('solicitudes','DpiAdmin::getViewSolicitudes');
+
+    $routes->get('detalleTramite/(:segment)','DpiAdmin::getViewDetalleTramite/$1');
+
     $routes->get('generarConstancia/(:segment)','DpiAdmin::generarConstancia/$1');
 
     $routes->get('enviarConstancia/(:segment)/(:segment)','DpiAdmin::enviarConstancia/$1/$2');
     $routes->get('verConstancia/(:segment)','DpiAdmin::getViewConstancia/$1');
+
+    //RUTAS PARA ARCHIVOS
+    $routes->get('documentos/verTesis/(:segment)', 'Tramites::verFileTesis/$1');
+    $routes->get('documentos/verDeclaracionJurada/(:segment)', 'Tramites::verFileDJ/$1');
+    $routes->get('documentos/verAutorizacionPublicacion/(:segment)', 'Tramites::verFileAP/$1');
    
 });
 

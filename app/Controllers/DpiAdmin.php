@@ -32,11 +32,20 @@ class DpiAdmin extends BaseController
         $tramitesModel = new TramiteModel();
         
 
-        $dataTramite = $tramitesModel->getTramites();
+        $dataTramite = $tramitesModel->getTramites(); 
 
 
         return view('dpi/Solicitudes', ['tramites' => $dataTramite]);
 
+    }
+
+    public function getViewDetalleTramite($codigoTramite){
+        $tramiteModel = new TramiteModel();
+        $datosTramite = $tramiteModel->getDetalleTramite($codigoTramite);
+  
+        if($datosTramite){ 
+            return view('dpi/detalleTramite',$datosTramite);
+        }
     }
 
     public function getViewConstancia($codigoTramite){

@@ -6,7 +6,7 @@
     <!-- Encabezado -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="h3 mb-0 text-gray-800">
-            <i class="fas fa-certificate me-2"></i>Gestión de Constancias
+            <i class="fas fa-file-alt me-2"></i>Gestión de Solicitudes
         </h1>
         <div class="text-muted">
             <small>Total: <span id="totalRegistros"><?= count($tramites) ?></span> solicitudes</small>
@@ -67,10 +67,10 @@
         </div>
     </div>
 
-    <!-- Tabla de Constancias -->
+    <!-- Tabla de Solicitudes -->
     <div class="card shadow-sm">
         <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary">Lista de Constancias</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Lista de Solicitudes</h6>
             <div class="d-flex align-items-center">
                 <label class="me-2 small text-muted mb-0">Mostrar:</label>
                 <select id="recordsPerPage" class="form-select form-select-sm" style="width: auto;">
@@ -88,50 +88,75 @@
                 <table class="table table-hover align-middle mb-0" id="tramitesTable">
                     <thead class="table-light">
                         <tr>
-                            <th class="text-center" style="width: 50px;">N°</th>
-                            <th style="width: 120px;">Código</th>
-                            <th>Solicitante</th>
-                            <th>Título Material</th>
-                            <th style="width: 130px;">Tipo Material</th>
-                            <th style="width: 130px;">Fecha Presentación</th>
-                            <th style="width: 150px;">Estado</th>
-                            <th class="text-center" style="width: 180px;">Acciones</th>
+                            <th class="text-center" style="width: 50px;vertical-align: middle;">N°</th>
+                            <th class="text-center" style="width: 100px;vertical-align: middle;">Código</th>
+                            <th style="width: 200px;vertical-align: middle;">Solicitante</th>
+                            <th style="width: 500px;vertical-align: middle;">Título Material</th>
+                           <!-- <th style="width: 130px;">Tipo Material</th> --->
+                            <th class="text-center"style="width: 100px;vertical-align: middle;">Fecha Present.</th>
+                            <th class="text-center"style="width: 100px;vertical-align: middle;">Dias Transc.</th>
+                            <th class="text-center"style="width: 130px;vertical-align: middle;">Escuela</th>
+                            <th class="text-center" style="width: 100px;vertical-align: middle;">Estado</th>
+                            <th class="text-center" style="width: 200px;vertical-align: middle;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!empty($tramites)): ?>
-                            <?php $i = 1; foreach ($tramites as $t): ?>
-                                <tr data-estado="<?= esc($t['estadoTramite']) ?>">
-                                    <td class="text-center text-muted"><?= $i++ ?></td>
+                            <?php $i = count($tramites); foreach ($tramites as $t): ?>
+
+                                <tr onclick="verDetalleTramite('<?= $t['codigoTramite']?>')" data-estado="<?= esc($t['estadoTramite']) ?>">
+                                    <td class="text-center text-muted"><?= $i-- ?></td>
                                     <td><code class="small"><?= esc($t['codigoTramite']) ?></code></td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="avatar-circle bg-success text-white me-2">
-                                                <?= strtoupper(substr($t['nombreCompletoSolicitante'], 0, 2)) ?>
-                                            </div>
+                                       
                                             <span><?= esc($t['nombreCompletoSolicitante']) ?></span>
                                         </div>
                                     </td>
                                     <td class="text-wrap"><?= esc($t['tituloMaterial']) ?></td>
-                                    <td><span class="badge bg-info text-dark"><?= esc($t['tipomateriaMaterial']) ?></span></td>
-                                    <td class="text-nowrap">
-                                        <i class="far fa-calendar-alt me-1"></i>
+                                    <!--<td><span class="badge bg-info text-dark"></span></td>-->
+                                    <td class="text-nowrap text-center">
+                                       
                                         <?= esc(date('d/m/Y', strtotime($t['fechapresentacionTramite']))) ?>
+                                    </td > 
+                                    
+                                       
+                                    <td class="text-nowrap text-center">
+                                        <?php
+
+                                            $fechaInicio = new DateTime($t['fechapresentacionTramite']);
+                                            $fechaActual = new DateTime(); // hoy
+
+                                            $diferencia = $fechaInicio->diff($fechaActual);
+
+                                            $diasTranscurridos = $diferencia->days;
+
+                                            echo $diasTranscurridos.' dias'; 
+                                        
+                                        ?>
                                     </td>
-                                    <td>
+
+                                    <td class="text-wrap text-center" ><?=esc($t['solicitanteEscuela'])?></td>
+
+                                    
+                                    <td class="text-wrap">
                                         <?php 
                                         $estadoBadge = match($t['estadoTramite']) {
-                                            'Material Publicado' => 'bg-warning text-dark',
+                                            'Solicitud Presentada' => 'bg-warning text-dark',
+                                            'Material Aprobado' => 'bg-success',
+                                            'Material Publicado' => 'bg-info',
+                                            'Observado' => 'bg-danger',
+                                            'Observaciones Levantadas' => 'bg-secondary',
                                             'Constancia Emitida' => 'bg-success',
                                             default => 'bg-secondary'
                                         };
                                         ?>
-                                        <span class="badge <?= $estadoBadge ?> w-100">
+                                        <span style="color:white; border-radius:10px; font-size:14px;" class="<?= $estadoBadge ?> d-block p-2 text-center fw-bold">
                                             <?= esc($t['estadoTramite']) ?>
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <?php if ($t['estadoTramite'] === "Material Publicado"): ?>
+                                      <?php if ($t['estadoTramite'] === "Material Publicado"): ?>
                                             <a href="<?= base_url('dpi/generarConstancia/'.$t['codigoTramite']) ?>" 
                                                class="btn btn-sm btn-primary">
                                                 <i class="fas fa-file-certificate me-1"></i>Emitir Constancia
@@ -142,7 +167,7 @@
                                                class="btn btn-sm btn-success">
                                                 <i class="fas fa-eye me-1"></i>Ver Constancia
                                             </a>
-                                           
+
                                         <?php else: ?> 
                                             <span class="text-muted small">
                                                 <i class="fas fa-ban me-1"></i>Sin opciones
@@ -195,12 +220,9 @@
         flex-shrink: 0;
     }
     
-    .table tbody tr {
-        transition: background-color 0.2s;
-    }
-    
     .table tbody tr:hover {
-        background-color: rgba(25, 135, 84, 0.05);
+        background-color: rgba(0, 123, 255, 0.05);
+        cursor:pointer;
     }
     
     .input-group-text {
@@ -235,20 +257,20 @@
     .page-link {
         border-radius: 0.375rem;
         border: 1px solid #dee2e6;
-        color: #198754;
+        color: #0d6efd;
         padding: 0.375rem 0.75rem;
         transition: all 0.2s;
     }
 
     .page-link:hover {
-        background-color: #198754;
+        background-color: #0d6efd;
         color: white;
-        border-color: #198754;
+        border-color: #0d6efd;
     }
 
     .page-item.active .page-link {
-        background-color: #198754;
-        border-color: #198754;
+        background-color: #0d6efd;
+        border-color: #0d6efd;
     }
 
     .page-item.disabled .page-link {
@@ -266,9 +288,26 @@
 
 <script>
     // Alerta de éxito
-    <?php if(session()->getFlashdata('success')): ?>
-        alert('<?php echo session()->getFlashdata('success'); ?>');
+   <?php if(session()->getFlashdata('success')): ?>
+
+        Swal.fire({ 
+            icon: 'success',
+            title: 'Inspeccion Terminada',
+            text: '<?= session()->getFlashdata('success'); ?>',
+            confirmButtonColor: '#198754',
+            confirmButtonText: 'Aceptar'
+        });
+ 
     <?php endif; ?>
+
+    // Redireccion a detalle
+
+    function verDetalleTramite(codigo){
+        
+        window.location.href = "<?= base_url('dpi/detalleTramite/') ?>" + codigo;
+
+    }
+
 
     // Referencias a elementos
     const searchSolicitante = document.getElementById('searchSolicitante');
