@@ -63,6 +63,8 @@ writable/uploads/*
 writable/debugbar/*
 !writable/debugbar/index.html
 
+writable/paquetes_temp/*
+
 php_errors.log
 
 #-------------------------
@@ -126,3 +128,4 @@ _modules/*
 /phpunit*.xml
 /writable
 /writable
+app/Config/Email.php
