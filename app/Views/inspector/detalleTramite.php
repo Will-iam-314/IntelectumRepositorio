@@ -6,7 +6,7 @@
     <!-- Encabezado con botón de regreso -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <button onclick='confirmarRegreso()' class="btn btn-outline-secondary mb-2">
+            <button onclick='regresarSolicitudes()' class="btn btn-outline-secondary mb-2">
                 <i class="fas fa-arrow-left me-2"></i>Atrás
             </button>
             <h1 class="h3 mb-0 text-gray-800">

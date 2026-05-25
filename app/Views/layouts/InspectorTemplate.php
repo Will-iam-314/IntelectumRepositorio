@@ -102,6 +102,10 @@
             return false; // evita que el link navegue por defecto
         }
 
+        function regresarSolicitudes(){
+            window.location.href = "<?=base_url('inspector/solicitudes')?>";
+        }
+
        
     </script>
 </body>

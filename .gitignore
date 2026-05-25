@@ -129,3 +129,4 @@ _modules/*
 /writable
 /writable
 app/Config/Email.php
+app/Config/Email.php
