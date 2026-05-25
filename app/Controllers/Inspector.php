@@ -181,7 +181,9 @@ class Inspector extends BaseController
 
         // Función para añadir un <dcvalue>
         function addDcValue($dom, $parent, $text, $attrs = []) {
-            $dcvalue = $dom->createElement("dcvalue", $text);
+            $dcvalue = $dom->createElement("dcvalue");
+            // 👇 Esto evita el error de caracteres especiales
+            $dcvalue->appendChild($dom->createTextNode($text));
             foreach ($attrs as $k => $v) {
                 $dcvalue->setAttribute($k, $v);
             }
