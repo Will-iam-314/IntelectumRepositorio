@@ -1,4 +1,4 @@
-<?= $this->extend('layouts/InspectorTemplate.php'); ?>
+<?= $this->extend('layouts/dpiTemplate.php'); ?>
 
 <?= $this->section('content');?>
 
